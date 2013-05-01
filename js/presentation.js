@@ -44,3 +44,6 @@ pageAnimationHandler.init({
         });
     }
 });
+
+//display clock
+new imageclock.display()
