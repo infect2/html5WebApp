@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=1024" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>impress.js | presentation tool based on the power of CSS3 transforms and transitions in modern browsers | by Bartek Szopka @bartaz</title>
+    <title>최고의 Web App개발 필수</title>
     
     <meta name="description" content="impress.js is a presentation tool based on the power of CSS3 transforms and transitions in modern browsers and inspired by the idea behind prezi.com." />
     <meta name="author" content="Bartek Szopka" />
@@ -412,7 +411,101 @@
         </div>
     </div>
 
-    <div id="continuousPaintingMode" class="step slide" data-x="11000" data-y="0">
+    <div id="fastMalloc" class="step slide" data-x="11000" data-y="0">
+        <h1 class="title">Webkit엔진 메모리 관리</h1>
+        <div class="content">
+            <ol>
+                <li>space를 좀더 쓰더라도, object 생성/삭제가 빠른 방법이 필수
+                    <ul>
+                        <li>DOM/Render tree생성 및 JavaScript 실행시 수많은 C++ object가 생성/삭제됨</li>
+                    </ul>
+                </li>
+                <li>fastMalloc: Google의 TCMalloc의 derivative로 WebCore와 JavaScriptCore에서 사용
+                    <ul>
+                        <li> Thread local cache 와 central page heap(large object)을 별도로 관리하여 성능 향상</li>
+                        <li> Small object 할당: 60개의 size class로 구분하고 singly-linked list로 관리</li>
+                        <li> Karge object 할당(32KB): 4K 단위 page의 group의 list로 관리</li>
+                    </ul>
+                </li>
+                <li>system malloc: memory allocator로 WebKit이 사용하는 외부 library에서 사용 </li>
+                <li>속도는 빠르지만, 충분히 사용하고 빠르게 반환하지도 않음: 할당 보다 반환에 보수적임</li>
+                <li> 메모리 절약 Tip
+                    <ul>
+                        <li> 새로운 object를 생성하기전에 쓰지 않는 ojbect를 먼저 제거한다. </li>
+                        <li> Single DOM App 경우, AJAX로 신규 page를 loading전에 inactive page를 미리 DOM에서 제거 </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="tcmalloc" class="step slide" data-x="12000" data-y="0">
+        <h1 class="title">소중한 Memory는 어디로: Memory-hog Webkit</h1>
+        <div class="content">
+            <ol>
+                <li>Runtime 환경으로 RenderTree, DOM tree를 포함한 수많은 객체 및 JavaScript 수행</li>
+                <li>Page cache: DOM을 통채로 유지함 ANA back/forward cache
+                    <ol>
+                        <li>SSL, load/onload handler등록, form 등이 있을때,</li>
+                        <li>load fail이나 error 발생된 페이지는 cache 하지 않음</li>
+                    </ol>
+                </li>
+                <li>Decoded image cache: decoding된 image를 painting하기 위해 cache
+                    <ul>
+                        <li>painting은 decoded image cache에서 가져다 함</li>
+                        <li>decoded image가 특정 크기가 넘어가면 cache 하지 않음(2M, 3M으로 compile 시간에 정함</li>
+                        <li>mobile 단말에서는 cache가 되지 않으면 painting 성능 저하가 클수 있음: iOS는 RAM크기(256MB기준) 제약이 있다.</li>
+                    </ul>
+                </li>
+                <li>Component cache: 각종 resource cache</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="linkedinIssue" class="step slide" data-x="-3000" data-y="1000">
+        <h1 class="title">Web App Tooling 한계</h1>
+        <div class="content">
+            <img height="250px" src="img/linkedin.png">
+            <img height="300px" src="img/toolingissue.png">
+        </div>
+    </div>
+
+    <div id="tooling" class="step slide" data-x="-2000" data-y="1000">
+        <h1 class="title">Web App Tooling: 시작</h1>
+        <div class="content">
+            <ol>
+                <li> Native 대비 매우 열악함, 그러</li>
+                <li> 최근 1년 사이 Web Inspector의 비약적인 발전
+                    <ul>
+                        <li>단순 요소 검사이외에 Timeline 및 Profiling 기능 제공</li>
+                    </ul>
+                </li>
+                <li> Chrome For Mobile 및 iOS 6 버전이상에서 Web Inspector 지원
+                    <ul>
+                        <li>Android 젤리빈부터는 Chrome for Mobile이 Binary 형태로 제공 --> 제조사 customize 불가</li>
+                        <li>But, 제조사별로 별도 side-loading 가능: Galaxy S4는 Chrome 계열이나 미지원 T.T</li>
+                    </ul>
+                </li>
+                <li> 이제부터 시작이고, 지속적인 발전 예상 --> 사용법을 잘 익히는 것이 필수
+                    <ul>
+                        <li>Google code school: http://discover-devtools.codeschool.com/</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="timeline" class="step slide" data-x="-2200" data-y="1400" data-scale="0.1">
+        <h1 class="title">Timeline</h1>
+        <div class="content">
+            <ol>
+                <li> Chrome canary에서 지원</li>
+                <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="timelineDetail" class="step slide" data-x="-2000" data-y="1400" data-scale="0.1">
         <h1 class="title">continuous painting mode</h1>
         <div class="content">
             <ol>
@@ -422,17 +515,37 @@
         </div>
     </div>
 
+    <div id="profiling" class="step slide" data-x="-1800" data-y="1400" data-scale="0.1">
+        <h1 class="title">continuous painting mode</h1>
+        <div class="content">
+            <ol>
+                <li> Chrome canary에서 지원</li>
+                <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="profilingDetail" class="step slide" data-x="-1600" data-y="1400" data-scale="0.1">
+        <h1 class="title">continuous painting mode</h1>
+        <div class="content">
+            <ol>
+                <li> Chrome canary에서 지원</li>
+                <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="continuousPaintingMode" class="step slide" data-x="-1000" data-y="1000">
+        <h1 class="title">continuous painting mode</h1>
+        <div class="content">
+            <ol>
+                <li> Chrome canary에서 지원</li>
+                <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
+            </ol>
+        </div>
+    </div>
 
 </div>
-
-<div class="hint">
-    <p>Use a spacebar or arrow keys to navigate</p>
-</div>
-<script>
-if ("ontouchstart" in document.documentElement) { 
-    document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
-}
-</script>
 
 <script src="js/impress.js"></script>
 <script>impress().init();</script>

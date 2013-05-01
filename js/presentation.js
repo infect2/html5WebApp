@@ -37,5 +37,10 @@ pageAnimationHandler.init({
         $('#tstore30 iframe').each( function( index, elem ){
             $(this).attr( "src", $( this ).attr( 'data-src') );
         });
+    },
+    linkedinIssue: function(){
+        $('#linkedinIssue img').on('click', function(){
+            alert("제대로 된 Tool이 없어요!");
+        });
     }
 });
