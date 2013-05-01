@@ -112,6 +112,13 @@
         </div>
     </div>
 
+    <div id="hypehope" class="step slide" data-x="1000" data-y="-1900" data-scale="0.1">
+        <h1 class="title">HTML5: Hype or Hope?</h1>
+        <div class="content">
+            <img width="800px" src="img/hypehope.png">
+        </div>
+    </div>
+
     <div id="mobileOptimized" class="step slide" data-x="2000" data-y="-1500">
         <h1 class="title">Mobile 단말에서 HTML5의 현실 </h1>
         <div class="content">
@@ -232,6 +239,7 @@
             </div>
         </div>
     </div>
+
 
     <div id="webPlatform" class="step slide" data-x="-2000" data-y="0">
         <h1 class="title">Web App Platform Architecture</h1>
@@ -372,9 +380,9 @@
         <h1 class="title">GPU기반 합성</h1>
         <div class="content">
             <ol>
-                <li> Chrome canary에서 지원</li>
-                <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
+                <li> CPU로 만들어진 texture는 다시 repaint되거나, 가속영역에서 제거되지 않을 경우 OpenGL ES 내에서 연속적인 합성을 위하여 재활용된다.</li>
             </ol>
+            <img width="100%" src="img/renderingArch.png">
         </div>
     </div>
 
@@ -395,7 +403,12 @@
                 <li> CPU로 생성하는 Texture는 재활용: animation완료후 transform 속성 미제거 </li>
                 <li> Animation 도중 painting 발생하는 연산 미사용</li>
                 <li> 내부 timer를 사용하는 keyframe animation을 사용</li>
-                <li> 합성 layer 수는 최소로 유지: 일부 단말에서 성능 저하</li>
+                <li> 합성 layer 수는 최소로 유지: 일부 단말에서 성능 저하
+                    <ul>
+                        <li>Chrome에서 layer용 VRAM이 소진시 오히려 성능이 느려짐</li>
+                        <li>* { -webkit-transform: translate3d(0,0,0) 를 무턱대고 쓰지말고, 왜 느린지 원인을 분석해서 해결하라</li>
+                    </ul>
+                </li>
             </ol>
         </div>
     </div>
@@ -530,7 +543,7 @@
         <div class="content">
             <ol>
                 <li> GPU 가속 device에서 CSS animation시 painting(by CPU)은 최초 1회만 발생하는 것이 이상적</li>
-                <li> Paint는 적이다. 긴 Paint는 강적이다.</li>
+                <li> Paint는 적이다. 긴 Paint는 강적이다(paint는 일반적으로 layout의 결과로 수반됨)</li>
             </ol>
             <img width="380px" src="img/timelineGood.png">
             <img width="380px" src="img/timelineBad.png">
@@ -562,7 +575,21 @@
         </div>
     </div>
 
-    <div id="ondeviceProfiling" class="step slide" data-x="-1400" data-y="1400" data-scale="0.1">
+    <div id="jsProfiling" class="step slide" data-x="-1400" data-y="1400" data-scale="0.1">
+        <h1 class="title">Chrome Dev Tool: Profiling</h1>
+        <div class="content">
+            <ol>
+                <li> JavaScript, CSS를 sampling 방식으로 profiling 결과를 알려줌 </li>
+                <li> 현재 Browser내의 heap memory 사용량을 snapshot으로 알려줌</li>
+            </ol>
+            <div class="profilingImg">
+                <img width="800px" src="img/profilingMain.png">
+            </div>
+        </div>
+    </div>
+
+
+    <div id="ondeviceProfiling" class="step slide" data-x="-1200" data-y="1400" data-scale="0.1">
         <h1 class="title">Chrome Dev Tool: on-device</h1>
         <div class="content">
             <ol>
@@ -582,11 +609,88 @@
     </div>
 
     <div id="thePractice1" class="step slide" data-x="-1000" data-y="1000">
-        <h1 class="title">continuous painting mode</h1>
+        <h1 class="title">Painting 성능 최적화: Layout 및 Repaint를 최소화 (1/2)</h1>
         <div class="content">
             <ol>
-                <li> Chrome canary에서 지원</li>
-                <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
+                <li> Layout 및 Repaint trigger 요인
+                    <ul>
+                        <li>DOM node의 add/remove/update </li>
+                        <li>DOM node를 display:none, visibility:hidden(layout은 미발생),
+                        DOM을 움직일때 </li>
+                        <li>stylesheet을 추가하거나, style property를 변경시</li>
+                        <li>window resize, font 변경</li>
+                    </ul>
+                </li>
+                <li> Repaint only: visibility, color, transform, background-image, transparency 변
+                </li>
+                <li>Webkit은 paint throttling queue을 통해 연속되는 request를 한꺼번에 모아서 수행, 아래의 경우는 queue를 flush 하므로 잘알고 사용해야 함
+                    <ul>
+                        <li>offsetTop, offsetLeft, offsetWidth, offsetHeight값을 JavaScript로 접근</li>
+                        <li>scrollTop/Left/Width/Height
+                        , clientTop/Left/Width/Height
+                        , getComputedStyle()</li>
+                    </ul>
+                </li>
+                <li>throttling queue등의 최적화로, 실제 화면에 paiting이 완료되는 시점을 정확히 하는 것은 불가능
+                    <ul>
+                        <li>Welocom to setTimeout() hell</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="thePractice2" class="step slide" data-x="0" data-y="1000">
+        <h1 class="title">Painting 성능 최적화: Layout 및 Repaint를 최소화 (2/2)</h1>
+        <div class="content">
+            <ol>
+                <li>개별 style을 하나씩 변경하지 말고 class로 일괄 적용 또는 cssText에 적용</li>
+                <li>DOM의 변경은 documentFragement를 이용하여 offline으로 </li>
+                <li>display:none 상태에서 일괄 변경 후 다시 보여주기</li>
+                <li>computed sytle값을 읽는 회수로 최소화</li>
+                <li>자주 변경되는 element는 offsetParent 변경되지 않는 element의 offsetParent로 부터 분리: absolute position을 활용 </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="thePractice3" class="step slide" data-x="1000" data-y="1000">
+        <h1 class="title">단말에서 비싼 CSS</h1>
+        <div class="content">
+            <ol>
+                <li>rounded corner</li>
+                <li>box-shadow, text-shadow</li>
+                <li>background-position, background-repeat,
+                2개 이상의 background image</li>
+                <li> border-image</li>
+                <li> gradient </li>
+                <li> HW 가속 받지 않는 CSS filter</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="thePractice4" class="step slide" data-x="2000" data-y="1000">
+        <h1 class="title">모바일 단말 Anomaly</h1>
+        <div class="content">
+            <ol>
+                <li>transitionDuration 오동작
+                    <ul>
+                        <li> -webkit-transition: 0s를 주어 진행중인 animation을 멈추는게 일반적</li>
+                        <li> Chrome for Android 일부 버전에서 동작하지 않음: workaround 0s가아닌 1s</li>
+                        <li> -webkit-transtion 속성 변경시 전체 화면이 repaint 발생 (일부 Chrome)</li>
+                    </ul>
+                </li>
+                <li>CSS fixed element내에 absolute 포함시: 화면 전체 영역에 대한 repaint 발생</li>
+                <li>resize 된 image가 -webkit-transform element에 포함시 repaint 발생</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="conclusion" class="step slide" data-x="3000" data-y="1000" data-rotate="90">
+        <h1 class="title">결론 및 요약</h1>
+        <div class="content">
+            <ol>
+                <li>속도 관련 모든 최적화는 Web Inspector를 통해 분석하는 것으로 부터 시작</li>
+                <li>모바일 단말별 구현에 따른 오동작은 피할수 없다: framewwork 도입으로 일부 해결 가능</li>
             </ol>
         </div>
     </div>
