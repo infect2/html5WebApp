@@ -408,6 +408,7 @@
                 <li> -webkit-transition-delay 속성 변경시 적용되는 전체 DOM이 repaint 되는 오류 --> painting cost 줄이
                 </li>
                 <li> 합성 layer에 scale되는 image 포함시 painting 발생 --> image를 offline에서 scale</li>
+                <li> requestAnimationFrame사용시 성능이 오히려 저하: setTimeout(1000/60), (1000/120)</li>
             </ol>
         </div>
     </div>
@@ -475,7 +476,7 @@
         <h1 class="title">Web App Tooling: 시작</h1>
         <div class="content">
             <ol>
-                <li> Native 대비 매우 열악함, 그러</li>
+                <li> Native 대비 매우 열악함, 그러나</li>
                 <li> 최근 1년 사이 Web Inspector의 비약적인 발전
                     <ul>
                         <li>단순 요소 검사이외에 Timeline 및 Profiling 기능 제공</li>
@@ -489,6 +490,7 @@
                 </li>
                 <li> 이제부터 시작이고, 지속적인 발전 예상 --> 사용법을 잘 익히는 것이 필수
                     <ul>
+                        <li>상세 profiling을 통한 성능 개선은 사용성, battery 절약에 매우 중</li>
                         <li>Google code school: http://discover-devtools.codeschool.com/</li>
                     </ul>
                 </li>
@@ -497,46 +499,89 @@
     </div>
 
     <div id="timeline" class="step slide" data-x="-2200" data-y="1400" data-scale="0.1">
-        <h1 class="title">Timeline</h1>
+        <h1 class="title">Chrome Dev Tool: Timeline</h1>
         <div class="content">
             <ol>
-                <li> Chrome canary에서 지원</li>
-                <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
+                <li> 상단 panel
+                    <ul>
+                        <li>Events: 시간축으로 발생한 event를 순차적으로 보여줌 </li>
+                        <li>Frames: 시간축으로 매 frame 단위로 event를 순차적으로 보여줌</li>
+                        <li>Memory: 메모리 사용 양을 보여줌</li>
+                    </ul>
+                </li>
+                <li> 하단 record panel
+                    <ul>
+                        <li>Recalculate Style: 변경된 CSS 속성값에 따라 전체 style 값을 다시 계산</li>
+                        <li>Layout: 변경된 style값에 따라 element의 위치 값을 재계산</li>
+                        <li>Paint: layout이 완료된 RenderLayer들에 속한 element들을 z-ordering을 고려하여 그리 </li>
+                        <li>Composite Layers: Document를 구성하는 모든 RenderLayer를 합성하여 화면에 최종 출력</li>
+                        <li>각종 event fire: setTimout, requestAnimationFrame등</li>
+                    </ul>
+                </li>
             </ol>
+            <div class="timelineImg">
+                <img width="900px" src="img/timeline.png">
+            </div>
         </div>
     </div>
 
     <div id="timelineDetail" class="step slide" data-x="-2000" data-y="1400" data-scale="0.1">
-        <h1 class="title">continuous painting mode</h1>
+        <h1 class="title">Timeline 분석 및 Painting 성능 최적화 1/2</h1>
+        <div class="content">
+            <ol>
+                <li> GPU 가속 device에서 CSS animation시 painting(by CPU)은 최초 1회만 발생하는 것이 이상적</li>
+                <li> Paint는 적이다. 긴 Paint는 강적이다.</li>
+            </ol>
+            <img width="380px" src="img/timelineGood.png">
+            <img width="380px" src="img/timelineBad.png">
+        </div>
+    </div>
+
+    <div id="timelinePractice" class="step slide" data-x="-1800" data-y="1400" data-scale="0.1">
+        <h1 class="title">Timeline 분석 및 Painting 성능 최적화 2/2</h1>
+        <div class="content">
+            <ol>
+                <li>-webkit-transform 제거시 animation이 완료된 후 GPU 영역에서 제거되고, 추후 animation시 다시 CPU로 painting 하게</li>
+            </ol>
+            <img width="500px" src="img/badStyle.png">
+            <iframe width="560" height="315" src="http://www.youtube.com/embed/3bt_cXjLOpE" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div id="continuousPainting" class="step slide" data-x="-1600" data-y="1400" data-scale="0.1">
+        <h1 class="title">Long Paint 분석 및 최적화: Continuous Painting Mode</h1>
         <div class="content">
             <ol>
                 <li> Chrome canary에서 지원</li>
                 <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
             </ol>
+            <img height="470px" src="img/continuousPaintingMode.png">
+            <div class="contImg">
+                <img width="800px" src="img/continuousEx.png">
+            </div>
         </div>
     </div>
 
-    <div id="profiling" class="step slide" data-x="-1800" data-y="1400" data-scale="0.1">
-        <h1 class="title">continuous painting mode</h1>
+    <div id="ondeviceProfiling" class="step slide" data-x="-1400" data-y="1400" data-scale="0.1">
+        <h1 class="title">Chrome Dev Tool: on-device</h1>
         <div class="content">
             <ol>
-                <li> Chrome canary에서 지원</li>
-                <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
+                <li> 설치
+                    <ol>
+                        <li>Android SDK 설치</li>
+                        <li>단말 Chrome setting에서 USB debugging mode enable</li>
+                        <li>단말 케이블 연결 </li>
+                        <li>Dev Tool을 단말에 연결: adb forward tcp:9222 localabstract:chrome_devtools_remote</li>
+                        <li>PC의 chrome에서 localhost:9222 open 후 연결된 page click</li>
+                    </ol>
+                </li>
+                <li> starting guide: http://www.html5rocks.com/en/mobile/profiling/#toc-starting-guide </li>
             </ol>
+            <img height="200px" src="img/ondevice-devtool.png">
         </div>
     </div>
 
-    <div id="profilingDetail" class="step slide" data-x="-1600" data-y="1400" data-scale="0.1">
-        <h1 class="title">continuous painting mode</h1>
-        <div class="content">
-            <ol>
-                <li> Chrome canary에서 지원</li>
-                <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
-            </ol>
-        </div>
-    </div>
-
-    <div id="continuousPaintingMode" class="step slide" data-x="-1000" data-y="1000">
+    <div id="thePractice1" class="step slide" data-x="-1000" data-y="1000">
         <h1 class="title">continuous painting mode</h1>
         <div class="content">
             <ol>

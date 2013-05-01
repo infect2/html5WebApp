@@ -42,6 +42,16 @@ pageAnimationHandler.init({
         $('#linkedinIssue img').on('click', function(){
             alert("제대로 된 Tool이 없어요!");
         });
+    },
+    timeline: function(){
+        $('#timeline .timelineImg').on('click', function(){
+            $(this).toggleClass('moveUp');
+        });
+    },
+    continuousPainting: function(){
+        $('#continuousPainting .contImg').on('click', function(){
+            $(this).toggleClass('moveUp');
+        });
     }
 });
 
