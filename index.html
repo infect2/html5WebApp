@@ -430,6 +430,8 @@
                 </li>
                 <li> 합성 layer에 scale되는 image 포함시 painting 발생 --> image를 offline에서 scale</li>
                 <li> requestAnimationFrame사용시 성능이 오히려 저하: setTimeout(1000/60), (1000/120)</li>
+                <li> Android 4.03/4.04에서 animation 시작시 화면이 깨지는 이슈: AC 구현 방식의 변경으로 Texture를 생성하는 delay가 매우 느림. 단, 생성된 Texture로 animation은 그전 버전대비 많이 빠름</li>
+                <li>iOS를 포함하여 화면이 지글거리거나 깨지는 현상: -webkit-backface-visibility:hidden으로 설정</li>
             </ol>
         </div>
     </div>
@@ -699,6 +701,19 @@
             <ol>
                 <li>속도 관련 모든 최적화는 Web Inspector를 통해 분석하는 것으로 부터 시작</li>
                 <li>모바일 단말별 구현에 따른 오동작은 피할수 없다: framewwork 도입으로 일부 해결 가능</li>
+            </ol>
+        </div>
+    </div>
+
+
+    <div id="QnA" class="step slide" data-x="4000" data-y="1000" data-rotate="90">
+        <h1 class="title">질문</h1>
+        <div class="content">
+            <ol>
+                <li>iOS도 Web Inspector 사용 가능 한가요? 예 iOS 6.0이상에서 가능 합니다.</li>
+                <li>단말별 browser별 fragmentation은 언제 사라질까요? 사라지지 않고 심화될 가능성이 농후 합니다. Android, iOS, Tizen, Windows별로 fragmentation handling은 필수 입니다. framework의 사용으로 고통을 완화 할수 있습니다.</li>
+                <li>Hybrid app 개발시에도 적용 가능한가요? 설명드린 tip은 가능하지만, Web Inspector는 App으로 직접 붙일수 없고 Browser 에서 별도로 적용후 통합 하여야 합니다.</li>
+                <li>layout과 painting이 끝난는지 정확히 알수 있는 방법이 있나요? 아직까지는 setTimeout으로 충분히 기다리는 것 이외에 대안을 찾지는 못했습니다.</li>
             </ol>
         </div>
     </div>
