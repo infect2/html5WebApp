@@ -328,10 +328,19 @@
         <h1 class="title">Preload Scanner:HTMLPreloadScanner, CSSPreloadScanner</h1>
         <div class="content">
             <ol>
-                <li>HTML parser가 script loading을 대기하여 멈출때마다 불린다.</li>
-                <li>stylesheet, image등의 network request를 미리 전송하여 전체 loading 시간 개선</li>
-                <li>CSSPreloadScanner는 @import를 preload</li>
-                <li>HTML5 Parser에서는 대부분 제거됨</li>
+                <li> 기본 동작:
+                    <ul>
+                        <li>HTML parser가 script loading을 대기하여 멈출때마다 불린다</li>
+                        <li>stylesheet, image등의 network request를 미리 전송하여 전체 loading 시간 개선</li>
+                        <li>CSSPreloadScanner는 @import를 preload하는 기능 지원</li>
+                    </ul>
+                </li>
+                <li> 사용 Tip
+                    <ul>
+                        <li>CSS stylesheet은 전체가 load된 후에 preload scanning: @import는 되지만 쓰면 늦게 적용</li>
+                        <li>head에서 block시 body에 포함된 resource에 대해서는 수행하지 않음: CSS는 head의 최상단에, JavaScript는 DOM parsing 완료 이후로 최대한 미루어야 </li>
+                    </ul>
+                </li>
             </ol>
         </div>
     </div>
