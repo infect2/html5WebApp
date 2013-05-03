@@ -27,11 +27,6 @@
 
 <body class="impress-not-supported">
 
-<div class="fallback-message">
-    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
-    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
-</div>
-
 <div id="impress">
 
     <div id="title1" class="step" data-x="-3500" data-y="-1500" data-rotate="15" data-scale="5">
@@ -94,19 +89,19 @@
         <h1 class="title">HTML5 버전 T store 3.0 및 멜론 Player</h1>
         <div class="content">
             <div class="leftPannel">
-                <iframe height="450px" data-src="http://localhost:8000/web-platform/jsApps/tStoreHTML5/html/main.html"></iframe>
-                <ol class="footnote">
+                <iframe width="90%" height="450px" data-src="http://localhost/web-platform/jsApps/tStoreHTML5/html/main.html"></iframe>
+                <ul class="footnote">
                     <li> CSS 3D</li>
                     <li> Single DOM App </li>
-                </ol>
+                </ul>
             </div>
             <div class="rightPannel">
-                <iframe height="450px" data-src="http://localhost:8000/web-platform/jsApps/melonPlayer/"></iframe>
-            <ol class="footnote">
-                <li> CSS 3D</li>
-                <li> Single DOM App </li>
-                <li> audio tag </li>
-            </ol>
+                <iframe width="95%" height="450px" data-src="http://localhost/web-platform/jsApps/melonPlayer/"></iframe>
+                <ul class="footnote">
+                    <li> CSS 3D</li>
+                    <li> Single DOM App </li>
+                    <li> audio tag </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -239,7 +234,6 @@
         </div>
     </div>
 
-
     <div id="webPlatform" class="step slide" data-x="-2000" data-y="0">
         <h1 class="title">Web App Platform Architecture</h1>
         <div class="content">
@@ -304,14 +298,14 @@
     </div>
 
     <div id="chromeArch" class="step slide" data-x="2000" data-y="0">
-        <h1 class="title">크롬 브라우져 구조</h1>
+        <h1 class="title">크롬 브라우져 구조: Muli-Process</h1>
         <div class="content">
             <img width="100%" src="img/chromeArch.png">
         </div>
     </div>
 
     <div id="androidArch" class="step slide" data-x="3000" data-y="0">
-        <h1 class="title">안드로이드 브라우져 구조</h1>
+        <h1 class="title">안드로이드 브라우져 구조: Multi-threaded(UI) 4.1 이하</h1>
         <div class="content">
             <img width="100%" src="img/androidArch.png">
         </div>
@@ -384,6 +378,42 @@
         </div>
     </div>
 
+    <div id="paintingPath" class="step slide" data-x="6300" data-y="0" data-scale="0.05">
+        <h1 class="title">painting 절차</h1>
+        <div class="content">
+            <div>
+                <ol>
+                    <li> SW rendering path (CPU)
+                        <ul>
+                            <li>하나의 graphic buffer를 할당(mobile에서는 이것도 GPU를 활용하는 texture 임, ana backingstore)</li>
+                            <li>Z order에 따라 뒤에서 앞으로 칠함: hellor를 칠함 --> World 칠함</li>
+                        </ul>
+                    </li>
+                </ol>
+                <div class="helloWorld">
+                    <img width="70%" src="img/CPUcompositing.png">
+                </div>
+            </div>
+            <div>
+                <ol>
+                    <li> HW 가속 path: Accelerate compositing by GPU
+                        <ul>
+                            <li>CPU graphcs buffer와 GraphicsLayer 별 GPU가 접근하는 buffer 생성</li>
+                            <li>Layer별로 주어진 buffer에 painting: 변경 내용이 없으면 buffer를 그대로 둠</li>
+                            <li>모든 결과를 sync후 GPU를 통해서 compositing하여 하나의 결과물로 만든 후 windowing system buffer로 복사</li>
+                        </ul>
+                    </li>
+                </ol>
+                <div class="helloWorld">
+                    <img width="100%" src="img/GPUcompositing.png">
+                </div>
+                <div class="helloWorld">
+                    <img width="100%" src="img/GPUani.png">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="HWcompositing" class="step slide" data-x="7000" data-y="0">
         <h1 class="title">GPU기반 합성</h1>
         <div class="content">
@@ -395,16 +425,35 @@
     </div>
 
     <div id="painting" class="step slide" data-x="8000" data-y="0">
-        <h1 class="title">painting: GPU Texture 생성</h1>
+        <h1 class="title">painting: GPU Texture 생성/변경/제거</h1>
         <div class="content">
             <ol>
-                <li> Chrome canary에서 지원</li>
-                <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
+                <li>생성
+                    <ul>
+                        <li>CPU로 주어진 GraphicLayer에 속한 Element를 GPU가 접근 가능한 메모리로 정의된 surface로서 painting 연산 수행</li>
+                    </ul>
+                </li>
+                <li>변경
+                    <ul>
+                        <li>한 pixel이라도 변경되면, 전체 GraphicsLayer를 CPU를 통하여 다시 painting</li>
+                    </ul>
+                </li>
+                <li>삭제
+                    <ul>
+                        <li>GraphicsLayer 생성조건을 만족하는 CSS 속성 제거시 Texture는 제거되고 SW rendering path로 변경됨</li>
+                    </ul>
+                </li>
+                <li>성능 tip
+                    <ul>
+                        <li>한번 생성한 Texture는 변경하지 않는것이 성능에 가장 기본</li>
+                        <li>변경 필요시 painting이 발생하는 단위로 GraphicsLayer가 생성되도록 속성 지정: Texture 개수 증가는 성능 저하가능성 증</li>
+                    </ul>
+                </li>
             </ol>
         </div>
     </div>
 
-    <div id="performanAC" class="step slide" data-x="9000" data-y="0">
+    <div id="performanttAC" class="step slide" data-x="9000" data-y="0">
         <h1 class="title">고성능 Animation을 위한 Tip</h1>
         <div class="content">
             <ol>
@@ -605,7 +654,6 @@
         </div>
     </div>
 
-
     <div id="ondeviceProfiling" class="step slide" data-x="-1200" data-y="1400" data-scale="0.1">
         <h1 class="title">Chrome Dev Tool: on-device</h1>
         <div class="content">
@@ -739,7 +787,6 @@
             </ol>
         </div>
     </div>
-
 
     <div id="QnA" class="step slide" data-x="4000" data-y="1000" data-rotate="90">
         <h1 class="title">질문</h1>
