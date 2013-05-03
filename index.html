@@ -410,7 +410,12 @@
             <ol>
                 <li> CPU로 생성하는 Texture는 재활용: animation완료후 transform 속성 미제거 </li>
                 <li> Animation 도중 painting 발생하는 연산 미사용</li>
-                <li> 내부 timer를 사용하는 keyframe animation을 사용</li>
+                <li> 내부 timer를 사용하는 keyframe animation/transition을 사용
+                    <ul>
+                        <li>Webkit 내부에서 수행되고, JavaScript 개입(style 변경)이 없어서 매우 빠름</li>
+                        <li>지정된 시간동안 animation의 완료가 interrupt되는 경우 사용자 반응성이 떨어질수 있음(뒤에서 설명)</li>
+                    </ul>
+                </li>
                 <li> 합성 layer 수는 최소로 유지: 일부 단말에서 성능 저하
                     <ul>
                         <li>Chrome에서 layer용 VRAM이 소진시 오히려 성능이 느려짐</li>
@@ -578,10 +583,12 @@
                 <li> Chrome canary에서 지원</li>
                 <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
             </ol>
-            <img height="470px" src="img/continuousPaintingMode.png">
-            <div class="contImg">
+            <span class="contImg">
+                <img height="470px" src="img/continuousPaintingMode.png">
+            </span>
+            <span class="contImg2">
                 <img width="800px" src="img/continuousEx.png">
-            </div>
+            </span>
         </div>
     </div>
 
@@ -615,6 +622,34 @@
                 <li> starting guide: http://www.html5rocks.com/en/mobile/profiling/#toc-starting-guide </li>
             </ol>
             <img height="200px" src="img/ondevice-devtool.png">
+        </div>
+    </div>
+
+    <div id="useTransitionbyInspector" class="step slide" data-x="-1000" data-y="1400" data-scale="0.1">
+        <h1 class="title">transtion을 이용한 animation의 성능 분석</h1>
+        <div class="content">
+            <div class="leftImg">
+                <img width="100%" src="img/nouseTransition.png">
+            </div>
+            <div class="rightImg">
+                <img width="100%" src="img/useTransition.png">
+            </div>
+        </div>
+    </div>
+
+    <div id="dumpRenderTree" class="step slide" data-x="-800" data-y="1400" data-scale="0.1">
+        <h1 class="title">DumpRenderTree</h1>
+        <div class="content">
+            <ol>
+                <li>WebKit 엔진이 주어진 HTML을 읽어서 내부적으로 생성하는 RenderTree를 출력해주는 기능</li>
+                <li>Web Inspecor에서 보이지 않는 Render Tree 구조를 직접 확인하고 최적화가 가능함</li>
+                <li> 설치 및 실행
+                    <ol>
+                        <li>www.webkit.org에서 webkit source code down 및  build</li>
+                        <li>/Tools/Scripts/run-webkit-tests HTML문서이름 </li>
+                    </ol>
+                </li>
+            </ol>
         </div>
     </div>
 
@@ -682,11 +717,11 @@
         <h1 class="title">모바일 단말 Anomaly</h1>
         <div class="content">
             <ol>
-                <li>transitionDuration 오동작
+                <li>transition 오동작
                     <ul>
                         <li> -webkit-transition: 0s를 주어 진행중인 animation을 멈추는게 일반적</li>
-                        <li> Chrome for Android 일부 버전에서 동작하지 않음: workaround 0s가아닌 1s</li>
-                        <li> -webkit-transtion 속성 변경시 전체 화면이 repaint 발생 (일부 Chrome)</li>
+                        <li> Chrome for Android 일부 버전에서 동작하지 않음: workaround 0s가 아닌 1s</li>
+                        <li> -webkit-transtion 속성 변경시 해당 element 전체에 대해서 repaint 발생 (일부 Chrome)</li>
                     </ul>
                 </li>
                 <li>CSS fixed element내에 absolute 포함시: 화면 전체 영역에 대한 repaint 발생</li>

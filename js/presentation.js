@@ -50,7 +50,15 @@ pageAnimationHandler.init({
     },
     continuousPainting: function(){
         $('#continuousPainting .contImg').on('click', function(){
-            $(this).toggleClass('moveUp');
+            $('#continuousPainting .contImg2').toggleClass('moveUp');
+        });
+    },
+    useTransitionbyInspector: function(){
+        $('#useTransitionbyInspector .leftImg').on('click', function(){
+            $('#useTransitionbyInspector .leftImg').toggleClass('scaleUp2x');
+        });
+        $('#useTransitionbyInspector .rightImg').on('click', function(){
+            $('#useTransitionbyInspector .rightImg').toggleClass('scaleUp2x');
         });
     }
 });

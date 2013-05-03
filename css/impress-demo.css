@@ -358,7 +358,7 @@ a:focus {
     overflow:scroll;
 }
 
-#timeline .timelineImg, #continuousPainting .contImg{
+#timeline .timelineImg, #continuousPainting .contImg2{
     display: block;
     -webkit-transition: 2s;
     -moz-transition:    2s;
@@ -373,6 +373,14 @@ a:focus {
     -ms-transform:     translateY(-500px);
     -o-transform:      translateY(-500px);
     transform:         translateY(-500px);
+}
+
+.scaleUp2x {
+    -webkit-transform: scale(1.5);
+    -moz-transform:    scale(1.5);
+    -ms-transform:     scale(1.5);
+    -o-transform:      scale(1.5);
+    transform:         scale(1.5);
 }
 /*
     Second step is nothing special, just a text with a link, so it doesn't need
