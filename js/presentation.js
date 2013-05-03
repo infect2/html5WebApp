@@ -33,11 +33,14 @@ var pageAnimationHandler = {
     }
 }
 
-//page 별 animation hanlder를 기술 후 일괄 등
+//page 별 animation hanlder를 기술 후 일괄 등록
 pageAnimationHandler.init({
     tstore30: function(){
         $('#tstore30 iframe').each( function( index, elem ){
-            $(this).attr( "src", $( this ).attr( 'data-src') );
+            var that = this;
+            setTimeout( function(){
+                $(that).attr( "src", $( that ).attr( 'data-src') );
+            }, 2000);
         });
     },
     linkedinIssue: function(){
