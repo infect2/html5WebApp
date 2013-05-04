@@ -53,6 +53,14 @@ pageAnimationHandler.init({
             $(this).toggleClass('moveUp');
         });
     },
+    timelineDetail: function(){
+        $('#timelineDetail .leftImg').off().on('click', function(){
+            $('#timelineDetail .leftImg').toggleClass('scaleUp2x');
+        });
+        $('#timelineDetail .rightImg').off().on('click', function(){
+            $('#timelineDetail .rightImg').toggleClass('scaleUp2x');
+        });
+    },
     timelinePractice: function(){
         $('#timelinePractice iframe').each( function( index, elem ){
             var that = this;

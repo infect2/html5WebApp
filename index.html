@@ -474,7 +474,11 @@
         <h1 class="title">고성능 Animation을 위한 Tip</h1>
         <div class="content">
             <ol>
-                <li> CPU로 생성하는 Texture는 재활용: animation완료후 transform 속성 미제거 </li>
+                <li> CPU로 생성하는 Texture는 재활용
+                    <ul>
+                        <li>animation완료후 transform 속성 미제거</li>
+                    </ul>
+                </li>
                 <li> Animation 도중 painting 발생하는 연산 미사용</li>
                 <li> 내부 timer를 사용하는 keyframe animation/transition을 사용
                     <ul>
@@ -497,11 +501,11 @@
         <div class="content">
             <ol>
                 <li> -webkit-transition-delay 오류: Chrome일부에서 멈추기 위해서 0으로 setting해도 멈추지 않음 --> 1로 설정 </li>
-                <li> -webkit-transition-delay 속성 변경시 적용되는 전체 DOM이 repaint 되는 오류 --> painting cost 줄이
+                <li> -webkit-transition-delay 속성 변경시 적용되는 전체 DOM이 repaint 되는 오류 --> painting cost 줄이기
                 </li>
                 <li> 합성 layer에 scale되는 image 포함시 painting 발생 --> image를 offline에서 scale</li>
                 <li> requestAnimationFrame사용시 성능이 오히려 저하: setTimeout(1000/60), (1000/120)</li>
-                <li> Android 4.03/4.04에서 animation 시작시 화면이 깨지는 이슈: AC 구현 방식의 변경으로 Texture를 생성하는 delay가 매우 느림. 단, 생성된 Texture로 animation은 그전 버전대비 많이 빠름</li>
+                <li> Android 4.03/4.04에서 animation 시작시 화면이 깨지는 이슈: AC 구현 방식의 변경으로 Texture를 생성하는 delay가 매우 느림. 단, 생성된 Texture로 animation은 그전 버전 대비 많이 빠름</li>
                 <li>iOS를 포함하여 화면이 지글거리거나 깨지는 현상: -webkit-backface-visibility:hidden으로 설정</li>
             </ol>
         </div>
@@ -559,7 +563,7 @@
     </div>
 
     <div id="linkedinIssue" class="step slide" data-x="-3000" data-y="1000">
-        <h1 class="title">Web App Tooling 한계</h1>
+        <h1 class="title">Web App 개발용 Tooling 현실</h1>
         <div class="content">
             <img height="250px" src="img/linkedin.png">
             <img height="300px" src="img/toolingissue.png">
@@ -567,7 +571,7 @@
     </div>
 
     <div id="tooling" class="step slide" data-x="-2000" data-y="1000">
-        <h1 class="title">Web App Tooling: 시작</h1>
+        <h1 class="title">Web App Tooling: 이제 시작일 뿐</h1>
         <div class="content">
             <ol>
                 <li> Native 대비 매우 열악함, 그러나</li>
@@ -619,20 +623,8 @@
         </div>
     </div>
 
-    <div id="timelineDetail" class="step slide" data-x="-2000" data-y="1400" data-scale="0.1">
+    <div id="timelinePractice" class="step slide" data-x="-2000" data-y="1400" data-scale="0.1">
         <h1 class="title">Timeline 분석 및 Painting 성능 최적화 1/2</h1>
-        <div class="content">
-            <ol>
-                <li> GPU 가속 device에서 CSS animation시 painting(by CPU)은 최초 1회만 발생하는 것이 이상적</li>
-                <li> Paint는 적이다. 긴 Paint는 강적이다(paint는 일반적으로 layout의 결과로 수반됨)</li>
-            </ol>
-            <img width="380px" src="img/timelineGood.png">
-            <img width="380px" src="img/timelineBad.png">
-        </div>
-    </div>
-
-    <div id="timelinePractice" class="step slide" data-x="-1800" data-y="1400" data-scale="0.1">
-        <h1 class="title">Timeline 분석 및 Painting 성능 최적화 2/2</h1>
         <div class="content">
             <ol>
                 <li>-webkit-transform 제거시 animation이 완료된 후 GPU 영역에서 제거되고, 추후 animation시 다시 CPU로 painting 하게</li>
@@ -642,12 +634,24 @@
         </div>
     </div>
 
+    <div id="timelineDetail" class="step slide" data-x="-1800" data-y="1400" data-scale="0.1">
+        <h1 class="title">Timeline 분석 및 Painting 성능 최적화 2/2</h1>
+        <div class="content">
+            <ol>
+                <li> GPU 가속 device에서 CSS animation시 painting(by CPU)은 최초 1회만 발생하는 것이 이상적</li>
+                <li> Paint는 강적이다. 긴 Paint는 주적이다 (paint는 일반적으로 layout의 결과로 수반됨)</li>
+            </ol>
+            <img class="leftImg" width="380px" src="img/timelineGood.png">
+            <img class="rightImg" width="380px" src="img/timelineBad.png">
+        </div>
+    </div>
+
     <div id="continuousPainting" class="step slide" data-x="-1600" data-y="1400" data-scale="0.1">
         <h1 class="title">Long Paint 분석 및 최적화: Continuous Painting Mode</h1>
         <div class="content">
             <ol>
                 <li> Chrome canary에서 지원</li>
-                <li> 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다.</li>
+                <li> 강제적으로 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다: CTRL+H로 hidden</li>
             </ol>
             <span class="contImg">
                 <img height="470px" src="img/continuousPaintingMode.png">
@@ -710,7 +714,7 @@
                 <li>Web Inspecor에서 보이지 않는 Render Tree 구조를 직접 확인하고 최적화가 가능함</li>
                 <li> 설치 및 실행
                     <ol>
-                        <li>www.webkit.org에서 webkit source code down 및  build</li>
+                        <li>www.webkit.org에서 webkit source code down 및 build</li>
                         <li>/Tools/Scripts/run-webkit-tests HTML문서이름 </li>
                     </ol>
                 </li>
@@ -797,13 +801,14 @@
     </div>
 
     <div id="conclusion" class="step slide" data-x="3000" data-y="1000" data-rotate="90">
-        <h1 class="title">결론 및 요약</h1>
+        <h1 class="title">결론</h1>
         <div class="content">
             <ol>
                 <li>속도 관련 모든 최적화는 Web Inspector를 통해 분석하는 것으로 부터 시작</li>
-                <li>모바일 단말별 Browser 구현에 따른 오동작은 피할수 없다
+                <li>모바일 단말별 Browser 구현에 따른 오동작 발생은 피할수 없지만, 대부분 회피는 가능하다.
                     <ul>
                         <li>Sencha, jQueryMobile등의 framewwork 도입으로 부분적으로 해결 가능</li>
+                        <li>문제에 따라서는 GUI나 UX를 변경해야 함</li>
                     </ul>
                 </li>
                 <li>Mobile 환경에서의 HTML5 활용은 큰 흐름이나, 현 시점에서 상품화까지 목적으로 할 경우 단순한 cross-platform에 대한 환상만으로 시작은 금물</li>

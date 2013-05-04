@@ -336,11 +336,11 @@ a:focus {
 }
 
 .scaleUp2x {
-    -webkit-transform: scale(1.5);
-    -moz-transform:    scale(1.5);
-    -ms-transform:     scale(1.5);
-    -o-transform:      scale(1.5);
-    transform:         scale(1.5);
+    -webkit-transform: scale(1.8);
+    -moz-transform:    scale(1.8);
+    -ms-transform:     scale(1.8);
+    -o-transform:      scale(1.8);
+    transform:         scale(1.8);
 }
 
 .helloWorld{
