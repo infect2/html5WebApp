@@ -263,7 +263,7 @@
     </div>
 
     <div id="webkitOpensource" class="step slide" data-x="-1000" data-y="0">
-        <h1 class="title">Webkit Open Source Project: 동거길 후 각자의 </h1>
+        <h1 class="title">Webkit Open Source Project: 동거 후 각자의 길</h1>
         <div class="content">
             <ol>
                 <li> Applie 및 Google 주도의 open source project였음: Google은 분가</li>
@@ -315,14 +315,14 @@
     </div>
 
     <div id="chromeArch" class="step slide" data-x="2000" data-y="0">
-        <h1 class="title">크롬 브라우져 구조: Muli-Process</h1>
+        <h1 class="title">Chrome 브라우져 구조: Muli-Process</h1>
         <div class="content">
             <img width="100%" src="img/chromeArch.png">
         </div>
     </div>
 
     <div id="androidArch" class="step slide" data-x="3000" data-y="0">
-        <h1 class="title">안드로이드 브라우져 구조: Multi-threaded(UI) 4.1 이</h1>
+        <h1 class="title">안드로이드 브라우져 구조: Multi-threaded(UI) 4.1 이하</h1>
         <div class="content">
             <img width="100%" src="img/androidArch.png">
         </div>
@@ -396,14 +396,14 @@
     </div>
 
     <div id="paintingPath" class="step slide" data-x="6300" data-y="0" data-scale="0.05">
-        <h1 class="title">painting 절차</h1>
+        <h1 class="title">다중 Layer Painting 절차</h1>
         <div class="content">
             <div>
                 <ol>
                     <li> SW rendering path (CPU)
                         <ul>
                             <li>하나의 graphic buffer를 할당(mobile에서는 이것도 GPU를 활용하는 texture 임, ana backingstore)</li>
-                            <li>Z order에 따라 뒤에서 앞으로 칠함: hellor를 칠함 --> World 칠함</li>
+                            <li>Z order에 따라 뒤에서 앞으로 칠함: Hello를 칠함 --> World 칠함</li>
                         </ul>
                     </li>
                 </ol>
@@ -442,7 +442,7 @@
     </div>
 
     <div id="painting" class="step slide" data-x="8000" data-y="0">
-        <h1 class="title">painting: GPU Texture 생성/변경/제거</h1>
+        <h1 class="title">GPU Texture 생성/변경/제거</h1>
         <div class="content">
             <ol>
                 <li>생성
@@ -463,7 +463,7 @@
                 <li>성능 tip
                     <ul>
                         <li>한번 생성한 Texture는 변경하지 않는것이 성능에 가장 기본</li>
-                        <li>변경 필요시 painting이 발생하는 단위로 GraphicsLayer가 생성되도록 속성 지정: Texture 개수 증가는 성능 저하가능성 증</li>
+                        <li>변경 필요시 painting이 발생하는 단위로 GraphicsLayer가 생성되도록 속성 지정: Texture 개수 증가는 성능 저하 가능성 증가!</li>
                     </ul>
                 </li>
             </ol>
