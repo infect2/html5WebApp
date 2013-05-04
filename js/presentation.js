@@ -53,6 +53,14 @@ pageAnimationHandler.init({
             $(this).toggleClass('moveUp');
         });
     },
+    timelinePractice: function(){
+        $('#timelinePractice iframe').each( function( index, elem ){
+            var that = this;
+            setTimeout( function(){
+                $(that).attr( "src", $( that ).attr( 'data-src') );
+            }, 2000);
+        });
+    },
     continuousPainting: function(){
         $('#continuousPainting .contImg').off().on('click', function(){
             $('#continuousPainting .contImg2').toggleClass('moveUp');
