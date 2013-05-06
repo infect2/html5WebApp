@@ -6,3 +6,6 @@ open source인 impress.js를 활용하여 제작 되었습니다. prezi와 흡�
 
 ##지원 Browser
 Chrome 및 Safari에서 정상 동작함을 확인 하였습니다.
+
+##자료 재활용
+LICENSE를 확인 하세요.
