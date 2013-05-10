@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <title>최고의 Web App개발 필수</title>
+    
+    <link href="css/impress-demo.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="favicon.png" />
+
+    <script src="js/jquery-1.8.0.js"></script>
+    <script src="js/clock.js"></script>
+
+</head>
+
+<body class="impress-not-supported">
+
+<div id="impress">
+
+    <div id="title1" class="step" data-x="-3500" data-y="-1500" data-rotate="15" data-scale="5">
+        <span>통통 두드리지만 말고</span>
+        <div class="positioning">내부가 어떻게 동작하지? 알아보자</div>
+        <span class="footnote"><sup>*</sup> 최고의 Web App개발을 위해</span>
+    </div>
+
+    <div id="title2" class="step slide" data-x="-1500" data-y="-1500">
+        <q>Webkit 엔진 내부구조의 이해와 Web Application 성능 개선 Practice </q>
+        <q>임상석, SK 플래닛</q>
+        <img class="positioning" src="http://www.skplanet.com/App_Themes/Images/Kor/main/logo_open.png">
+        <div class="thanksTo">thanks to impress.js for prezi-like styling</div>
+    </div>
+
+    <div id="keyMessage" class="step slide" data-x="-500" data-y="-1500" data-rotate-x="90">
+        <h1 class="title">핵심 메세지</h1>
+        <div class="content">
+            <ol>
+                <li> 안정화된 상용 Platform 수준으로 성숙치 않은 HTML5 기반 상품화의 성공은, 기반하는 Engine 이해가 필수적
+                    <ul>
+                        <li>
+                            무엇을 얼마만큼 할수 있는지를 알아야 뛰어난 Web App을 개발 할 수 있다.
+                        </li>
+                    </ul>
+                </li>
+                <li> Blackbox로 두지 말고 Tool을 활용하여 분석하자. Native 대비 부족하지만 급격히 기능이 좋아지고 있다.
+                    <ul>
+                        <li>
+                            Web inspector를 통한 다양한 profiling 기능이 제공되기 시작함
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+            <img height="300px" src="img/endoscope.jpg">
+            <img height="300px" src="img/4hour.gif">
+        </div>
+    </div>
+
+    <div id="environment" class="step slide" data-x="-500" data-y="-1500" data-rotate-y="90">
+        <h1 class="title">HTML5 구동 환경 정의</h1>
+        <div class="content">
+            <ol>
+                <li> Android 및 iOS가 구동되는 모바일 단말
+                    <ul>
+                        <li>
+                            PC환경은 Chrome, Firefox, IE 서로 다른 엔진간의 파편화
+                        </li>
+                    </ul>
+                </li>
+                <li> WebKit 엔진 계열
+                    <ul>
+                        <li>
+                            Firefox, IE, Opera 는 구현 방식이 현격이 다를수 있음 
+                        </li>
+                    </ul>
+                </li>
+                <li> Web site, WebView를 통한 hybrid 공통
+                    <ul>
+                        <li>
+                            JIT enable 여부, CSS일부 property등의 동작은 다를수 있으나, 공통적으로 적용 가능 
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="slideCanvas" class="step slide" data-x="500" data-y="-1500" data-rotate-x="90">
+        <h1 class="title">Slide 자체의 동작 기술의 이해</h1>
+        <div class="content">
+            <ol>
+                <li> 아래와 같이 주황색으로 표시된 Element는 HW Accelerated Compositing을 사용하는 GPU Texture로 mapping 후 rendering
+                </li>
+            </ol>
+            <div class="gpuAC">나는 OpenGLES GPU가 합성합니다. 잘사용하면 CPU 합성과 비교되지 않게 빨라요. GPU가 접근하는 Texture라는 메모리에 살고 있습니다.</div>
+        </div>
+    </div>
+
+    <div id="xray" class="step slide" data-x="0" data-y="-1500">
+        <h1 class="title">Professional 운전자, 정비사는 차내부를 얼마나 알아야할까?</h1>
+        <div class="content">
+            <img height="250px" src="img/bmwexteria.jpg">
+            <img height="300px" src="img/bmwdetail.jpg">
+        </div>
+    </div>
+
+    <div id="tstore30" class="step slide" data-x="1000" data-y="-1500">
+        <h1 class="title">HTML5 버전 T store 3.0 및 멜론 Player</h1>
+        <div class="content">
+            <div class="leftPannel">
+                <iframe width="90%" height="450px" data-src="http://localhost/web-platform/jsApps/tStoreHTML5/html/main.html"></iframe>
+                <ul class="footnote">
+                    <li> CSS 3D</li>
+                    <li> Single DOM App </li>
+                </ul>
+            </div>
+            <div class="rightPannel">
+                <iframe width="95%" height="450px" data-src="http://localhost/web-platform/jsApps/melonPlayer/"></iframe>
+                <ul class="footnote">
+                    <li> CSS 3D</li>
+                    <li> Single DOM App </li>
+                    <li> audio tag </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="hypehope" class="step slide" data-x="1000" data-y="-1900" data-scale="0.1">
+        <h1 class="title">HTML5: Hype or Hope?</h1>
+        <div class="content">
+            <img width="800px" src="img/hypehope.png">
+        </div>
+    </div>
+
+    <div id="mobileOptimized" class="step slide" data-x="2000" data-y="-1500">
+        <h1 class="title">Mobile 단말에서 HTML5의 현실 </h1>
+        <div class="content">
+            <div>
+                <img height="300px" src="img/cross-platform.png">
+            </div>
+            <div>
+            <pre class="brush: js">
+                function deviceFragmentationHandler() {
+                    //set to use deviceProfileManager
+                    var effect = window.getEffect(),
+                        device = window.getDeviceInfo();
+
+                    //fragmentation handling is done in three phases
+                    //For the first, OS version based tunable paramenter setting
+                    //For the secnod, device model based setting as an exception from the OS version
+                    //For the third, browser type based setting as an exception from the OS version
+
+                    //Start from OS version based
+                    if( (/Android/i).test(device.os) ){
+                        scrollerConfig.scrollBar = false;
+                        appConfig.resizeDelay = 300;
+                    }
+                    if( (/Android 2/i).test(device.os) ){
+                        scrollerConfig.smartScrolling = true;
+                        scrollerConfig.momentumDistCap = window.innerHeight*2;
+                        scrollerConfig.updateOnScrollEnd = true;
+                        scrollerConfig.offsetYMargin = window.innerHeight*2;
+                        scrollerConfig.minYDelta = window.innerHeight*1;
+                        scrollerConfig.useTransition = false;
+                        scrollerConfig.useRequestAniFrame = false;
+                        appConfig.mainListHighlight = false;
+                        //안드로이드 2버전에서는 transition 없이 페이지 이동
+
+                        appConfig.transition = "none";//slide disable
+                    }
+                    if( (/Android 4.0/i).test(device.os) ){
+                        scrollerConfig.smartScrolling = true;
+                        momentumDistCap = window.innerHeight*3;//iScroll momentun flick distance's maximum value
+                        updateOnScrollEnd = false; //not update during scrolling, but do right after scrolling
+                        offsetYMargin = window.innerHeight*4;
+                        minYDelta = window.innerHeight*4;
+                        scrollerConfig.useTransition = false;
+                        scrollerConfig.useRequestAniFrame = false;
+                    }
+                    if( (/Android 4.1/i).test(device.os) ){
+                        scrollerConfig.smartScrolling = true;
+                        scrollerConfig.momentumDistCap = window.innerHeight*3;
+                        scrollerConfig.offsetYMargin = window.innerHeight*10;
+                        scrollerConfig.minYDelta = window.innerHeight*10;
+                        scrollerConfig.useTransition = false;
+                        scrollerConfig.useRequestAniFrame = true;
+                    }
+                    if( (/iPhone/i).test(device.os) ){
+                        scrollerConfig.scrollBar = true;
+                        appConfig.resizeDelay = 50;
+                        scrollerConfig.useTransition = true;
+                    }
+                    //device model based
+                    if ( (/SHW-M110/i).test(device.modelName) ) {
+                        //Galaxy S, Android 2.3 default setting is partially overriden for this device
+                        scrollerConfig.momentumDistCap = window.innerHeight*3;
+                        scrollerConfig.offsetYMargin = window.innerHeight*2;
+                        scrollerConfig.minYDelta = window.innerHeight*2;
+                        scrollerConfig.useTransition = true;
+                    }
+                    if ( (/SHV-E210/i).test(device.modelName) ) {
+                        //SHV-E210: 갤럭시 S3
+                        if( (/Android 4.0/i).test(device.os) ){
+                            scrollerConfig.useRequestAniFrame = false;
+                            scrollerConfig.useTransition = true;
+                        }
+                    }
+                    if ( (/SHW-M250/i).test(device.modelName) ) {
+                        //SHW-M250: 갤럭시 S2
+                        if( (/Android 4.1/i).test(device.os) ){
+                            scrollerConfig.useTransition = true;
+                            scrollerConfig.smartScrolling = false;
+                        }
+                    }
+                    if ( (/LG-F240/i).test(device.modelName) ) {
+                        //Optimus G Pro
+                        scrollerConfig.useTransition = true;
+                        // scrollerConfig.useRequestAniFrame = true;
+                    }
+                    if ( (/SHV-E250/i).test(device.modelName) ) {
+                        //Galaxy Note  II
+                        // scrollerConfig.useRequestAniFrame = false;
+                    }
+                    if ( (/SHV-E270/i).test(device.modelName) ) {
+                        //Galaxy Grand
+                        scrollerConfig.useTransition = true;
+                        scrollerConfig.smartScrolling = true;
+                    }
+                    if(device.browser === "ChromeMobile"){
+                        scrollerConfig.smartScrolling = false;
+                        scrollerConfig.useTransition = false;
+                        //Galaxy S4
+                        if ( (/SHV-E300/i).test(device.modelName) ) {
+                            scrollerConfig.smartScrolling = false;
+                            scrollerConfig.useTransition = true;
+                        }
+                    }
+
+                    if((device.browser !== "ChromeMobile")  !(/iPhone/i).test(device.os)){
+                        $.mobile.defaultTransitionHandler = createHandlerA(false);
+                        $.mobile.transitionHandlers = {
+                            "default": $.mobile.defaultTransitionHandler
+                        };
+                    }
+
+                    appConfig.fixedElement = effect.fixedElement;
+                    //browser type based
+                    if(!appConfig.useFixedMenu){
+                        appConfig.transition = "none";
+                    }
+                }</pre>
+            </div>
+        </div>
+    </div>
+
+    <div id="webPlatform" class="step slide" data-x="-2000" data-y="0">
+        <h1 class="title">Web App Platform Architecture</h1>
+        <div class="content">
+            <ol>
+                <li> Webkit Engine 구조 및 동작</li>
+                <li> Webkit rendering basics</li>
+            </ol>
+            <img width="100%" src="img/webPlatform.png">
+        </div>
+    </div>
+
+    <div id="webkitOpensource" class="step slide" data-x="-1000" data-y="0">
+        <h1 class="title">Webkit Open Source Project: 동거 후 각자의 길</h1>
+        <div class="content">
+            <ol>
+                <li> Applie 및 Google 주도의 open source project였음: Google은 분가</li>
+                <li> Blink: Google이 Webkit project를 forking
+                    <ul>
+                        <li> 기술적으로 Chrome의 multi-process 구조와 Apple주도의 Webkit2 방식의 차이로 인한 기술 발전 속도 지체
+                        </li>
+                        <li> Web application의 속도를 최대한 빠르게 하기 위함
+                        </li>
+                    </ul>
+                </li>
+                <li> WebKit 엔진 부분은 현재 큰 차이가 없으나, 앞으로 fragmentation이 급속히 커질것으로 예상(http://www.chromium.org/blink/developer-faq)
+                    <ul>
+                        <li> deliver a speedier DOM and JS engine </li>
+                        <li> keep the platform secure </li>
+                        <li> refactor for performance </li>
+                        <li> enable more powerful rendering layout </li>
+                        <li> JS binding, event, style calculate, layout, iframe 부분을 개선하겠다고함 --> WebCore를 포함한 상당한 수정이 불가피</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="webkitOverview" class="step slide" data-x="0" data-y="0">
+        <h1 class="title">Webkit과 Platform별 Port 이해하기</h1>
+        <div class="content">
+            <img width="50%" src="img/webkit-diagram.png">
+            <img width="47%" src="img/graphicscontext.png">
+            <img width="90%" src="img/webkitPortTable.png">
+        </div>
+        <div class="footnote">http://paulirish.com/2013/webkit-for-developers/</div>
+    </div>
+
+    <div id="webkitFunction" class="step slide" data-x="1000" data-y="0">
+        <h1 class="title">Webkit 주요 기능 </h1>
+        <div class="content">
+            <ol>
+                <li> Parsing(HTML, XML, CSS, JavaScript)</li>
+                <li> Layout </li>
+                <li> Text, graphics rendering </li>
+                <li> Image decoding </li>
+                <li> GPU interaction </li>
+                <li> Network access </li>
+                <li> HW acceleration </li>
+            </ol>
+            <q>1,2 만 공통이고, 나머지는 port 별로 구현 및 최적화 방식이 다름</q>
+        </div>
+    </div>
+
+    <div id="chromeArch" class="step slide" data-x="2000" data-y="0">
+        <h1 class="title">Chrome 브라우져 구조: Muli-Process</h1>
+        <div class="content">
+            <img width="100%" src="img/chromeArch.png">
+        </div>
+    </div>
+
+    <div id="androidArch" class="step slide" data-x="3000" data-y="0">
+        <h1 class="title">안드로이드 브라우져 구조: Multi-threaded(UI) 4.1 이하</h1>
+        <div class="content">
+            <img width="100%" src="img/androidArch.png">
+        </div>
+    </div>
+
+    <div id="htmlParser" class="step slide" data-x="4000" data-y="0">
+        <h1 class="title">HTML Parser: Basic</h1>
+        <div class="content">
+            <img width="100%" src="img/htmlParser.png">
+        </div>
+    </div>
+
+    <div id="preloadScanner" class="step slide" data-x="5000" data-y="0">
+        <h1 class="title">Preload Scanner:HTMLPreloadScanner, CSSPreloadScanner</h1>
+        <div class="content">
+            <ol>
+                <li> 기본 동작:
+                    <ul>
+                        <li>HTML parser가 script loading을 대기하여 멈출때마다 불린다</li>
+                        <li>stylesheet, image등의 network request를 미리 전송하여 전체 loading 시간 개선</li>
+                        <li>CSSPreloadScanner는 @import를 preload하는 기능 지원</li>
+                    </ul>
+                </li>
+                <li> 사용 Tip
+                    <ul>
+                        <li>CSS stylesheet은 전체가 load된 후에 preload scanning: @import는 되지만 쓰면 늦게 적용</li>
+                        <li>head에서 block시 body에 포함된 resource에 대해서는 수행하지 않음: CSS는 head의 최상단에, JavaScript는 DOM parsing 완료 이후로 최대한 미루어야 </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="treeBasics" class="step slide" data-x="6000" data-y="0">
+        <h1 class="title">WebKit 내부 Tree</h1>
+        <div class="content">
+            <ol>
+                <li> DOM tree: Document내의 모든 DOM node를 갖음 </li>
+                <li> RenderObject tree: DOM node중에 화면에 보이는 node </li>
+                <li> RenderLayer tree: 한번에 같이 painting 할 RenderObject를 모아서 관리: 같은 z-index에 있는 node </li>
+            </ol>
+            <img width="90%" src="img/webkitTrees.png">
+        </div>
+    </div>
+
+    <div id="treeExample" class="step slide" data-x="6000" data-y="0" data-scale="0.05">
+        <h1 class="title">WebKit 내부 Tree</h1>
+        <div class="content">
+            <img width="100%" src="img/treeExample.png">
+        </div>
+    </div>
+
+    <div id="renderLayerGen" class="step slide" data-x="6100" data-y="0" data-scale="0.05">
+        <h1 class="title">RenderLayer Tree 생성</h1>
+        <div class="content">
+            <img width="100%" src="img/renderlayerGen.png">
+        </div>
+    </div>
+
+    <div id="graphicLayerTree" class="step slide" data-x="6200" data-y="0" data-scale="0.05">
+        <h1 class="title">GraphicsLayer Tree 생성</h1>
+        <div class="content">
+            <ol>
+                <li> 3D 또는 perspective transform CSS 속성 </li>
+                <li> video, canvas tag, composited plugin, CSS filter</li>
+                <li> 투명도로 CSS animation 수행, webkit-transform 수행</li>
+                <li> compositing layer를 갖는 자손이 있을 경우, 낮은 z-index를 갖는 형제가 있을 경우</li>
+            </ol>
+            <img width="100%" src="img/graphicTree.png">
+        </div>
+    </div>
+
+    <div id="paintingPath" class="step slide" data-x="6300" data-y="0" data-scale="0.05">
+        <h1 class="title">다중 Layer Painting 절차</h1>
+        <div class="content">
+            <div>
+                <ol>
+                    <li> SW rendering path (CPU)
+                        <ul>
+                            <li>하나의 graphic buffer를 할당(mobile에서는 이것도 GPU를 활용하는 texture 임, ana backingstore)</li>
+                            <li>Z order에 따라 뒤에서 앞으로 칠함: Hello를 칠함 --> World 칠함</li>
+                        </ul>
+                    </li>
+                </ol>
+                <div class="helloWorld">
+                    <img width="70%" src="img/CPUcompositing.png">
+                </div>
+            </div>
+            <div>
+                <ol>
+                    <li> HW 가속 path: Accelerate compositing by GPU
+                        <ul>
+                            <li>CPU graphcs buffer와 GraphicsLayer 별 GPU가 접근하는 buffer 생성</li>
+                            <li>Layer별로 주어진 buffer에 painting: 변경 내용이 없으면 buffer를 그대로 둠</li>
+                            <li>모든 결과를 sync후 GPU를 통해서 compositing하여 하나의 결과물로 만든 후 windowing system buffer로 복사</li>
+                        </ul>
+                    </li>
+                </ol>
+                <div class="helloWorld">
+                    <img width="100%" src="img/GPUcompositing.png">
+                </div>
+                <div class="helloWorld">
+                    <img width="100%" src="img/GPUani.png">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="HWcompositing" class="step slide" data-x="7000" data-y="0">
+        <h1 class="title">GPU기반 합성</h1>
+        <div class="content">
+            <ol>
+                <li> CPU로 만들어진 texture는 다시 repaint되거나, 가속영역에서 제거되지 않을 경우 OpenGL ES 내에서 연속적인 합성을 위하여 재활용된다.</li>
+            </ol>
+            <img width="100%" src="img/renderingArch.png">
+        </div>
+    </div>
+
+    <div id="painting" class="step slide" data-x="8000" data-y="0">
+        <h1 class="title">GPU Texture 생성/변경/제거</h1>
+        <div class="content">
+            <ol>
+                <li>생성
+                    <ul>
+                        <li>CPU로 주어진 GraphicLayer에 속한 Element를 GPU가 접근 가능한 메모리로 정의된 surface로서 painting 연산 수행</li>
+                    </ul>
+                </li>
+                <li>변경
+                    <ul>
+                        <li>한 pixel이라도 변경되면, 전체 GraphicsLayer를 CPU를 통하여 다시 painting</li>
+                    </ul>
+                </li>
+                <li>삭제
+                    <ul>
+                        <li>GraphicsLayer 생성조건을 만족하는 CSS 속성 제거시 Texture는 제거되고 SW rendering path로 변경됨</li>
+                        <li>display:none 또는 visibility:hidden(버전 따라 다름)시 Texture는 제거</li>
+                    </ul>
+                </li>
+                <li>성능 tip
+                    <ul>
+                        <li>한번 생성한 Texture는 변경하지 않는것이 성능에 가장 기본</li>
+                        <li>변경 필요시 painting이 발생하는 단위로 GraphicsLayer가 생성되도록 속성 지정: Texture 개수 증가는 성능 저하 가능성 증가!</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="performanttAC" class="step slide" data-x="9000" data-y="0">
+        <h1 class="title">고성능 Animation을 위한 Tip</h1>
+        <div class="content">
+            <ol>
+                <li> CPU로 생성하는 Texture는 재활용
+                    <ul>
+                        <li>animation완료후 transform 속성 미제거</li>
+                    </ul>
+                </li>
+                <li> Animation 도중 painting 발생하는 연산 미사용</li>
+                <li> 내부 timer를 사용하는 keyframe animation/transition을 사용
+                    <ul>
+                        <li>Webkit 내부에서 수행되고, JavaScript 개입(style 변경)이 없어서 매우 빠름</li>
+                        <li>지정된 시간동안 animation의 완료가 interrupt되는 경우 사용자 반응성이 떨어질수 있음(뒤에서 설명)</li>
+                    </ul>
+                </li>
+                <li> 합성 layer 수는 최소로 유지: 일부 단말에서 성능 저하
+                    <ul>
+                        <li>Chrome에서 layer용 VRAM이 소진시 오히려 성능이 느려짐</li>
+                        <li>* { -webkit-transform: translate3d(0,0,0) 를 무턱대고 쓰지말고, 왜 느린지 원인을 분석해서 해결하라</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="ACAnomalyHandling" class="step slide" data-x="10000" data-y="0">
+        <h1 class="title">Animation시 Trouble Shooting</h1>
+        <div class="content">
+            <ol>
+                <li> -webkit-transition-delay 오류: Chrome일부에서 멈추기 위해서 0으로 setting해도 멈추지 않음 --> 1로 설정 </li>
+                <li> -webkit-transition-delay 속성 변경시 적용되는 전체 DOM이 repaint 되는 오류 --> painting cost 줄이기
+                </li>
+                <li> 합성 layer에 scale되는 image 포함시 painting 발생 --> image를 offline에서 scale</li>
+                <li> requestAnimationFrame사용시 성능이 오히려 저하: setTimeout(1000/60), (1000/120)</li>
+                <li> Android 4.03/4.04에서 animation 시작시 화면이 깨지는 이슈: AC 구현 방식의 변경으로 Texture를 생성하는 delay가 매우 느림. 단, 생성된 Texture로 animation은 그전 버전 대비 많이 빠름</li>
+                <li>iOS를 포함하여 화면이 지글거리거나 깨지는 현상: -webkit-backface-visibility:hidden으로 설정</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="fastMalloc" class="step slide" data-x="11000" data-y="0">
+        <h1 class="title">Webkit엔진 메모리 관리</h1>
+        <div class="content">
+            <ol>
+                <li>space를 좀더 쓰더라도, object 생성/삭제가 빠른 방법이 필수
+                    <ul>
+                        <li>DOM/Render tree생성 및 JavaScript 실행시 수많은 C++ object가 생성/삭제됨</li>
+                    </ul>
+                </li>
+                <li>fastMalloc: Google의 TCMalloc의 derivative로 WebCore와 JavaScriptCore에서 사용
+                    <ul>
+                        <li> Thread local cache 와 central page heap(large object)을 별도로 관리하여 성능 향상</li>
+                        <li> Small object 할당: 60개의 size class로 구분하고 singly-linked list로 관리</li>
+                        <li> Karge object 할당(32KB): 4K 단위 page의 group의 list로 관리</li>
+                    </ul>
+                </li>
+                <li>system malloc: memory allocator로 WebKit이 사용하는 외부 library에서 사용 </li>
+                <li>속도는 빠르지만, 충분히 사용하고 빠르게 반환하지도 않음: 할당 보다 반환에 보수적임</li>
+                <li> 메모리 절약 Tip
+                    <ul>
+                        <li> 새로운 object를 생성하기전에 쓰지 않는 ojbect를 먼저 제거한다. </li>
+                        <li> Single DOM App 경우, AJAX로 신규 page를 loading전에 inactive page를 미리 DOM에서 제거 </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="tcmalloc" class="step slide" data-x="12000" data-y="0">
+        <h1 class="title">소중한 Memory는 어디로: Memory-hog Webkit</h1>
+        <div class="content">
+            <ol>
+                <li>Runtime 환경으로 RenderTree, DOM tree를 포함한 수많은 객체 및 JavaScript 수행</li>
+                <li>Page cache: DOM을 통채로 유지함 ANA back/forward cache
+                    <ol>
+                        <li>SSL, load/onload handler등록, form 등이 있을때,</li>
+                        <li>load fail이나 error 발생된 페이지는 cache 하지 않음</li>
+                    </ol>
+                </li>
+                <li>Decoded image cache: decoding된 image를 painting하기 위해 cache
+                    <ul>
+                        <li>painting은 decoded image cache에서 가져다 함</li>
+                        <li>decoded image가 특정 크기가 넘어가면 cache 하지 않음(2M, 3M으로 compile 시간에 정함</li>
+                        <li>mobile 단말에서는 cache가 되지 않으면 painting 성능 저하가 클수 있음: iOS는 RAM크기(256MB기준) 제약이 있다.</li>
+                    </ul>
+                </li>
+                <li>Component cache: 각종 resource cache</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="linkedinIssue" class="step slide" data-x="-3000" data-y="1000">
+        <h1 class="title">Web App 개발용 Tooling 현실</h1>
+        <div class="content">
+            <img height="250px" src="img/linkedin.png">
+            <img height="300px" src="img/toolingissue.png">
+        </div>
+    </div>
+
+    <div id="tooling" class="step slide" data-x="-2000" data-y="1000">
+        <h1 class="title">Web App Tooling: 이제 시작일 뿐</h1>
+        <div class="content">
+            <ol>
+                <li> Native 대비 매우 열악함, 그러나</li>
+                <li> 최근 1년 사이 Web Inspector의 비약적인 발전
+                    <ul>
+                        <li>단순 요소 검사이외에 Timeline 및 Profiling 기능 제공</li>
+                    </ul>
+                </li>
+                <li> Chrome For Mobile 및 iOS 6 버전이상에서 Web Inspector 지원
+                    <ul>
+                        <li>Android 젤리빈부터는 Chrome for Mobile이 Binary 형태로 제공 --> 제조사 customize 불가</li>
+                        <li>But, 제조사별로 별도 side-loading 가능: Galaxy S4는 Chrome 계열이나 미지원 T.T</li>
+                    </ul>
+                </li>
+                <li> 이제부터 시작이고, 지속적인 발전 예상 --> 사용법을 잘 익히는 것이 필수
+                    <ul>
+                        <li>상세 profiling을 통한 성능 개선은 사용성, battery 절약에 매우 중</li>
+                        <li>Google code school: http://discover-devtools.codeschool.com/</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="timeline" class="step slide" data-x="-2200" data-y="1400" data-scale="0.1">
+        <h1 class="title">Chrome Dev Tool: Timeline</h1>
+        <div class="content">
+            <ol>
+                <li> 상단 panel
+                    <ul>
+                        <li>Events: 시간축으로 발생한 event를 순차적으로 보여줌 </li>
+                        <li>Frames: 시간축으로 매 frame 단위로 event를 순차적으로 보여줌</li>
+                        <li>Memory: 메모리 사용 양을 보여줌</li>
+                    </ul>
+                </li>
+                <li> 하단 record panel
+                    <ul>
+                        <li>Recalculate Style: 변경된 CSS 속성값에 따라 전체 style 값을 다시 계산</li>
+                        <li>Layout: 변경된 style값에 따라 element의 위치 값을 재계산</li>
+                        <li>Paint: layout이 완료된 RenderLayer들에 속한 element들을 z-ordering을 고려하여 그리 </li>
+                        <li>Composite Layers: Document를 구성하는 모든 RenderLayer를 합성하여 화면에 최종 출력</li>
+                        <li>각종 event fire: setTimout, requestAnimationFrame등</li>
+                    </ul>
+                </li>
+            </ol>
+            <div class="timelineImg">
+                <img width="900px" src="img/timeline.png">
+            </div>
+        </div>
+    </div>
+
+    <div id="timelinePractice" class="step slide" data-x="-2000" data-y="1400" data-scale="0.1">
+        <h1 class="title">Timeline 분석 및 Painting 성능 최적화 1/2</h1>
+        <div class="content">
+            <ol>
+                <li>-webkit-transform 제거시 animation이 완료된 후 GPU 영역에서 제거되고, 추후 animation시 다시 CPU로 painting 하게</li>
+            </ol>
+            <img width="500px" src="img/badStyle.png">
+            <iframe width="560" height="315" data-src="http://www.youtube.com/embed/3bt_cXjLOpE" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div id="timelineDetail" class="step slide" data-x="-1800" data-y="1400" data-scale="0.1">
+        <h1 class="title">Timeline 분석 및 Painting 성능 최적화 2/2</h1>
+        <div class="content">
+            <ol>
+                <li> GPU 가속 device에서 CSS animation시 painting(by CPU)은 최초 1회만 발생하는 것이 이상적</li>
+                <li> Paint는 강적이다. 긴 Paint는 주적이다 (paint는 일반적으로 layout의 결과로 수반됨)</li>
+            </ol>
+            <img class="leftImg" width="380px" src="img/timelineGood.png">
+            <img class="rightImg" width="380px" src="img/timelineBad.png">
+        </div>
+    </div>
+
+    <div id="continuousPainting" class="step slide" data-x="-1600" data-y="1400" data-scale="0.1">
+        <h1 class="title">Long Paint 분석 및 최적화: Continuous Painting Mode</h1>
+        <div class="content">
+            <ol>
+                <li> Chrome canary에서 지원</li>
+                <li> 강제적으로 연속적으로 painting을 수행하므로 높은 painting 비용의 element를 쉽게 찾을수 있다: CTRL+H로 hidden</li>
+            </ol>
+            <span class="contImg">
+                <img height="470px" src="img/continuousPaintingMode.png">
+            </span>
+            <span class="contImg2">
+                <img width="800px" src="img/continuousEx.png">
+            </span>
+        </div>
+    </div>
+
+    <div id="jsProfiling" class="step slide" data-x="-1400" data-y="1400" data-scale="0.1">
+        <h1 class="title">Chrome Dev Tool: Profiling</h1>
+        <div class="content">
+            <ol>
+                <li> JavaScript, CSS를 sampling 방식으로 profiling 결과를 알려줌 </li>
+                <li> 현재 Browser내의 heap memory 사용량을 snapshot으로 알려줌</li>
+            </ol>
+            <div class="profilingImg">
+                <img width="800px" src="img/profilingMain.png">
+            </div>
+        </div>
+    </div>
+
+    <div id="ondeviceProfiling" class="step slide" data-x="-1200" data-y="1400" data-scale="0.1">
+        <h1 class="title">Chrome Dev Tool: on-device</h1>
+        <div class="content">
+            <ol>
+                <li> 설치
+                    <ol>
+                        <li>Android SDK 설치</li>
+                        <li>단말 Chrome setting에서 USB debugging mode enable</li>
+                        <li>단말 케이블 연결 </li>
+                        <li>Dev Tool을 단말에 연결: adb forward tcp:9222 localabstract:chrome_devtools_remote</li>
+                        <li>PC의 chrome에서 localhost:9222 open 후 연결된 page click</li>
+                    </ol>
+                </li>
+                <li> starting guide: http://www.html5rocks.com/en/mobile/profiling/#toc-starting-guide </li>
+            </ol>
+            <img height="200px" src="img/ondevice-devtool.png">
+        </div>
+    </div>
+
+    <div id="useTransitionbyInspector" class="step slide" data-x="-1000" data-y="1400" data-scale="0.1">
+        <h1 class="title">transtion을 이용한 animation의 성능 분석</h1>
+        <div class="content">
+            <div class="leftImg">
+                <img width="100%" src="img/nouseTransition.png">
+            </div>
+            <div class="rightImg">
+                <img width="100%" src="img/useTransition.png">
+            </div>
+        </div>
+    </div>
+
+    <div id="dumpRenderTree" class="step slide" data-x="-800" data-y="1400" data-scale="0.1">
+        <h1 class="title">DumpRenderTree</h1>
+        <div class="content">
+            <ol>
+                <li>WebKit 엔진이 주어진 HTML을 읽어서 내부적으로 생성하는 RenderTree를 출력해주는 기능</li>
+                <li>Web Inspecor에서 보이지 않는 Render Tree 구조를 직접 확인하고 최적화가 가능함</li>
+                <li> 설치 및 실행
+                    <ol>
+                        <li>www.webkit.org에서 webkit source code down 및 build</li>
+                        <li>/Tools/Scripts/run-webkit-tests HTML문서이름 </li>
+                    </ol>
+                </li>
+            </ol>
+            <img height="400px" src="img/dumpImg.png">
+        </div>
+    </div>
+
+    <div id="thePractice1" class="step slide" data-x="-1000" data-y="1000">
+        <h1 class="title">Painting 성능 최적화: Layout 및 Repaint를 최소화 (1/2)</h1>
+        <div class="content">
+            <ol>
+                <li> Layout 및 Repaint trigger 요인
+                    <ul>
+                        <li>DOM node의 add/remove/update </li>
+                        <li>DOM node를 display:none, visibility:hidden(layout은 미발생),
+                        DOM을 움직일때 </li>
+                        <li>stylesheet을 추가하거나, style property를 변경시</li>
+                        <li>window resize, font 변경</li>
+                    </ul>
+                </li>
+                <li> Repaint only: visibility, color, transform, background-image, transparency 변
+                </li>
+                <li>Webkit은 paint throttling queue을 통해 연속되는 request를 한꺼번에 모아서 수행, 아래의 경우는 queue를 flush 하므로 잘알고 사용해야 함
+                    <ul>
+                        <li>offsetTop, offsetLeft, offsetWidth, offsetHeight값을 JavaScript로 접근</li>
+                        <li>scrollTop/Left/Width/Height
+                        , clientTop/Left/Width/Height
+                        , getComputedStyle()</li>
+                    </ul>
+                </li>
+                <li>throttling queue등의 최적화로, 실제 화면에 paiting이 완료되는 시점을 정확히 하는 것은 불가능
+                    <ul>
+                        <li>Welocom to setTimeout() hell</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="thePractice2" class="step slide" data-x="0" data-y="1000">
+        <h1 class="title">Painting 성능 최적화: Layout 및 Repaint를 최소화 (2/2)</h1>
+        <div class="content">
+            <ol>
+                <li>개별 style을 하나씩 변경하지 말고 class로 일괄 적용 또는 cssText에 적용</li>
+                <li>DOM의 변경은 documentFragement를 이용하여 offline으로 </li>
+                <li>display:none 상태에서 일괄 변경 후 다시 보여주기</li>
+                <li>computed sytle값을 읽는 회수로 최소화</li>
+                <li>자주 변경되는 element는 offsetParent 변경되지 않는 element의 offsetParent로 부터 분리: absolute position을 활용 </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="thePractice3" class="step slide" data-x="1000" data-y="1000">
+        <h1 class="title">단말에서 비싼 CSS</h1>
+        <div class="content">
+            <ol>
+                <li>rounded corner</li>
+                <li>box-shadow, text-shadow</li>
+                <li>background-position, background-repeat,
+                2개 이상의 background image</li>
+                <li> border-image</li>
+                <li> gradient </li>
+                <li> HW 가속 받지 않는 CSS filter</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="thePractice4" class="step slide" data-x="2000" data-y="1000">
+        <h1 class="title">모바일 단말 Anomaly</h1>
+        <div class="content">
+            <ol>
+                <li>transition 오동작
+                    <ul>
+                        <li> -webkit-transition: 0s를 주어 진행중인 animation을 멈추는게 일반적</li>
+                        <li> Chrome for Android 일부 버전에서 동작하지 않음: workaround 0s가 아닌 1s</li>
+                        <li> -webkit-transtion 속성 변경시 해당 element 전체에 대해서 repaint 발생 (일부 Chrome)</li>
+                    </ul>
+                </li>
+                <li>CSS fixed element내에 absolute 포함시: 화면 전체 영역에 대한 repaint 발생</li>
+                <li>resize 된 image가 -webkit-transform element에 포함시 repaint 발생</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="conclusion" class="step slide" data-x="3000" data-y="1000" data-rotate="90">
+        <h1 class="title">결론</h1>
+        <div class="content">
+            <ol>
+                <li>속도 관련 모든 최적화는 Web Inspector를 통해 분석하는 것으로 부터 시작</li>
+                <li>모바일 단말별 Browser 구현에 따른 오동작 발생은 피할수 없지만, 대부분 회피는 가능하다.
+                    <ul>
+                        <li>Sencha, jQueryMobile등의 framewwork 도입으로 부분적으로 해결 가능</li>
+                        <li>문제에 따라서는 GUI나 UX를 변경해야 함</li>
+                    </ul>
+                </li>
+                <li>Mobile 환경에서의 HTML5 활용은 큰 흐름이나, 현 시점에서 상품화까지 목적으로 할 경우 단순한 cross-platform에 대한 환상만으로 시작은 금물</li>
+                <li>Hybrid app 개발자라면 Native와 Web의 요소를 어떻게 mix할 것인지 사용자/서비스 운영 관점에서 결정
+                    <ul>
+                        <li>나는 뛰어난 개발자 이므로 단순히 모든 것을 native 또는 Web으로 하겠다는 것은 비효율적인 생각</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="QnA" class="step slide" data-x="4000" data-y="1000" data-rotate="90">
+        <h1 class="title">질문</h1>
+        <div class="content">
+            <ol>
+                <li>iOS도 Web Inspector 사용 가능 한가요? 예 iOS 6.0이상에서 가능 합니다.</li>
+                <li>단말별 browser별 fragmentation은 언제 사라질까요? 사라지지 않고 심화될 가능성이 농후 합니다. Android, iOS, Tizen, Windows별로 fragmentation handling은 필수 입니다. framework의 사용으로 고통을 완화 할수 있습니다.</li>
+                <li>Hybrid app 개발시에도 적용 가능한가요? 설명드린 tip은 가능하지만, Web Inspector는 App으로 직접 붙일수 없고 Browser 에서 별도로 적용후 통합 하여야 합니다.</li>
+                <li>layout과 painting이 끝난는지 정확히 알수 있는 방법이 있나요? 아직까지는 setTimeout으로 충분히 기다리는 것 이외에 대안을 찾지는 못했습니다.</li>
+            </ol>
+        </div>
+    </div>
+
+</div>
+
+<script src="js/impress.js"></script>
+<script>impress().init();</script>
+<script src="js/presentation.js"></script>
+
+</body>
+</html>

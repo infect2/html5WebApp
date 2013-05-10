@@ -1,0 +1,442 @@
+/*
+    So you like the style of impress.js demo?
+    Or maybe you are just curious how it was done?
+
+    You couldn't find a better place to find out!
+
+    Welcome to the stylesheet impress.js demo presentation.
+
+    Please remember that it is not meant to be a part of impress.js and is
+    not required by impress.js.
+    I expect that anyone creating a presentation for impress.js would create
+    their own set of styles.
+
+    But feel free to read through it and learn how to get the most of what
+    impress.js provides.
+
+    And let me be your guide.
+
+    Shall we begin?
+*/
+
+
+/*
+    We start with a good ol' reset.
+    That's the one by Eric Meyer http://meyerweb.com/eric/tools/css/reset/
+
+    You can probably argue if it is needed here, or not, but for sure it
+    doesn't do any harm and gives us a fresh start.
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    /*list-style: none;*/
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/*
+    Now here is when interesting things start to appear.
+
+    We set up <body> styles with default font and nice gradient in the background.
+    And yes, there is a lot of repetition there because of -prefixes but we don't
+    want to leave anybody behind.
+*/
+body {
+    font-family: 'PT Sans', sans-serif;
+    min-height: 740px;
+
+    background: rgb(215, 215, 215);
+    background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 500, from(rgb(240, 240, 240)), to(rgb(190, 190, 190)));
+    background: -webkit-radial-gradient(rgb(240, 240, 240), rgb(190, 190, 190));
+    background:    -moz-radial-gradient(rgb(240, 240, 240), rgb(190, 190, 190));
+    background:     -ms-radial-gradient(rgb(240, 240, 240), rgb(190, 190, 190));
+    background:      -o-radial-gradient(rgb(240, 240, 240), rgb(190, 190, 190));
+    background:         radial-gradient(rgb(240, 240, 240), rgb(190, 190, 190));
+}
+
+/*
+    Now let's bring some text styles back ...
+*/
+b, strong { font-weight: bold }
+i, em { font-style: italic }
+
+/*
+    ... and give links a nice look.
+*/
+a {
+    color: inherit;
+    text-decoration: none;
+    padding: 0 0.1em;
+    background: rgba(255,255,255,0.5);
+    text-shadow: -1px -1px 2px rgba(100,100,100,0.9);
+    border-radius: 0.2em;
+
+    -webkit-transition: 0.5s;
+    -moz-transition:    0.5s;
+    -ms-transition:     0.5s;
+    -o-transition:      0.5s;
+    transition:         0.5s;
+}
+
+a:hover,
+a:focus {
+    background: rgba(255,255,255,1);
+    text-shadow: -1px -1px 2px rgba(100,100,100,0.5);
+}
+
+/*
+    Now let's style the presentation steps.
+
+    We start with basics to make sure it displays correctly in everywhere ...
+*/
+
+.step {
+    position: relative;
+    width: 900px;
+    padding: 40px;
+    margin: 20px auto;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    -ms-box-sizing:     border-box;
+    -o-box-sizing:      border-box;
+    box-sizing:         border-box;
+
+    font-family: 'PT Serif', georgia, serif;
+    font-size: 48px;
+    line-height: 1.5;
+}
+
+/*
+    ... and we enhance the styles for impress.js.
+
+    Basically we remove the margin and make inactive steps a little bit transparent.
+*/
+.impress-enabled .step {
+    margin: 0;
+    opacity: 0.3;
+
+    -webkit-transition: opacity 1s;
+    -moz-transition:    opacity 1s;
+    -ms-transition:     opacity 1s;
+    -o-transition:      opacity 1s;
+    transition:         opacity 1s;
+}
+
+.impress-enabled .step.active { opacity: 1 }
+
+/*
+    These 'slide' step styles were heavily inspired by HTML5 Slides:
+    http://html5slides.googlecode.com/svn/trunk/styles.css
+
+    ;)
+
+    They cover everything what you see on first three steps of the demo.
+*/
+.slide {
+    display: block;
+
+    width: 900px;
+    height: 700px;
+    padding: 40px 60px;
+
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, .3);
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
+
+    color: rgb(102, 102, 102);
+    text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: -1px;
+}
+
+.slide q {
+    display: block;
+    font-size: 50px;
+    line-height: 72px;
+
+    margin-top: 100px;
+}
+
+.slide q strong {
+    white-space: nowrap;
+}
+
+.slide h1.title{
+    display: block;
+    font-size: 30px;
+    line-height: 40px;
+
+    padding: 10px 0px 40px 0px;
+}
+
+/*첫번째 bullet level*/
+.slide .content > ol li, .slide .content > div ol li{
+    font-size: 18px;
+    padding-top: 10px;
+    padding-left: 30px;
+}
+
+/*두번째 bullet level*/
+.slide .content > ol ol > li {
+    font-size: 14px;
+    padding-top: 10px;
+    padding-left: 30px;
+}
+
+/*두번째 bullet level*/
+.slide .content > ol  ul > li {
+    font-size: 14px;
+    padding-top: 10px;
+    padding-left: 30px;
+}
+
+.slide .content {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+/*1x2 left layout*/
+.slide .content > div {
+    float: left;
+    width: 48%;
+}
+
+/*
+    And now we start to style each step separately.
+
+    I agree that this may be not the most efficient, object-oriented and
+    scalable way of styling, but most of steps have quite a custom look
+    and typography tricks here and there, so they had to be styled separately.
+
+    First is the title step with a big <h1> (no room for padding) and some
+    3D positioning along Z axis.
+*/
+
+#title {
+    padding: 0;
+}
+
+#title .try {
+    font-size: 64px;
+    position: absolute;
+    top: -0.5em;
+    left: 1.5em;
+
+    -webkit-transform: translateZ(20px);
+    -moz-transform:    translateZ(20px);
+    -ms-transform:     translateZ(20px);
+    -o-transform:      translateZ(20px);
+    transform:         translateZ(20px);
+}
+
+#title h1 {
+    font-size: 190px;
+
+    -webkit-transform: translateZ(50px);
+    -moz-transform:    translateZ(50px);
+    -ms-transform:     translateZ(50px);
+    -o-transform:      translateZ(50px);
+    transform:         translateZ(50px);
+}
+
+#title .footnote {
+    font-size: 32px;
+}
+
+
+#title div.thanksTo {
+    padding-top: 40px;
+    font-size: 8px;
+}
+
+/*slideCanvas page*/
+#slideCanvas .gpuAC{
+    -webkit-transition: 10s;
+    -moz-transition:    10s;
+    -ms-transition:     10s;
+    -o-transition:      10s;
+    transition:         10s;
+}
+
+#slideCanvas.present .gpuAC{
+    -webkit-transform: translateX(100px) rotateZ(20deg) scale(2);
+}
+
+#slideCanvas .gpuAC{
+    background-color: yellow;
+}
+
+#mobileOptimized .content pre {
+    display:block;
+    font-size: 12px;
+    height: 500px;
+    overflow:scroll;
+}
+
+#timeline .timelineImg, #continuousPainting .contImg2{
+    display: block;
+    -webkit-transition: 2s;
+    -moz-transition:    2s;
+    -ms-transition:     2s;
+    -o-transition:      2s;
+    transition:         2s;
+}
+
+.moveUp {
+    -webkit-transform: translateY(-500px);
+    -moz-transform:    translateY(-500px);
+    -ms-transform:     translateY(-500px);
+    -o-transform:      translateY(-500px);
+    transform:         translateY(-500px);
+}
+
+.scaleUp2x {
+    -webkit-transform: scale(1.8);
+    -moz-transform:    scale(1.8);
+    -ms-transform:     scale(1.8);
+    -o-transform:      scale(1.8);
+    transform:         scale(1.8);
+}
+
+.helloWorld{
+    display: block;
+    -webkit-transition: 5s;
+    -moz-transition:    5s;
+    -ms-transition:     5s;
+    -o-transition:      5s;
+    transition:         5s;
+}
+.rotateImg {
+    -webkit-transform: rotateZ(380deg);
+    -moz-transform:    rotateZ(380deg);
+    -ms-transform:     rotateZ(380deg);
+    -o-transform:      rotateZ(380deg);
+    transform:         rotateZ(380deg);
+}
+/*
+    Second step is nothing special, just a text with a link, so it doesn't need
+    any special styling.
+
+    Let's move to 'big thoughts' with centered text and custom font sizes.
+*/
+#big {
+    width: 600px;
+    text-align: center;
+    font-size: 60px;
+    line-height: 1;
+}
+
+#big b {
+    display: block;
+    font-size: 250px;
+    line-height: 250px;
+}
+
+#big .thoughts {
+    font-size: 90px;
+    line-height: 150px;
+}
+
+/*
+    'Tiny ideas' just need some tiny styling.
+*/
+#tiny {
+    width: 500px;
+    text-align: center;
+}
+
+/*
+    This step has some animated text ...
+*/
+#ing { width: 500px }
+
+/*
+    ... so we define display to `inline-block` to enable transforms and
+    transition duration to 0.5s ...
+*/
+#ing b {
+    display: inline-block;
+    -webkit-transition: 0.5s;
+    -moz-transition:    0.5s;
+    -ms-transition:     0.5s;
+    -o-transition:      0.5s;
+    transition:         0.5s;
+}
+
+/*
+    ... and we want 'positioning` word to move up a bit when the step gets
+    `present` class ...
+*/
+#ing.present .positioning {
+    -webkit-transform: translateY(-10px);
+    -moz-transform:    translateY(-10px);
+    -ms-transform:     translateY(-10px);
+    -o-transform:      translateY(-10px);
+    transform:         translateY(-10px);
+}
+
+#title div {
+    display: inline-block;
+    -webkit-transition: 5s;
+    -moz-transition:    5s;
+    -ms-transition:     5s;
+    -o-transition:      5s;
+    transition:         5s;
+}
+
+#title.present .positioning {
+    -webkit-transform: scale(1.4);
+    -moz-transform:    scale(1.4);
+    -ms-transform:     scale(1.4);
+    -o-transform:      scale(1.4);
+    transform:         scale(1.4);
+}
+
+
+.impress-enabled          { pointer-events: none }
+.impress-enabled #impress { pointer-events: auto }
