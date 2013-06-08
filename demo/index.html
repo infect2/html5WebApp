@@ -797,6 +797,14 @@
                 </li>
                 <li>CSS fixed element내에 absolute 포함시: 화면 전체 영역에 대한 repaint 발생</li>
                 <li>resize 된 image가 -webkit-transform element에 포함시 repaint 발생</li>
+                <li>scrolling 도중 unnecessary paint 발생(Chrome)
+                    <ul>
+                        <li>position:fixed, overflow:scroll 사용</li>
+                        <li>hover effect 사용</li>
+                        <li>touch listeners 등록된 경우</li>
+                    </ul>
+                </li>
+
             </ol>
         </div>
     </div>
