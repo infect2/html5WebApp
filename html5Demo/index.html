@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <title>최고의 Web App개발 필수</title>
+    
+    <link href="css/impress-demo.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="favicon.png" />
+
+    <script src="js/jquery-1.8.0.js"></script>
+    <script src="js/clock.js"></script>
+
+</head>
+
+<body class="impress-not-supported">
+
+<div id="impress">
+
+    <div id="title1" class="step" data-x="-3500" data-y="-1500" data-rotate="15" data-scale="5">
+        <span>The Power of HTML5</span>
+        <div class="positioning">HTML5가 할수 있는 것들</div>
+    </div>
+
+    <div id="title2" class="step slide" data-x="-1500" data-y="-1500">
+        <q>HTML5의 이해와 활용: </q>
+        <q>Demo, Hype or Hope, planet.js</q>
+        <q>임상석 팀장, Web 기술개발팀/CTO</q>
+        <img class="positioning" src="http://www.skplanet.com/images/kor/common/footer/h2_sk_planet.png">
+    </div>
+
+    <div id="htmlvshtml5" class="step slide" data-x="-500" data-y="-1500">
+        <h1 class="title">HTML과 HTML5의 비교</h1>
+        <div class="content">
+            <div class="leftPannel">
+                <h4> HTML for 문서 Publishing</h4>
+                <ul>
+                    <li>HTML <ul><li>Web document의 layout</li></ul></li>
+                    <li>CSS <ul><li>document내 요소의 styling</li></ul></li>
+                    <li>JavaScript <ul><li>document 내용 및 style 동적 변경</li></ul></li>
+                </ul>
+            </div>
+            <div class="rightPannel">
+                <h4>HTML5 for Web Application</h4>
+                <ul>
+                    <li>HTML <ul><li>Web UI의 layout</li></ul></li>
+                    <li>CSS <ul><li>Web UI의 styling, 2D/3D animation</li></ul></li>
+                    <li>JavaScript <ul><li>Device 접근, 2D/3D graphics등 application logic 구현</li></ul></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="demoList" class="step slide" data-x="-500" data-y="-1500" data-rotate-y="90">
+        <h1 class="title">HTML5 기능 Demo</h1>
+        <div class="content">
+            <ol>
+                <li> Powerful Graphics
+                    <ul>
+                        <li>
+                            Canvas 2D
+                        </li>
+                        <li>
+                            WebGL (openGL ES)
+                        </li>
+                        <li>
+                            CSS 2D/3D, WebGL (openGL ES)
+                        </li>
+                    </ul>
+                </li>
+                <li> Web Audio
+                    <ul>
+                        <li>
+                            Sound filter/mixing, multi-channel support
+                        </li>
+                    </ul>
+                </li>
+                <li> Device API
+                    <ul>
+                        <li>
+                            JIT enable 여부, CSS일부 property등의 동작은 다를수 있으나, 공통적으로 적용 가능 
+                        </li>
+                    </ul>
+                </li>
+                <li> WebRTC
+                    <ul>
+                        <li>
+                            web에서 plugin없이 rich, realtime, multi-media application의 개발 가능하게  
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="helloRacer" class="step slide" data-x="1000" data-y="-1500">
+        <h1 class="title">WebGL: Hello Racer</h1>
+        <div class="content">
+            <iframe width="100%" height="500px" data-src="http://helloracer.com/webgl"></iframe>
+        </div>
+    </div>
+
+    <div id="bookshelf" class="step slide" data-x="1000" data-y="-2500" data-rotate-z="90">
+        <h1 class="title">WebGL: 3D Google Bookshelf</h1>
+        <div class="content">
+            <iframe width="100%" height="500px" data-src="http://workshop.chromeexperiments.com/bookcase/"></iframe>
+        </div>
+    </div>
+
+    <div id="youtube" class="step slide" data-x="0" data-y="-2500" data-rotate-z="90">
+        <h1 class="title">CSS 3D: 모든 HTML element 대상 </h1>
+        <div class="content">
+            <iframe width="560" height="315" data-src="http://www.youtube.com/embed/1ys5tN8ASbc" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div id="canvasRider" class="step slide" data-x="1000" data-y="-2500" data-rotate-y="90">
+        <h1 class="title">Canvas 2D: Casual Game </h1>
+        <div class="content">
+            <iframe width="100%" height="500px" data-src="http://canvasrider.com/tracks/361699"></iframe>
+        </div>
+    </div>
+
+    <div id="webAudio" class="step slide" data-x="1000" data-y="-3500" data-rotate-y="90">
+        <h1 class="title">Web Audio: Real Sound Mixing </h1>
+        <div class="content">
+            <iframe width="100%" height="500px" data-src="http://webaudioplayground.appspot.com/"></iframe>
+        </div>
+    </div>
+
+    <div id="webRTC" class="step slide" data-x="1000" data-y="-4500">
+        <h1 class="title">WebRTC: real time communication over WebSocket </h1>
+        <div class="content">
+            <iframe width="100%" height="500" data-src="https://www.cubeslam.com/ndlxms" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <div id="deviceAPI" class="step slide" data-x="1000" data-y="-4500" data-rotate-y="90">
+        <h1 class="title">Device API: 디바이스를 활용하는 Application Enabler </h1>
+        <div class="content">
+            <img width="100%" height="500" src="http://cfile8.uf.tistory.com/original/145E611A4C455704068960"></img>
+        </div>
+    </div>
+
+    <div id="hope" class="step slide" data-x="2000" data-y="-5000" data-rotate-z="90">
+        <h1 class="title"> HTML5은 우리의 희망  </h1>
+        <div class="content">
+            <q>Native platform의 종속성을 벗어나 cross-platform application 개발</q>
+        </div>
+    </div>
+
+    <div id="reality" class="step slide" data-x="2000" data-y="-5000" data-scale="0.1">
+        <h1 class="title"> HTML5의 현실  </h1>
+        <div class="content">
+            <q>PC: IE6, IE7, IE8, IE9 and IE10</q>
+            <q>Mobile: 성능, 파편화, HTML5 개발자 부족, and more </q>
+        </div>
+    </div>
+</div>
+
+<script src="js/impress.js"></script>
+<script>impress().init();</script>
+<script src="js/presentation.js"></script>
+
+</body>
+</html>
