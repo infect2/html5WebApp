@@ -824,6 +824,75 @@
         </div>
     </div>
 
+    <div id="canvasOptimization1" class="step slide" data-x="2500" data-y="1000" data-scale="0.05">
+        <h1 class="title">HTML5 Game 개발: DOM vs Canvas</h1>
+        <div class="content">
+            <ol>
+                <li> DOM: CSS3 with HW 가속
+                    <ul>
+                        <li> retained mode: scene graph 제공</li>
+                        <li> event handler 등록하여 처리</li>
+                        <li> HW Accelerated Composition</li>
+                        <li> DOM의 증가 성능 감소</li>
+                    </ul>
+                </li>
+                <li>Canvas
+                    <ul>
+                        <li>immediate mode</li>
+                        <li> canvas로 hit test 및 object 모델링(scene graph)</li>
+                        <li>painting의 무한 반복</li>
+                        <li>painting이 느리면 속도가 감소</li>
+                        <li>DOM node 개수는 증가하지 않음</li>
+                    </ul>
+                </li>
+
+            </ol>
+        </div>
+    </div>
+
+    <div id="canvasOptimization2" class="step slide" data-x="2600" data-y="1000" data-scale="0.05">
+        <h1 class="title">HTML5 Game 개발:  Hybrid</h1>
+        <div class="content">
+            <ol>
+                <li> DOM
+                    <ul>
+                        <li> Painting이 필요하지 않고 위치만 변경되는 layer </li>
+                        <li> 배경, 정적인 Object </li>
+                    </ul>
+                </li>
+                <li>Canvas
+                    <ul>
+                        <li> Game animation과 같이 매 frame painting이 필요한 부분</li>
+                        <li> 총알 같이 개수가 많은 object </li>
+                        <li> Canvas내에서도 Layer로 구분하여 painting 후 CSS로 합성하여 출력 </li>
+                    </ul>
+                </li>
+
+            </ol>
+        </div>
+    </div>
+
+    <div id="canvasOptimization3" class="step slide" data-x="2700" data-y="1000" data-scale="0.05">
+        <h1 class="title">HTML5 Game 개발:  단말에서 성능 개선 </h1>
+        <div class="content">
+            <ol>
+                <li> WebWorker
+                    <ul>
+                        <li> Physics Engine </li>
+                        <li> Network 게임: 서버 통신 부분 </li>
+                    </ul>
+                </li>
+                <li> Canvas는 화면 Painting 영역에 크기에 비례하여 성능 감소
+                    <ul>
+                        <li> Canvas로 그리고 CSS style로 늘리기</li>
+                        <li> 최소 2가지 해상도 게임 개발 </li>
+                    </ul>
+                </li>
+
+            </ol>
+        </div>
+    </div>
+
     <div id="conclusion" class="step slide" data-x="3000" data-y="1000" data-rotate="90">
         <h1 class="title">결론</h1>
         <div class="content">
