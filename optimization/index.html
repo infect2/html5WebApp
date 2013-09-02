@@ -382,13 +382,28 @@
         </div>
     </div>
 
+    <div id="renderLayerTree" class="step slide" data-x="6150" data-y="0" data-scale="0.005">
+        <h1 class="title">RenderLayer Tree 생성 대상</h1>
+        <div class="content">
+            <ol>
+                <li> Root Objet </li>
+                <li> CSS position: relative, absolute, transform</li>
+                <li> transparent, overflow, alpha mask, reflection </li>
+                <li> CSS filter</li>
+                <li> canvas 2D, 3D</li>
+                <li> video </li>
+            </ol>
+        </div>
+    </div>
+
     <div id="graphicLayerTree" class="step slide" data-x="6200" data-y="0" data-scale="0.05">
         <h1 class="title">GraphicsLayer Tree 생성</h1>
         <div class="content">
             <ol>
                 <li> 3D 또는 perspective transform CSS 속성 </li>
-                <li> video, canvas tag, composited plugin, CSS filter</li>
+                <li> video, canvas 2D/3D, composited plugin, CSS filter</li>
                 <li> 투명도로 CSS animation 수행, webkit-transform 수행</li>
+                <li> CSS filter</li>
                 <li> compositing layer를 갖는 자손이 있을 경우, 낮은 z-index를 갖는 형제가 있을 경우</li>
             </ol>
             <img width="100%" src="img/graphicTree.png">
