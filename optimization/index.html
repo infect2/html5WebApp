@@ -18,14 +18,30 @@
 <div id="impress">
 
     <div id="title1" class="step" data-x="-3500" data-y="-1500" data-rotate="15" data-scale="5">
-        <span>통통 두드리지만 말고</span>
-        <div class="positioning">내부가 어떻게 동작하지? 알아보자</div>
-        <span class="footnote"><sup>*</sup> 최고의 Web App개발을 위해</span>
+        <div>
+            The Power of HTML5:
+        </div>
+        <div>
+            고성능 HTML5 Web App 개발
+        </div>
+        <div class="flipX">
+            Beyond the Web front-end you know
+        </div>
+    </div>
+
+    <div id="question" class="step" data-x="-3500" data-y="-1500" data-rotate="15" data-scale="0.1">
+        <div >Hype or Hope</div>
+    </div>
+
+    <div id="question2" class="step" data-x="-3500" data-y="-1500" data-rotate="90" data-scale="0.05">
+        <q>Two Key Development Policy:</q>
+        <div>Mobile</div>
+        <div>Commercial-ready</div>
     </div>
 
     <div id="title2" class="step slide" data-x="-1500" data-y="-1500">
-        <q>Webkit 엔진 내부구조의 이해와 Web Application 성능 개선 Practice </q>
-        <q>임상석, SK 플래닛</q>
+        <q>HTML5 Mobile Web App 개발 및 <br>최적화: The Practice</q>
+        <q>임상석, Web 기술개발팀</q>
         <img class="positioning" src="http://www.skplanet.com/App_Themes/Images/Kor/main/logo_open.png">
         <div class="thanksTo">thanks to impress.js for prezi-like styling</div>
     </div>
@@ -87,52 +103,59 @@
         <h1 class="title">Slide 자체의 동작 기술의 이해</h1>
         <div class="content">
             <ol>
-                <li> 아래와 같이 주황색으로 표시된 Element는 HW Accelerated Compositing을 사용하는 GPU Texture로 mapping 후 rendering
+                <li>
+                    아래와 같이 주황색으로 표시된 Element는 HW Accelerated Compositing을 사용하는 GPU Texture로 mapping 후 rendering
                 </li>
             </ol>
-            <div class="gpuAC">나는 OpenGLES GPU가 합성합니다. 잘사용하면 CPU 합성과 비교되지 않게 빨라요. GPU가 접근하는 Texture라는 메모리에 살고 있습니다.</div>
+            <div class="gpuAC">
+                나는 OpenGLES GPU가 합성합니다. 잘사용하면 CPU 합성과 비교되지 않게 빨라요. GPU가 접근하는 Texture라는 메모리에 살고 있습니다
+            </div>
+            <div class="gpuAC">
+                DOM/Render Tree 복잡도 관점에는 최적화가 안되어 있어요
+            </div>
         </div>
     </div>
 
     <div id="xray" class="step slide" data-x="0" data-y="-1500">
-        <h1 class="title">Professional 운전자, 정비사는 차내부를 얼마나 알아야할까?</h1>
+        <h1 class="title">고성능 HTML5 Web App 개발 방법 핵심 정리</h1>
         <div class="content">
-            <img height="250px" src="img/bmwexteria.jpg">
-            <img height="300px" src="img/bmwdetail.jpg">
-        </div>
-    </div>
-
-    <div id="tstore30" class="step slide" data-x="1000" data-y="-1500">
-        <h1 class="title">HTML5 버전 T store 3.0 및 멜론 Player</h1>
-        <div class="content">
-            <div class="leftPannel">
-                <iframe width="90%" height="450px" data-src="http://localhost/web-platform/jsApps/tStoreHTML5/html/main.html"></iframe>
-                <ul class="footnote">
-                    <li> CSS 3D</li>
-                    <li> Single DOM App </li>
-                </ul>
-            </div>
-            <div class="rightPannel">
-                <iframe width="95%" height="450px" data-src="http://localhost/web-platform/jsApps/melonPlayer/"></iframe>
-                <ul class="footnote">
-                    <li> CSS 3D</li>
-                    <li> Single DOM App </li>
-                    <li> audio tag </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div id="hypehope" class="step slide" data-x="1000" data-y="-1900" data-scale="0.1">
-        <h1 class="title">HTML5: Hype or Hope?</h1>
-        <div class="content">
-            <img width="800px" src="img/hypehope.png">
+            <ol>
+                <li>
+                    DOM 및 RenderTree의 복잡도 관리
+                    <ul>
+                        <li>
+                            DOM, Render Tree의 생성 및 삭제 원리 이해
+                        </li>
+                        <li>
+                            e.g) Fastbook by Sencha, Infinite Scroll by SK Planet
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    CSS 2D/3D 기반 GPU 가속 Rendering
+                    <ul>
+                        <li>
+                            Timeline, Continuous painting mode
+                        </li>
+                        <li>
+                            Layers in Canary Inspector
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    WebKit 내부 지식 + DOM Inspector + Practice ==> Commercial-ready 고성능 Web App 개발 매우 기본
+                </li>
+            </ol>
         </div>
     </div>
 
     <div id="mobileOptimized" class="step slide" data-x="2000" data-y="-1500">
         <h1 class="title">Mobile 단말에서 HTML5의 현실 </h1>
         <div class="content">
+            <span>
+                fragmentation은 광범위한 practice를 요구함
+            </span>
+            <br>
             <div>
                 <img height="300px" src="img/cross-platform.png">
             </div>
@@ -368,6 +391,42 @@
         </div>
     </div>
 
+    <div id="treeComplexity" class="step slide" data-x="5900" data-y="0" data-scale="0.05">
+        <h1 class="title">DOM/Render Tree 복잡도 관리</h1>
+        <div class="content">
+            <ol>
+                <li>DOM node 및 Render Object 개수는 최소화
+                    <ul>
+                        <li>DOM node 재활용: DOM node 상수개 고정</li>
+                        <li>동적으로 삽입/삭제</li>
+                        <li>display:none 설정 -> 해당 Render Object 제거, DOM node 유지</li>
+                        <li>visibility:hidden -> Tree 복잡도 유지되나 painting cost 절감 가능</li>
+                    </ul>
+                </li>
+                <li>animation동안 DOM 내용 변경 절대 지양
+                    <ul>
+                        <li>
+                            recalculate style -> layout -> painting을 야기하여 bumpy animation의 주요 원인
+                        </li>
+                        <li>
+                            Inspector로 확인시 Composite Layer만 존재할 경우가 최적
+                        </li>
+                    </ul>
+                </li>
+                <li>iframe으로 view 분리 (sandboxing)
+                    <ul>
+                        <li>
+                            iframe으로 분리되면 아무리 복잡하더라도 서로 분리된 view간 영향을 주지 않음
+                        </li>
+                        <li>
+                            long-running app 개발시에도 메모리 leak 대응 용이
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
     <div id="treeExample" class="step slide" data-x="6000" data-y="0" data-scale="0.05">
         <h1 class="title">WebKit 내부 Tree</h1>
         <div class="content">
@@ -376,9 +435,10 @@
     </div>
 
     <div id="renderLayerGen" class="step slide" data-x="6100" data-y="0" data-scale="0.05">
-        <h1 class="title">RenderLayer Tree 생성</h1>
+        <h1 class="title">RenderLayer Tree 생성: Stacking Context 관리</h1>
         <div class="content">
             <img width="100%" src="img/renderlayerGen.png">
+            <div>overlapping 영역 관리</div>
         </div>
     </div>
 
@@ -388,7 +448,7 @@
             <ol>
                 <li> Root Objet </li>
                 <li> CSS position: relative, absolute, transform</li>
-                <li> transparent, overflow, alpha mask, reflection </li>
+                <li> opacity, overflow, alpha mask, reflection </li>
                 <li> CSS filter</li>
                 <li> canvas 2D, 3D</li>
                 <li> video </li>
@@ -487,15 +547,15 @@
     </div>
 
     <div id="performanttAC" class="step slide" data-x="9000" data-y="0">
-        <h1 class="title">고성능 Animation을 위한 Tip</h1>
+        <h1 class="title">고성능 Animation을 위한 Tip: No painting while animating</h1>
         <div class="content">
             <ol>
+                <li> Animation 도중 painting 발생하는 연산 미사용</li>
                 <li> CPU로 생성하는 Texture는 재활용
                     <ul>
                         <li>animation완료후 transform 속성 미제거</li>
                     </ul>
                 </li>
-                <li> Animation 도중 painting 발생하는 연산 미사용</li>
                 <li> 내부 timer를 사용하는 keyframe animation/transition을 사용
                     <ul>
                         <li>Webkit 내부에서 수행되고, JavaScript 개입(style 변경)이 없어서 매우 빠름</li>
@@ -504,10 +564,18 @@
                 </li>
                 <li> 합성 layer 수는 최소로 유지: 일부 단말에서 성능 저하
                     <ul>
-                        <li>Chrome에서 layer용 VRAM이 소진시 오히려 성능이 느려짐</li>
+                        <li>Chrome에서 layer용 VRAM이 소진시 오히려 성능이 느려지거나, silent crash</li>
                         <li>* { -webkit-transform: translate3d(0,0,0) 를 무턱대고 쓰지말고, 왜 느린지 원인을 분석해서 해결하라</li>
                     </ul>
                 </li>
+                <li> animation flickering 원인 및 대처
+                    <ul>
+                        <li>scrolling 동안 GPU texture/tile을 swipe in/out 하면 발생 </li>
+                        <li>CPU rendering을 GPU rendering으로 switch 하는 경우 발생</li>
+                        <li>대처: CPU와 GPU communication 최소화</li>
+                    </ul>
+                </li>
+
             </ol>
         </div>
     </div>
@@ -606,6 +674,7 @@
                     <ul>
                         <li>상세 profiling을 통한 성능 개선은 사용성, battery 절약에 매우 중</li>
                         <li>Google code school: http://discover-devtools.codeschool.com/</li>
+                        <li>https://developers.google.com/chrome-developer-tools/</li>
                     </ul>
                 </li>
             </ol>
@@ -722,6 +791,46 @@
         </div>
     </div>
 
+    <div id="timelineProgramming" class="step slide" data-x="-900" data-y="1400" data-scale="0.01">
+        <h1 class="title">timeline panel programming(4 Chrome)</h1>
+        <div class="content">
+            <ol>
+                <li>custom annotation: console.timeStamp("My Event")</li>
+                <li>custom timeline marker: console.time("Start"); console.timeEnd("End");</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="LayerView" class="step slide" data-x="-885" data-y="1400" data-scale="0.01">
+        <h1 class="title">Composite Layer Viewer: Hot and Cool!</h1>
+        <div class="content">
+            <ol>
+                <li>Web page의 HW 가속 Layer를 Graphical하게 출력 해줌</li>
+                <li> 설치
+                    <ol>
+                        <li> Chrome Canary의 about:flags page 진입</li>
+                        <li> experimental debugging feature enable</li>
+                        <li> browser restart</li>
+                        <li> DOM inspector 설정의 experimant Tab에서 "Show Layers Panel" 클릭</li>
+                        <li> Inspector 상단에 Layer panel 생성</li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="chromeTracing" class="step slide" data-x="-870" data-y="1400" data-scale="0.01">
+        <h1 class="title">Chrome://tracing</h1>
+        <div class="content">
+            <ol>
+                <li>궁극의 Profiler로 thread/process 단위로 profiling</li>
+                <li>Profiling할 tab만을 남기고 모두 닫은후 Profiling 수행</li>
+                <li>Compositor thread와 RendererMain thread를 집중적으로 분석</li>
+                <li>keyboard로 결과 navigation: a(좌),d(우), w(zoom in), s(zoom out)</li>
+            </ol>
+        </div>
+    </div>
+
     <div id="dumpRenderTree" class="step slide" data-x="-800" data-y="1400" data-scale="0.1">
         <h1 class="title">DumpRenderTree</h1>
         <div class="content">
@@ -824,6 +933,92 @@
         </div>
     </div>
 
+    <div id="strollPractice" class="step slide" data-x="2500" data-y="900" data-scale="0.05">
+        <h1 class="title">stroll.js 최적화 실전</h1>
+        <div class="content">
+            <ol>
+                <li> 부드러운 animation
+                    <ul>
+                        <li> li 단위로 Texture를 생성하고 유지하기</li>
+                        <li> 한쪽 방향만 animation을 수행하도록 하여 동시 수행 animation 수를 줄이기</li>
+                        <li> scroll bar 그리지 않기</li>
+                        <li> absolute position으로 고정후 동적으로 display:none 설정:Plaga Smart Scroller 적용 전후 비교</li>
+                        <li> scrolling 동안 신규 li를 display:none 해제 하지 않기</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="canvasOptimization1" class="step slide" data-x="2500" data-y="1000" data-scale="0.05">
+        <h1 class="title">HTML5 Game 개발: DOM vs Canvas</h1>
+        <div class="content">
+            <ol>
+                <li> DOM: CSS3 with HW 가속
+                    <ul>
+                        <li> retained mode: scene graph 제공</li>
+                        <li> event handler 등록하여 처리</li>
+                        <li> HW Accelerated Composition</li>
+                        <li> DOM의 증가 성능 감소</li>
+                    </ul>
+                </li>
+                <li>Canvas
+                    <ul>
+                        <li>immediate mode</li>
+                        <li> canvas로 hit test 및 object 모델링(scene graph)</li>
+                        <li>painting의 무한 반복</li>
+                        <li>painting이 느리면 속도가 감소</li>
+                        <li>DOM node 개수는 증가하지 않음</li>
+                    </ul>
+                </li>
+
+            </ol>
+        </div>
+    </div>
+
+    <div id="canvasOptimization2" class="step slide" data-x="2600" data-y="1000" data-scale="0.05">
+        <h1 class="title">HTML5 Game 개발:  Hybrid</h1>
+        <div class="content">
+            <ol>
+                <li> DOM
+                    <ul>
+                        <li> Painting이 필요하지 않고 위치만 변경되는 layer </li>
+                        <li> 배경, 정적인 Object </li>
+                    </ul>
+                </li>
+                <li>Canvas
+                    <ul>
+                        <li> Game animation과 같이 매 frame painting이 필요한 부분</li>
+                        <li> 총알 같이 개수가 많은 object </li>
+                        <li> Canvas내에서도 Layer로 구분하여 painting 후 CSS로 합성하여 출력 </li>
+                    </ul>
+                </li>
+
+            </ol>
+        </div>
+    </div>
+
+    <div id="canvasOptimization3" class="step slide" data-x="2700" data-y="1000" data-scale="0.05">
+        <h1 class="title">HTML5 Game 개발:  단말에서 성능 개선 </h1>
+        <div class="content">
+            <ol>
+                <li> WebWorker
+                    <ul>
+                        <li> Physics Engine </li>
+                        <li> Network 게임: 서버 통신 부분 </li>
+                    </ul>
+                </li>
+                <li> Canvas는 화면 Painting 영역에 크기에 비례하여 성능 감소
+                    <ul>
+                        <li> Canvas로 그리고 CSS style로 늘리기</li>
+                        <li> 최소 2가지 해상도 게임 개발 </li>
+                    </ul>
+                </li>
+
+            </ol>
+        </div>
+    </div>
+
     <div id="conclusion" class="step slide" data-x="3000" data-y="1000" data-rotate="90">
         <h1 class="title">결론</h1>
         <div class="content">
@@ -860,7 +1055,9 @@
 </div>
 
 <script src="js/impress.js"></script>
-<script>impress().init();</script>
+<script>
+impress().init();
+</script>
 <script src="js/presentation.js"></script>
 
 </body>
