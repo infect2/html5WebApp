@@ -294,6 +294,22 @@ a:focus {
     font-size: 8px;
 }
 
+#title1 div, #question div{
+    -webkit-transition: 10s;
+    -moz-transition:    10s;
+    -ms-transition:     10s;
+    -o-transition:      10s;
+    transition:         10s;
+}
+
+#title1.present .flipX{
+    -webkit-transform: rotateX(360deg);
+    -moz-transform:    rotateX(360deg);
+    -ms-transform:     rotateX(360deg);
+    -o-transform:      rotateX(360deg);
+    transform:         rotateX(360deg);
+}
+
 /*slideCanvas page*/
 #slideCanvas .gpuAC{
     -webkit-transition: 10s;
