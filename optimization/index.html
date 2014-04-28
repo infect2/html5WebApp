@@ -580,7 +580,30 @@
         </div>
     </div>
 
-    <div id="ACAnomalyHandling" class="step slide" data-x="10000" data-y="0">
+    <div id="performanttAC2" class="step slide" data-x="9000" data-y="0" data-scale="0.001">
+        <h1 class="title">Declarative vs JavaScript 기반 Animation</h1>
+        <div class="content">
+            <ol>
+                <li> Declarative Animation
+                    <ul>
+                        <li>CSS로 animation 설정</li>
+                        <li>WebKit 엔진 내에서 최적화 가능</li>
+                        <li>main thread가 overloaded되어도 수행이 됨</li>
+                    </ul>
+                <li> JavaScript Animation
+                    <ul>
+                        <li>애니메이션 시작, 끝, 일시중지등 복잡한 형태를 구현 가능</li>
+                        <li>main thread가 overloaded될 경우 animation이 제대로 수행되지 않음</li>
+                        <li>main thread의 부하를 증가 시킴</li>
+                        <li>https://github.com/ianvollick/animation-proxy/blob/master/Explainer.md</li>
+                        <li>http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/</li>
+                    </ul>
+                </li>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div id="ACAnomalyHandling" class="step slide" data-x="10000" data-y="0" data-scale="0.1">
         <h1 class="title">Animation시 Trouble Shooting</h1>
         <div class="content">
             <ol>
