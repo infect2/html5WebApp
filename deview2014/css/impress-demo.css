@@ -188,7 +188,7 @@ a:focus {
     color: rgb(102, 102, 102);
     text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
 
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 30px;
     line-height: 36px;
     letter-spacing: -1px;
@@ -216,21 +216,27 @@ a:focus {
 
 /*첫번째 bullet level*/
 .slide .content > ol li, .slide .content > div ol li{
-    font-size: 18px;
+    font-size: 28px;
+    padding-top: 10px;
+    padding-left: 30px;
+}
+
+.slide .content > ul li, .slide .content > div ul li{
+    font-size: 28px;
     padding-top: 10px;
     padding-left: 30px;
 }
 
 /*두번째 bullet level*/
 .slide .content > ol ol > li {
-    font-size: 14px;
+    font-size: 24px;
     padding-top: 10px;
     padding-left: 30px;
 }
 
 /*두번째 bullet level*/
 .slide .content > ol  ul > li {
-    font-size: 14px;
+    font-size: 24px;
     padding-top: 10px;
     padding-left: 30px;
 }
@@ -257,57 +263,31 @@ a:focus {
     3D positioning along Z axis.
 */
 
-#title {
-    padding: 0;
-}
-
-#title .try {
-    font-size: 64px;
+#canvasLogo {
+    display:block;
     position: absolute;
-    top: -0.5em;
-    left: 1.5em;
-
-    -webkit-transform: translateZ(20px);
-    -moz-transform:    translateZ(20px);
-    -ms-transform:     translateZ(20px);
-    -o-transform:      translateZ(20px);
-    transform:         translateZ(20px);
+    width: 230px;
+    /*top: 340px;*/
+    /*left: 260px;*/
+    opacity: 0;
+    z-index: 100;
+    /*-webkit-transform: translate3d(-30px, -650px, 0) scale(0.8,0.8);*/
+    -webkit-transform: translate3d(220px, -350px, 0);
+    -webkit-animation: canvasLogoMove 10s 10 alternate;
 }
 
-#title h1 {
-    font-size: 190px;
-
-    -webkit-transform: translateZ(50px);
-    -moz-transform:    translateZ(50px);
-    -ms-transform:     translateZ(50px);
-    -o-transform:      translateZ(50px);
-    transform:         translateZ(50px);
-}
-
-#title .footnote {
-    font-size: 32px;
-}
-
-
-#title div.thanksTo {
-    padding-top: 40px;
-    font-size: 8px;
-}
-
-#title1 div, #question div{
-    -webkit-transition: 10s;
-    -moz-transition:    10s;
-    -ms-transition:     10s;
-    -o-transition:      10s;
-    transition:         10s;
-}
-
-#title1.present .flipX{
-    -webkit-transform: rotateX(360deg);
-    -moz-transform:    rotateX(360deg);
-    -ms-transform:     rotateX(360deg);
-    -o-transform:      rotateX(360deg);
-    transform:         rotateX(360deg);
+@-webkit-keyframes canvasLogoMove {
+    0%   { -webkit-transform: translate3d(220px, -350px, 0); opacity: 1;}
+    10%   { -webkit-transform: translate3d(220px, -350px, 0); opacity: 0;}
+    20%   { -webkit-transform: translate3d(220px, -350px, 0); opacity: 1;}
+    30%   { -webkit-transform: translate3d(220px, -350px, 0); opacity: 0;}
+    40%   { -webkit-transform: translate3d(220px, -350px, 0); opacity: 1;}
+    50%   { -webkit-transform: translate3d(220px, -350px, 0); opacity: 0;}
+    60%   { -webkit-transform: translate3d(220px, -350px, 0); opacity: 1;}
+    70%   { -webkit-transform: translate3d(-30px, -650px, 0) scale(0.8,0.8); opacity:0;}
+    80% { -webkit-transform: translate3d(-30px, -650px, 0) scale(0.8,0.8); opacity:1; }
+    90% { -webkit-transform: translate3d(-30px, -650px, 0) scale(0.8,0.8); opacity:0; }
+    100% { -webkit-transform: translate3d(-30px, -650px, 0) scale(0.8,0.8); opacity:1; }
 }
 
 /*slideCanvas page*/
