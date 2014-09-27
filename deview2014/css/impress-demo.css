@@ -219,30 +219,29 @@ a:focus {
 }
 
 /*첫번째 bullet level*/
+.slide .content > ol,
+.slide .content > ul
+{
+    padding-left: 50px;
+}
 .slide .content > ol li, .slide .content > div ol li{
     font-size: 28px;
     padding-top: 10px;
-    padding-left: 30px;
+    padding-left: 15px;
 }
 
 .slide .content > ul li, .slide .content > div ul li{
     font-size: 28px;
     padding-top: 10px;
-    padding-left: 30px;
+    padding-left: 15px;
 }
 
 /*두번째 bullet level*/
-.slide .content > ol ol > li {
-    font-size: 24px;
-    padding-top: 10px;
-    padding-left: 30px;
-}
-
-/*두번째 bullet level*/
+.slide .content > ol ol > li,
 .slide .content > ol  ul > li {
     font-size: 24px;
     padding-top: 10px;
-    padding-left: 30px;
+    padding-left: 15px;
 }
 
 .slide .content {

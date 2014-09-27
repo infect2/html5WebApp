@@ -42,7 +42,6 @@
         <div>상용 개발시 기술 경험을 공유합니다.</div>
     </div>
 
-
     <div id="question3" class="step" data-x="-3502" data-y="-1501" data-rotate-y="180" data-scale="0.001">
         <iframe width="360" height="560" data-src="pages/ocbArcade/cubeUI/dev.html" frameborder="0"></iframe>
         <img height="700px" src="./img/ocbArcadePromo.png">
@@ -60,30 +59,31 @@
     <div id="title2" class="step slide" data-x="-1500" data-y="-1500">
         <q>앱 세상에서 HTML5 생존기:</q>
             <div>HTML5 기반 모바일 단말용 게임 개발 및 최적화</div>
-        <q>임상석 팀장 > Web 기술 개발팀 > SK 플래닛</q>
+        <q style="font-size:40px">임상석 팀장 > Web 기술 개발팀 > SK 플래닛</q>
         <img class="positioning" src="./img/skpLogo.png">
     </div>
 
-    <div id="title3" class="step slide" data-x="-1500" data-y="-1500" data-scale="0.1">
-        <h1 class="title">개발 이력 소개</h1>
-        <div>- HTML5 Web App Platform: JavaScript (2011 - Now)</div>
-        <div>- WebKit Engine: Linux/Tizen C++, C (2008 - 2011)</div>
-        <div>- Mobile Firefox Browser: Linux C++ (2007 - 2008)</div>
-        <div>- L4/L7 Switch/ Apache Server: Linux, C (2001 - 2006)</div>
+    <div id="title3" class="step slide" data-x="-1500" data-y="-1520" data-scale="0.1">
+        <h1 class="title">발표자 개발 이력 소개</h1>
+        <div style="padding:25px">- Web Front-end: <span style="font-size:20px">OK 캐쉬백, Syrup Store, JavaScript (2013 - Now)</span></div>
+        <div style="padding:25px">- HTML5 Web Platform: <span style="font-size:20px">Android/iOS/Hybrid, JavaScript (2011 - Now)</span></div>
+        <div style="padding:25px">- WebKit Browser: <span style="font-size:20px">Linux/Tizen, C++, C (2008 - 2011)</span></div>
+        <div style="padding:25px">- Mobile Firefox Browser: <span style="font-size:20px">Linux, C++ (2007 - 2008)</span></div>
+        <div style="padding:25px">- L4/L7 Switch/ Apache Server: <span style="font-size:20px">Linux, C (2001 - 2006)</span></div>
     </div>
 
     <div id="environment" class="step slide" data-x="-500" data-y="-1500" data-rotate-y="90">
-        <h1 class="title">HTML5 개발에 대한 단상</h1>
+        <h1 class="title">HTML5 개발에 대한 단상들</h1>
         <div class="content">
             <ol>
-                <li> 모바일 브라우져/모바일 Web에 대한 천시
+                <li> 모바일 브라우져/모바일 Web에 대한 서비스 활용도 저하
                     <ul>
                         <li>
-                            서비스 소개와 App 설치 유도 페이지
+                            서비스 소개와 App 설치 유도 페이지로 전
                         </li>
                     </ul>
                 </li>
-                <li> 제3의 OS로서의 HTML5 동력 상실
+                <li> 제3의 OS로서의 HTML5 가능성 쇠퇴
                     <ul>
                         <li>
                             Cross Platform 대응 보다는 각 OS 최적화 개발
@@ -106,7 +106,7 @@
                             JavaScript 정통한 개발자
                         </li>
                         <li>
-                            Fragementation 극복
+                            Engineering 분석을 통한 Fragementation 극복 역량
                         </li>
                     </ul>
                 </li>
@@ -115,30 +115,53 @@
     </div>
 
     <div id="slideCanvas" class="step slide" data-x="-500" data-y="-1500" data-rotate-x="90">
-        <h1 class="title">그래도 HTML5의 죽지 않았다</h1>
+        <h1 class="title">그래도 HTML5는 죽지 않았다 </h1>
         <div class="content">
             <ol>
-                <li> No App Update
-                    <ul>
-                        <li>
-                            App update 저항감 회피
-                        </li>
-                        <li>
-                            App Store를 통한 서비스 배포 지연 회피
-                        </li>
-                    </ul>
-                </li>
-                <li> iOS/Android One Source 상용화
-                    <ul>
-                        <li>
-                            개발 비용 효율화
-                        </li>
-                    </ul>
-                </li>
                 <li> WebView를 통한 Hybrid App의 일반화
                     <ul>
                         <li>
-                            사업/기획팀 비 개발자도 Hybrid App의 장점을 이해
+                            사업/기획팀등 비 개발자도 Hybrid App의 장점을 이해
+                        </li>
+                    </ul>
+                </li>
+                <li> No App Update
+                    <ul>
+                        <li>
+                            사용자 App update 저항감 회피
+                        </li>
+                        <li>
+                            App Store를 통한 서비스 배포 지연 위험성 회피
+                        </li>
+                    </ul>
+                </li>
+                <li> iOS/Android One Source 배포
+                    <ul>
+                        <li>
+                            개발, 운영 비용 효율화
+                        </li>
+                    </ul>
+                </li>
+
+            </ol>
+        </div>
+    </div>
+
+    <div id="mobileOptimized" class="step slide" data-x="0" data-y="-1500">
+        <h1 class="title">SK 플래닛의 HTML5 상업적 활용 사례 </h1>
+        <div class="content">
+            <ol>
+                <li> CSS2D/3D 기반 Web UI
+                    <ul>
+                        <li>
+                            Hybrid App내 Native 동등 수준 Web UI
+                        </li>
+                    </ul>
+                </li>
+                <li> &#60;canvas&#62; 기반 게임
+                    <ul>
+                        <li>
+                            사용자 놀거리 제공: App/서비스 UV 제고
                         </li>
                     </ul>
                 </li>
@@ -146,23 +169,12 @@
         </div>
     </div>
 
-    <div id="mobileOptimized" class="step slide" data-x="0" data-y="-1500">
-        <h1 class="title">SK 플래닛의 HTML5 상업적 활용 방향</h1>
+    <div id="osMSShare" class="step slide" data-x="0" data-y="-500" data-rotate-y="90">
+        <h1 class="title">상품화 수준 정의</h1>
         <div class="content">
             <ol>
-                <li> CSS2D/3D 기반 Web UI
-                    <ul>
-                        <li>
-                            Native 동등 수준 Web UI
-                        </li>
-                    </ul>
-                </li>
-                <li> Canvas 기반 게임
-                    <ul>
-                        <li>
-                            App/서비스 UV 제고
-                        </li>
-                    </ul>
+                <li>
+                    모든 고객 만족: Android 2.3x 이상, iOS 5.0 이상 지원
                 </li>
             </ol>
         </div>
