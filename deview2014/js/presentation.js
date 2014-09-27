@@ -1,5 +1,5 @@
 $(document).on("impress:stepenter", function(){
-    var activePageId; 
+    var activePageId;
 
     console.log("impress:stepenter:" + window.location.hash);
     activePageId = window.location.hash.replace("#/","");
@@ -7,7 +7,7 @@ $(document).on("impress:stepenter", function(){
 })
 
 $(document).on("impress:stepleave", function(){
-    var activePageId; 
+    var activePageId;
 
     console.log("impress:stepleave:" + +window.location.hash);
     activePageId = window.location.hash.replace("#/","");
@@ -46,17 +46,8 @@ var pageAnimationHandler = {
 
 //page 별 animation hanlder를 기술 후 일괄 등록
 pageAnimationHandler.init({
-    introTitleP: function(){
-    },
-    contentP: function(){
-        $('#contentP .imgContainer').off().on('click', function(){
-            $(this).toggleClass('moveUp');
-        })
-    },
-    pjsHWAccel2P: function(){
-        $('#pjsHWAccel2P .imgContainer').off().on('click',function(){
-            $(this).toggleClass('rotateImg');
-        })
+    cover: function(){
+        $('#canvasLogo')[0].classList.add("ing");
     },
     demo1: function(){
         $('#demo1 iframe').each( function( index, elem ){
@@ -64,66 +55,6 @@ pageAnimationHandler.init({
             setTimeout( function(){
                 $(that).attr( "src", $( that ).attr( 'data-src') );
             }, 2000);
-        });
-    },
-    demo2: function(){
-        $('#demo2 iframe').each( function( index, elem ){
-            var that = this;
-            setTimeout( function(){
-                $(that).attr( "src", $( that ).attr( 'data-src') );
-            }, 2000);
-        });
-    },
-    inspectorPitfall:function(){
-        $('#inspectorPitfall iframe').each( function( index, elem ){
-            var that = this;
-            setTimeout( function(){
-                $(that).attr( "src", $( that ).attr( 'data-src') );
-            }, 1000);
-        });
-    },
-    linkedinIssue: function(){
-        $('#linkedinIssue img').off().on('click', function(){
-            alert("제대로 된 Tool이 없어요!");
-        });
-    },
-    timeline: function(){
-        $('#timeline .timelineImg').off().on('click', function(){
-            $(this).toggleClass('moveUp');
-        });
-    },
-    timelineDetail: function(){
-        $('#timelineDetail .leftImg').off().on('click', function(){
-            $('#timelineDetail .leftImg').toggleClass('scaleUp2x');
-        });
-        $('#timelineDetail .rightImg').off().on('click', function(){
-            $('#timelineDetail .rightImg').toggleClass('scaleUp2x');
-        });
-    },
-    timelinePractice: function(){
-        $('#timelinePractice iframe').each( function( index, elem ){
-            var that = this;
-            setTimeout( function(){
-                $(that).attr( "src", $( that ).attr( 'data-src') );
-            }, 2000);
-        });
-    },
-    continuousPainting: function(){
-        $('#continuousPainting .contImg').off().on('click', function(){
-            $('#continuousPainting .contImg2').toggleClass('moveUp');
-        });
-    },
-    useTransitionbyInspector: function(){
-        $('#useTransitionbyInspector .leftImg').off().on('click', function(){
-            $('#useTransitionbyInspector .leftImg').toggleClass('scaleUp2x');
-        });
-        $('#useTransitionbyInspector .rightImg').off().on('click', function(){
-            $('#useTransitionbyInspector .rightImg').toggleClass('scaleUp2x');
-        });
-    },
-    paintingPath: function(){
-        $('#paintingPath .helloWorld').off().on('click', function(){
-            $('#paintingPath .helloWorld').toggleClass('rotateImg');
         });
     }
 });
@@ -146,16 +77,14 @@ var pageExitAnimationHandler = {
 
 //page 별 animation hanlder를 기술 후 일괄 등록
 pageExitAnimationHandler.init({
-    demo1: function(){
-        $('#demo1 iframe').each( function( index, elem ){
-            $(this).attr( "src", "" );
-        });
+    cover: function(){
+        $('#canvasLogo')[0].classList.remove("ing");
     },
     demo2: function(){
         $('#demo2 iframe').each( function( index, elem ){
             $(this).attr( "src", "" );
         });
-    },
+    }
 });
 //display clock
 new imageclock.display()

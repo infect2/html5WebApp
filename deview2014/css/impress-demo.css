@@ -36,7 +36,7 @@ small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
+table, caption, tbody, tfoot, thead, tr, 는h, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
@@ -81,8 +81,10 @@ table {
     And yes, there is a lot of repetition there because of -prefixes but we don't
     want to leave anybody behind.
 */
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+
 body {
-    font-family: 'PT Sans', sans-serif;
+    font-family: 'Nanum Gothic', 'PT Sans', sans-serif;
     min-height: 740px;
 
     background: rgb(215, 215, 215);
@@ -142,7 +144,8 @@ a:focus {
     -o-box-sizing:      border-box;
     box-sizing:         border-box;
 
-    font-family: 'PT Serif', georgia, serif;
+    /*font-family: 'PT Serif', georgia, serif;*/
+    font-family: 'Nanum Gothic', 'PT Sans', sans-serif;
     font-size: 48px;
     line-height: 1.5;
 }
@@ -188,7 +191,8 @@ a:focus {
     color: rgb(102, 102, 102);
     text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
 
-    font-family: Arial, sans-serif;
+    /*font-family: Arial, sans-serif;*/
+    font-family: 'Nanum Gothic', 'PT Sans', sans-serif;
     font-size: 30px;
     line-height: 36px;
     letter-spacing: -1px;
@@ -273,6 +277,9 @@ a:focus {
     z-index: 100;
     /*-webkit-transform: translate3d(-30px, -650px, 0) scale(0.8,0.8);*/
     -webkit-transform: translate3d(220px, -350px, 0);
+}
+
+#canvasLogo.ing {
     -webkit-animation: canvasLogoMove 10s 10 alternate;
 }
 
