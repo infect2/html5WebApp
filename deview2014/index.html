@@ -587,29 +587,34 @@
         </h1>
         <div class="content">
             <ul>
-                <li>게임 &#60;canvas&#62;를 포함한 DOM Tree의 복잡도에 대한 영향 측정</li>
+                <li>Painting 영역의 크기에 비례하여 성능에 성능 감소</li>
+                <li>&#60;canvas&#62;를 내포한 DOM Tree 노드가 증가하면 성능 감소와 동시에 fps 변이가 심해짐</li>
             </ul>
         </div>
     </div>
 
     <div id="canvasDOMHybrid" class="step slide" data-x="2000" data-y="3000">
-        <h1 class="title">DOM/Canvas Hybrid</h1>
+        <h1 class="title">성능 개선: DOM/Canvas Hybrid</h1>
         <div class="content">
             <ul>
-                <li>Painting 영역을 최소화</li>
-                <li>애니메이션이 없는 게임 Object를 DOM으로 분리</li>
+                <li>애니메이션이 없는 게임 Object를 DOM으로 분리하여 GPU 가속을 사용하여 렌더링</li>
             </ul>
+            <img height="500px" width="900px" src="./img/DOMRendererCode.png">
         </div>
     </div>
 
     <div id="domPool" class="step slide" data-x="3000" data-y="3000">
-        <h1 class="title">DOM Node Pool</h1>
+        <h1 class="title">성능 개선: DOM/Canvas Hybrid</h1>
         <div class="content">
             <ul>
-                <li>Viewport 내의 게임 오브젝트를 담는 DOM을 Object Pool로 관리</li>
-                <li>DOM Node의 재활용</li>
-                <li>애니메이션이 없으므로 Object 이미지도 재활용 필수</li>
+                <li> DOM Node Pool: DOM Renderer의 구현 최적화
+                    <ul>
+                        <li>Viewport 내의 게임 오브젝트를 담는 DOM노드를 Pool로 관리</li>
+                        <li>애니메이션이 없으므로 Object 이미지도 재활용 필수 -> reset시 painting 발생으로 오히려 성능 저하</li>
+                    </ul>
+                </li>
             </ul>
+            <img height="350px" width="600px" src="./img/DOMNodePool.png">
         </div>
     </div>
 
@@ -617,7 +622,7 @@
         <h1 class="title">Invalidate 영역 관리</h1>
         <div class="content">
             <ul>
-                <li>이전 Frame을 복사하여 재활용</li>
+                <li>이전 Frame의 &#60;canvas&#62;를 지우지 않고 현재 Frame에 재활용</li>
                 <li>Invalidate 영역만을 redraw</li>
             </ul>
         </div>
@@ -627,22 +632,34 @@
         <h1 class="title">Source 이미지 크기 관리</h1>
         <div class="content">
             <ul>
-                <li>Sprite 이미지 사용시 네트워크 요청 개수를 줄일수 있음</li>
-                <li>원본이미지의 크기가 커지면 커질수록 destination 이미지 크기가 고정이어도 속도 저하</li>
-                <li>자주 쓰이는 object는 개별 이미지로 분리</li>
+                <li>Sprite 이미지 사용시 네트워크 요청 개수를 줄일수 있음. 그러나,</li>
+                <li>원본 이미지의 크기가 커지면 비례하여 crop하는 영역이 고정 크기여도 속도 저하</li>
+                <li>해결책: 자주 쓰이는 object는 개별 이미지로 분리</li>
             </ul>
         </div>
     </div>
+
+
 
     <div id="garbageCollection" class="step slide" data-x="6000" data-y="3000">
         <h1 class="title">Garbage Collection 최소화</h1>
         <div class="content">
             <ul>
                 <li>게임내 모든 주요 Object는 Static Object Pool을 통해 관리</li>
-                <li>Static Object 구현 방식: Single Array, Double Array, Doubly Linked List</li>
+                <li>Static Object 구현 방식에 따른 성능 차이: Single Array, Double Array, Doubly Linked List</li>
+                <li><a href="http://jsperf.com/objectpool-performance-comparison">성능 비교 직접 해보기 </a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="garbageCollectionPerf" class="step slide" data-x="6000" data-y="3500" data-rotate-y="90">
+        <h1 class="title">Garbage Collection 최소화</h1>
+        <div class="content">
+            <ul>
                 <li>Single Array: push/pop이 가종 빠름</li>
                 <li>GC를 완벽히 차단하는 것은 매우 어렵다</li>
             </ul>
+            <img height="500px" width="700px" src="./img/StaticObjecPoolPerf.png">
         </div>
     </div>
 
@@ -650,22 +667,30 @@
         <h1 class="title">해상도 파헤치기</h1>
         <div class="content">
             <ul>
-                <li>최종 화면에 하나의 Pixel이 그려지기 위해서는 다단계 Scale 발생</li>
-                <li>canvas.width, canvas.height</li>
-                <li>canvas.style.width, canvas.style.height</li>
-                <li>drawImage(원본 이미지 위치, destination scaled 위치)</li>
-                <li>window.devicePixelRatio</li>
+                <li>최종 화면에 하나의 Pixel이 그려지기 위해서는 실질적으로 다단계 이미지 Scale 발생
+                    <ul>
+                        <li>canvas.width, canvas.height</li>
+                        <li>canvas.style.width, canvas.style.height</li>
+                        <li>drawImage(원본 이미지 위치, destination scaled 위치)</li>
+                        <li>window.devicePixelRatio</li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
 
     <div id="DOMComplexity" class="step slide" data-x="8000" data-y="3000">
-        <h1 class="title">Game 실행 환경 분리</h1>
+        <h1 class="title">Game 실행 환경 분리 필수</h1>
         <div class="content">
             <ul>
-                <li>canvas 게임을 Web Page에 embedding 시 canvas rendering 성능 저하</li>
-                <li>fps가 swing 하는 현상이 발생하며 30% 저하</li>
-                <li>Web Page에 embed 시키지 말고 별도의 HTML로 작성해서 로딩</li>
+                <li>canvas 게임을 Web Page에 embedding 시 canvas rendering 성능 저하
+                    <ul><li>fps가 swing 하는 현상이 발생하며 30% 저하</li></ul>
+                </li>
+                <li>Web Page에 embed 시키지 말고 별도의 HTML로 작성해서 로딩
+                    <ul>
+                        <li>디자인/Publishing/게임 개발이 서로 다른 팀에서 결과물에 대해서 pipeline 형태로 작업시 발생 가능</li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -676,16 +701,17 @@
             <ul>
                 <li>DOM/Canvas Hybrid</li>
                 <li>Smart repaint</li>
+                <li>Sprite 이미지 분리</li>
             </ul>
         </div>
     </div>
 
-    <div id="baseballBoard" class="step slide" data-x="10000" data-y="2000">
+    <div id="baseballBoard" class="step slide" data-x="10000" data-y="3000">
         <h1 class="title">요리조리 베이스볼 적용 사례</h1>
         <div class="content">
             <ul>
-                <li>전광판 DOM으로 분리</li>
-                <li>layout 연산으로 painting overhead가 증가하여 역효과</li>
+                <li>&#60;canvas&#62; 내 전광판 점수 영역을 DOM으로 분리: Painting 영역 감소</li>
+                <li>점수 update시 layout 연산발생으로 인한 painting overhead가 증가하여 역효과</li>
             </ul>
         </div>
     </div>
@@ -694,9 +720,14 @@
         <h1 class="title">2048</h1>
         <div class="content">
             <ul>
-                <li>DOM/Canvas Hybrid</li>
-                <li>Smart repaint</li>
-                <li>DOM Node 개수 최소화, Table 제거</li>
+                <li>DOM 방식(open source)</li>
+                <li>문제점
+                    <ul>
+                        <li>Node 움직이기 시작할때 DOM이 CPU영역에서 GPU 영역, 움직임이 종료시 다시 GPU 영역에서 CPU영역으로 이동</li>
+                        <li>2.3 및 4.04 단말에서 화면이 심하게 깜빡거리고 fps 저하가 심각</li>
+                    </ul>
+                </li>
+                <li>해결책: GPU영역에서 유지 되도록 코드 패치</li>
             </ul>
         </div>
     </div>
