@@ -49,12 +49,12 @@ pageAnimationHandler.init({
     cover: function(){
         $('#canvasLogo')[0].classList.add("ing");
     },
-    demo1: function(){
-        $('#demo1 iframe').each( function( index, elem ){
+    question3: function(){
+        $('#question3 iframe').each( function( index, elem ){
             var that = this;
             setTimeout( function(){
                 $(that).attr( "src", $( that ).attr( 'data-src') );
-            }, 2000);
+            }, 1000);
         });
     }
 });
@@ -80,8 +80,8 @@ pageExitAnimationHandler.init({
     cover: function(){
         $('#canvasLogo')[0].classList.remove("ing");
     },
-    demo2: function(){
-        $('#demo2 iframe').each( function( index, elem ){
+    question3: function(){
+        $('#question3 iframe').each( function( index, elem ){
             $(this).attr( "src", "" );
         });
     }
