@@ -177,6 +177,8 @@
                     모든 고객 만족: Android 2.3x 이상, iOS 5.0 이상 지원
                 </li>
             </ol>
+            <div style="font-size:20px;padding-left:250px">OK 캐쉬백 앱: Mobile OS Share</div>
+            <img style="padding-left:50px" height="450px" src="./img/mobileOSShare.png">
         </div>
     </div>
 
@@ -185,33 +187,23 @@
         <div class="content">
             <ol>
                 <li>
-                    WebKit 내부 동작: DOM 복잡도 관리 및 GPU 활용
+                    WebKit 내부 동작: DOM/Render Tree 복잡도 관리/GPU 활용
                 </li>
                 <li>
-                    개발 환경: Chrome Inspector
+                    개발 환경: Chrome Inspector 활용
                 </li>
                 <li>
-                    Fragmentation의 이해 및 처리
+                    Fragmentation의 이해 및 대처
                 </li>
                 <li>
-                    요구사항에 의거하여 어디까지 가능한지 판단하기: 기술적으로 타협하기
+                    요구사항의 기술적인 구현 가능성 판단하기
                 </li>
             </ol>
         </div>
     </div>
 
-    <div id="webkitOverview" class="step slide" data-x="0" data-y="0">
-        <h1 class="title">Webkit과 Platform별 Port 이해하기</h1>
-        <div class="content">
-            <img width="50%" src="img/webkit-diagram.png">
-            <img width="47%" src="img/graphicscontext.png">
-            <img width="90%" src="img/webkitPortTable.png">
-        </div>
-        <div class="footnote">http://paulirish.com/2013/webkit-for-developers/</div>
-    </div>
-
     <div id="webkitFunction" class="step slide" data-x="1000" data-y="0">
-        <h1 class="title">Webkit 주요 기능 </h1>
+        <h1 class="title">Webkit 엔진 주요 기능 </h1>
         <div class="content">
             <ol>
                 <li> Parsing(HTML, XML, CSS, JavaScript)</li>
@@ -225,23 +217,57 @@
         </div>
     </div>
 
-    <div id="treeBasics" class="step slide" data-x="2000" data-y="0">
-        <h1 class="title">WebKit 내부 Tree</h1>
+    <div id="treeExample" class="step slide" data-x="2000" data-y="0">
+        <h1 class="title">WebKit 내부 Tree: HTML/CSS Parsing</h1>
         <div class="content">
-            <ol>
-                <li> DOM tree: Document내의 모든 DOM node를 갖음 </li>
-                <li> RenderObject tree: DOM node중에 화면에 보이는 node </li>
-                <li> RenderLayer tree: 한번에 같이 painting 할 RenderObject를 모아서 관리: 같은 z-index에 있는 node </li>
-            </ol>
-            <img height="500px" src="img/webkitTrees.png">
+            <img width="100%" src="img/treeExample.png">
         </div>
     </div>
 
-    <div id="treeComplexity" class="step slide" data-x="3000" data-y="0">
-        <h1 class="title">DOM/Render Tree 복잡도 관리</h1>
+    <div id="treeBasics" class="step slide" data-x="3000" data-y="0">
+        <h1 class="title">WebKit 내부 Tree: Parsing 후 HTML/CSS 내부 표현 </h1>
         <div class="content">
             <ol>
-                <li>DOM node 및 Render Object 개수는 최소화
+                <li> DOM tree: <span style="font-size:20px">Document내의 모든 DOM node</span> </li>
+                <li> RenderObject tree: <span style="font-size:20px">DOM node중에 화면에 보이는 node </span></li>
+                <li> RenderLayer tree: <span style="font-size:20px">한번에 painting할 RenderObject 모음: stacking context</span> </li>
+            </ol>
+            <img height="410px" width="1000px" src="img/DOMTree-CPU-GPU.png">
+        </div>
+    </div>
+
+    <div id="HWcompositing" class="step slide" data-x="4000" data-y="0">
+        <h1 class="title">GPU기반 합성</h1>
+        <div class="content">
+            <ol>
+                <li> CPU로 만들어진 texture는 다시 repaint되거나, 가속영역에서 제거되지 않을 경우 OpenGL ES 내에서 연속적인 합성을 위하여 재활용된다.</li>
+            </ol>
+            <img height="450px" src="img/renderingArch.png">
+        </div>
+    </div>
+
+    <div id="HWCompositingExample" class="step slide" data-x="5000" data-y="0">
+        <h1 class="title">GPU 기반 합성 예제</h1>
+        <div class="content">
+            <ol>
+                <li>
+                    아래와 같이 주황색으로 표시된 Element는 HW Accelerated Compositing을 사용하는 GPU Texture로 mapping 후 rendering
+                </li>
+            </ol>
+            <div class="gpuAC">
+                나는 OpenGLES GPU가 합성합니다. 잘사용하면 CPU 합성과 비교되지 않게 빨라요. GPU가 접근하는 Texture라는 메모리에 살고 있습니다
+            </div>
+            <div class="gpuAC">
+                DOM/Render Tree 복잡도 관점에는 최적화가 안되어 있어요
+            </div>
+        </div>
+    </div>
+
+    <div id="treeComplexity" class="step slide" data-x="6000" data-y="0">
+        <h1 class="title">DOM/Render Tree 복잡도 관리: The More, The Slower</h1>
+        <div class="content">
+            <ol>
+                <li>DOM node 및 RenderObject 개수는 최소화
                     <ul>
                         <li>DOM node 재활용: DOM node 상수 고정</li>
                         <li>동적으로 삽입/삭제</li>
@@ -249,7 +275,7 @@
                         <li>visibility:hidden -> Tree 복잡도 유지, painting cost 절감</li>
                     </ul>
                 </li>
-                <li>animation동안 DOM 내용 변경 절대 지양
+                <li>animation동안 DOM 내용 변경 절대
                     <ul>
                         <li>
                             style 변경 -> layout -> painting -> bumpy animation
@@ -259,7 +285,7 @@
                 <li>iframe으로 view 분리 (sandboxing)
                     <ul>
                         <li>
-                            iframe으로 분리되면 아무리 복잡하더라도 서로 분리된 view간 영향을 주지 않음
+                            iframe으로 분리시 서로 분리된 frame(view)간 영향을 주지 않음
                         </li>
                         <li>
                             long-running app 개발시에도 메모리 leak 대응 용이
@@ -270,39 +296,54 @@
         </div>
     </div>
 
-    <div id="treeExample" class="step slide" data-x="4000" data-y="0">
-        <h1 class="title">WebKit 내부 Tree</h1>
+    <div id="HWCompositingReference" class="step slide" data-x="7000" data-y="0">
+        <h1 class="title">WebKit 엔진의 설명 자료</h1>
         <div class="content">
-            <img width="100%" src="img/treeExample.png">
-        </div>
-    </div>
+            <ul>
+                <li>
+                    CPU에서 동작하는지 GPU에서 동작하는지 이해하고 활용 가능한 지식 필수
+                </li>
+                <li> 관련 자료들
+                    <ul>
+                        <li>
+                            <a href="http://skpla.net/ScCT">WebKit 엔진 및 고성능 웹 앱 개발 (동영상) </a>
+                        </li>
+                        <li>
+                            <a href="http://skpla.net/eTYB">WebKit 엔진 및 고성능 웹 앱 개발 (동영상) </a>
+                        </li>
+                        <li>
+                            <a href="http://skpla.net/f58t">WebKit 엔진 및 고성능 웹 앱 개발 Best Practice (Slide)</a>
+                        </li>
+                        <li>
+                            <a href="http://skpla.net/bWzP">HTML5 모바일 웹앱 개발 동향/사례/전망 (Slide)</a>
+                        </li>
 
-    <div id="HWcompositing" class="step slide" data-x="5000" data-y="0">
-        <h1 class="title">GPU기반 합성</h1>
-        <div class="content">
-            <ol>
-                <li> CPU로 만들어진 texture는 다시 repaint되거나, 가속영역에서 제거되지 않을 경우 OpenGL ES 내에서 연속적인 합성을 위하여 재활용된다.</li>
-            </ol>
-            <img height="450px" src="img/renderingArch.png">
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 
     <div id="tooling" class="step slide" data-x="-2000" data-y="1000">
-        <h1 class="title">Chrome Inspector</h1>
+        <h1 class="title">Web Inspector</h1>
         <div class="content">
             <ol>
-                <li>진정한 개발을 지원하는 개발 환경의 급격한 발전</li>
-                <li>Web Inspector 기능의 비약적인 발전
+                <li>진정한 의미 개발(Debugging/Profiling)이 가능해 짐
+                    <ul>
+                        <li>Native 수준 복잡도의 Web App 개발 가능</li>
+                    </ul>
+                </li>
+                <li>최근 1년사이 Web Inspector 기능의 비약적인 발전
                     <ul>
                         <li>Timeline: style, layout, compositing</li>
-                        <li>Profiling: Memory, Canvas, JavaScript</li>
+                        <li>Profiling: memory, canvas, JavaScript</li>
                         <li>GPU Layer visualization</li>
                     </ul>
                 </li>
-                <li> 모바일 단말 지원
+                <li> On-Device 지원
                     <ul>
                         <li>Chrome For Mobile/Chrome Webview</li>
-                        <li>iOS 6 버전이상에서 Web Inspector 지원 </li>
+                        <li>iOS 6 버전 이상에서 Web Inspector 지원 </li>
                     </ul>
                 </li>
                 <li> 상세 정보
@@ -318,82 +359,58 @@
     <div id="timeline" class="step slide" data-x="-1000" data-y="1000">
         <h1 class="title">Chrome Dev Tool: Timeline</h1>
         <div class="content">
-            <ol>
-                <li> 상단 panel
+            <ul>
+                <li> 시간 축으로 주요 Event를 도시
                     <ul>
-                        <li>Events: 시간축으로 발생한 event를 순차적으로 보여줌 </li>
-                        <li>Frames: 시간축으로 매 frame 단위로 event를 순차적으로 보여줌</li>
-                        <li>Memory: 메모리 사용 양을 보여줌</li>
+                        <li>network, style 변경, layout, painting, compositing, input event, garbage collection</li>
                     </ul>
                 </li>
-                <li> 하단 record panel
-                    <ul>
-                        <li>Recalculate Style: 변경된 CSS 속성값에 따라 전체 style 값을 다시 계산</li>
-                        <li>Layout: 변경된 style값에 따라 element의 위치 값을 재계산</li>
-                        <li>Paint: layout이 완료된 RenderLayer들에 속한 element들을 z-ordering을 고려하여 그리 </li>
-                        <li>Composite Layers: Document를 구성하는 모든 RenderLayer를 합성하여 화면에 최종 출력</li>
-                        <li>각종 event fire: setTimout, requestAnimationFrame등</li>
-                    </ul>
-                </li>
-            </ol>
-            <div class="timelineImg">
-                <img width="900px" src="img/timeline.png">
-            </div>
+            </ul>
+            <img height="430px" width="800px" src="./img/timeline.png">
         </div>
     </div>
 
     <div id="GPULayerVisualization" class="step slide" data-x="0" data-y="1000">
         <h1 class="title">GPU 렌더링 영역 실시간 도시</h1>
         <div class="content">
-            <ol>
+            <ul>
                 <li>Web page의 HW 가속 Layer를 Graphical하게 출력 해줌</li>
-                <li> 설치
-                    <ol>
-                        <li> Chrome Canary의 about:flags page 진입</li>
-                        <li> experimental debugging feature enable</li>
-                        <li> browser restart</li>
-                        <li> DOM inspector 설정의 experimant Tab에서 "Show Layers Panel" 클릭</li>
-                        <li> Inspector 상단에 Layer panel 생성</li>
-                    </ol>
-                </li>
-            </ol>
+            </ul>
+            <br>
+            <img height="470px" width="800px" src="./img/GPULayers.png">
         </div>
     </div>
 
     <div id="canvasProfiling" class="step slide" data-x="1000" data-y="1000">
         <h1 class="title">Canvas Profiling</h1>
         <div class="content">
-            <ol>
+            <ul>
                 <li> 캔버스의 개별 Primitive 연산결과를 Frame by Frame으로 출력 </li>
-                <li> 성능 최적화시 필수 도구</li>
-            </ol>
+            </ul>
+            <br>
+            <img height="470px" width="800px" src="./img/canvasProfilingExample.png">
         </div>
     </div>
 
     <div id="canvasOptimization1" class="step slide" data-x="2000" data-y="1000">
-        <h1 class="title">최적화 절대 규칙: 이것만은 기억하자</h1>
+        <h1 class="title">성능 최적화 절대 규칙: 이것만은 기억하자</h1>
         <div class="content">
-            <ol>
-                <li> No painting while animating
-                    <ul>
-                        <li> style 변경은 layout을 야기 시킴</li>
-                        <li> layout 결과는 painting </li>
-                    </ul>
-                </li>
-                <li> less DOM complexity, less painting overhead
-                </li>
-            </ol>
+            <ul>
+                <li style="padding: 20px"> 애니메이션 Element는 GPU Layer</li>
+                <li style="padding: 20px"> 애니메이션 도중에는 Style 변경 완전 제거</li>
+                <li style="padding: 20px"> DOM 및 Render Object 개수는 최소</li>
+            </ul>
         </div>
     </div>
 
     <div id="gameBiz" class="step slide" data-x="4000" data-y="1000" data-rotate="90">
-        <h1 class="title">App-Embedded Branded Game</h1>
+        <h1 class="title">App-Embedded Branded Casual Game</h1>
         <div class="content">
             <ul>
-                <li>iOS/Android 동시 지원</li>
-                <li>App Embedded: 사용자 retention</li>
-                <li>No 네이티브 앱 Update</li>
-                <li>30-50만명 랭킹</li>
+                <li style="padding: 20px">iOS/Android 동시 지원</li>
+                <li style="padding: 20px">App Embedded: App 사용자 retention</li>
+                <li style="padding: 20px">No 네이티브 앱 Update</li>
+                <li style="padding: 20px">30-50만명 실시간 랭킹</li>
             </ul>
         </div>
     </div>

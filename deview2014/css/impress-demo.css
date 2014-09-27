@@ -296,8 +296,7 @@ a:focus {
     100% { -webkit-transform: translate3d(-30px, -650px, 0) scale(0.8,0.8); opacity:1; }
 }
 
-/*slideCanvas page*/
-#slideCanvas .gpuAC{
+#HWCompositingExample .gpuAC{
     -webkit-transition: 10s;
     -moz-transition:    10s;
     -ms-transition:     10s;
@@ -305,11 +304,11 @@ a:focus {
     transition:         10s;
 }
 
-#slideCanvas.present .gpuAC{
-    -webkit-transform: translateX(100px) rotateZ(20deg) scale(2);
+#HWCompositingExample.present .gpuAC{
+    -webkit-transform: translateX(100px) rotateZ(359deg) scale(3);
 }
 
-#slideCanvas .gpuAC{
+#HWCompositingExample .gpuAC{
     background-color: yellow;
 }
 
