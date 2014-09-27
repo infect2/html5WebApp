@@ -403,87 +403,196 @@
         </div>
     </div>
 
-    <div id="gameBiz" class="step slide" data-x="4000" data-y="1000" data-rotate="90">
+    <div id="gameBiz" class="step slide" data-x="-6000" data-y="3000">
         <h1 class="title">App-Embedded Branded Casual Game</h1>
         <div class="content">
             <ul>
-                <li style="padding: 20px">iOS/Android 동시 지원</li>
-                <li style="padding: 20px">App Embedded: App 사용자 retention</li>
-                <li style="padding: 20px">No 네이티브 앱 Update</li>
-                <li style="padding: 20px">30-50만명 실시간 랭킹</li>
+                <li style="font-size:15px; padding:0">iOS/Android 동시 지원</li>
+                <li style="font-size:15px; padding:0">App Embedded: App 사용자 retention</li>
+                <li style="font-size:15px; padding:0">No 네이티브 앱 Update</li>
+                <li style="font-size:15px; padding:0">30-50만명 실시간 랭킹</li>
             </ul>
+            <img width="250px" src="./img/OCBAppFeed.png">
+            <img width="250px" src="./img/CubeUI.png">
         </div>
     </div>
 
-    <div id="canvasGameCore" class="step slide" data-x="5000" data-y="1000" data-rotate="90">
+    <div id="canvasGameCore" class="step slide" data-x="-5000" data-y="3000">
         <h1 class="title">HTML5 canvas 기반 게임 개발</h1>
         <div class="content">
             <ul>
-                <li>Browser 엔진은 게임 플랫폼이 아님 </li>
+                <li>Browser 엔진을 게임 플랫폼으로 사용시 고려 사항
+                    <ul>
+                    <li>Rendering -> canvas, DOM, canvas/DOM Hybrid</li>
+                    <li>Audio -> WebAudio/audio tag</li>
+                    <li>Resource loader -> img tag/XHR</li>
+                    <li>input -> touch </li>
+                    <li>DPI 별 resource 관리</li>
+                    </ul>
+                </li>
+                <li>기능별 제약 조건 분석후에 상용화 조건 부합시에만 사용
+                </li>
             </ul>
         </div>
     </div>
 
-    <div id="mobileGameEngine" class="step slide" data-x="6000" data-y="1000" data-rotate="90">
+    <div id="mobileGameEngine" class="step slide" data-x="-4000" data-y="3000">
         <h1 class="title">HTML5 canvas 기반 게임 개발</h1>
         <div class="content">
             <ul>
-                <li>기존 오픈 소스 게임 엔진의 한계</li>
-                <li>Mobile 단말 특화 기능</li>
+                <li>기존 오픈 소스 게임 엔진의 한계
+                    <ul>
+                        <li>PC 향 게임에 적합한 기능 및 크기</li>
+                        <li>모바일 단말 성능 미고려로 Android 2.3을 포함한 상용화 수준 달성 힘듦
+                    </ul>
+                </li>
+                <li>Mobile 단말 특화 필수 요건
+                    <ul>
+                        <li> Rendering 성능 최적화: 20fps 이상(android 2.3 이상, iOS 5.0)</li>
+                        <li> garbage collection에 따른 게임 정지 최소화</li>
+                    </ul>
+                </li>
+                <li>게임엔진 자체 개발
+                    <ul>
+                        <li> <a href="http://www.slideshare.net/senxation/html5-ok-33344593">SK 플래닛 HTML5 게임엔진소개</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
 
-    <div id="canvasGameLoop" class="step slide" data-x="7000" data-y="1000" data-rotate="90">
+    <div id="canvasGameLoop" class="step slide" data-x="-3000" data-y="3000">
         <h1 class="title">canvas 게임 기본 로직</h1>
         <div class="content">
             <ul>
                 <li>책장 넘기 효과</li>
                 <li>지우고 그리고 지우고를 반복 </li>
             </ul>
+            <img height="400px" width="800px" src="./img/canvasGameLoop.png">
         </div>
     </div>
 
-    <div id="gameObject" class="step slide" data-x="8000" data-y="1000" data-rotate="90">
+    <div id="gameObject" class="step slide" data-x="-2000" data-y="3000">
         <h1 class="title">Game내 Object 표현</h1>
         <div class="content">
             <ul>
-                <li>Image 기반: 일반적이나 반복적인 scaling up/down</li>
-                <li>Drawing primitive 조합: 최종 해상도 기준 한번에 그리기</li>
+                <li>Image 기반:
+                    <ul>
+                        <li>이미지의 crop/scaling up/down 조합</li>
+                        <li>ctx.drawImage() 함수의 성능에 rendering 성능이 의존</li>
+                        <img width="450px" src="./img/gallagaSprite.png">
+                    </ul>
+                </li>
+                <li>Drawing primitive 조합:
+                    <ul>
+                        <li>최종 해상도 고려하여 path,circle,curve등을 조합하여 그리기</li>
+                        <li>다단계 scaling을 피할수 있으나, Object 표현력의 한계로 디자인 제한적</li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
 
-    <div id="gameRunTime" class="step slide" data-x="9000" data-y="1000" data-rotate="90">
-        <h1 class="title">canvas 동작하는 RunTime의 이해</h1>
+    <div id="gameObjectDrawingPrimitive" class="step slide" data-x="-2000" data-y="3000" data-rotate-y="90">
+        <h1 class="title">Game내 Object 표현: Drawing Primitive 조합 방식 예제</h1>
         <div class="content">
             <ul>
-                <li>canvas HW 가속 미지원: Android 2.3.x, iOS4.0 </li>
-                <li>Kitkat의 Chrome Webview 성능 재앙</li>
+                <li>최종 canvas 해상도 고려하여 path,circle,curve등을 조합하여 그리기 -> Image 방식 대비 상대적으로 성능 높음
+                    <ul>
+                        <li>
+                            <a href="http://simeonvisser.hubpages.com/hub/HTML5-Tutorial-Drawing-Circles-and-Arcs">블로그 상세 설명</a>
+                        </li>
+                    </ul>
+                </li>
+                <img width="650px" src="./img/pacManDrawing.png">
             </ul>
         </div>
     </div>
-
-    <div id="canvasPerf" class="step slide" data-x="10000" data-y="1000">
-        <h1 class="title">canvas 성능 분석</h1>
+    <div id="gameRunTime" class="step slide" data-x="-1000" data-y="3000">
+        <h1 class="title">&#60;canvas&#62; RunTime의 Rendering 성능의 이해</h1>
         <div class="content">
             <ul>
-                <li>DOM/GPU과 Canvas 렌더링 성능 분석</li>
+                <li>Bottleneck은 "Image Rendering 성능"</li>
+                <li>
+                    <ul> 성능 Challenge
+                        <li>canvas HW 가속 미지원: Android 2.3.x, iOS4.0 이하 -> DOM 방식이 개수가 적을때 canvas 방식보다 제한적으로 유리</li>
+                        <li>Kitkat의 Chrome Webview(4.4, 4.4.2) 성능 재앙: 구글에 의한 희망에서 절망으로
+                            <ul>
+                                <li>4.4.3에서 해결됨, 그러나 4.4.2가 <span style="font-size:40px">60%</span> 시장 차지</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
             </ul>
+            <img height="220px" width="820px" src="./img/chromeWebviewIssue.png">
         </div>
     </div>
 
-    <div id="kitkatDister" class="step slide" data-x="11000" data-y="1000">
-        <h1 class="title">Kitkat 재앙</h1>
+    <div id="canvasPerf" class="step slide" data-x="0" data-y="3000">
+        <h1 class="title">상품화를 위한 성능 Problem Statement</h1>
         <div class="content">
             <ul>
-                <li>Kitkat 4.4, 4.4.2에서 painting 성능 매우 저하됨</li>
-                <li>Google의 플랫폼 버그: 이미 시장에서 50%이상 차지</li>
+                <li>&#60;canvas&#62; HW 가속이 되지 않는 Android 2.3 및 4.4.2(Kitkat)에서 성능 향상 방법 </li>
             </ul>
         </div>
     </div>
 
-    <div id="canvasDOMHybrid" class="step slide" data-x="12000" data-y="1000">
+    <div id="kitkatDister" class="step slide" data-x="1000" data-y="3000">
+        <h1 class="title">Kitkat Webview 성능 분석 1</h1>
+        <div class="content">
+            <ul>
+                <li>painting 면적, object 개수에 대한 painting 성능을 fps로 측정</li>
+                <li>게임 &#60;canvas&#62;를 포함한 DOM Tree의 복잡도에 대한 영향 측정 </li>
+                <li>실험 대상 단말: 옵티머스 G Pro(4.4.2), Nexus 5(4.4)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="kitkatPerf1" class="step slide" data-x="1000" data-y="4300" data-scale="0.1">
+        <h1 class="title">Kitkat Webview 성능 분석 2</h1>
+        <div class="content">
+            <ul>
+                <li>painting 면적, object 개수에 대한 painting 성능을 fps로 측정
+                </li>
+                <li>왼쪽 그래프: object 개수 1, painting 면적 증가</li>
+                <li>오른쪽 그래: object 개수 증, painting 면적 25x25 고정</li>
+            </ul>
+            <img width="385px" src="./img/fullPartialRendering.png">
+            <img width="385px" src="./img/fullPartialRendering2.png">
+        </div>
+    </div>
+
+    <div id="kitkatPerf2" class="step slide" data-x="1100" data-y="4300" data-scale="0.1">
+        <h1 class="title">Kitkat Webview 성능 분석 </h1>
+        <div class="content">
+            <ul>
+                <li>게임 &#60;canvas&#62;를 포함한 DOM Tree의 복잡도에 대한 영향 측정</li>
+            </ul>
+        </div>
+        <img width="800px" src="./img/fullPartialRendering3.png">
+    </div>
+
+    <div id="kitkatPerf3" class="step slide" data-x="1200" data-y="4300" data-scale="0.1">
+        <h1 class="title">Kitkat Webview 성능 분석</h1>
+        <div class="content">
+            <ul>
+                <li>DOM Tree 복잡도 증가시 Abnormal 성능 측성</li>
+            </ul>
+        </div>
+        <img width="800px" src="./img/DOMPerfSwing.png">
+    </div>
+
+    <div id="kitkatPerfConclusion" class="step slide" data-x="1300" data-y="4300" data-scale="0.1">
+        <h1 class="title">Kitkat Webview 성능 분석 결과 정리
+        </h1>
+        <div class="content">
+            <ul>
+                <li>게임 &#60;canvas&#62;를 포함한 DOM Tree의 복잡도에 대한 영향 측정</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="canvasDOMHybrid" class="step slide" data-x="2000" data-y="3000">
         <h1 class="title">DOM/Canvas Hybrid</h1>
         <div class="content">
             <ul>
@@ -493,7 +602,7 @@
         </div>
     </div>
 
-    <div id="domPool" class="step slide" data-x="13000" data-y="1000">
+    <div id="domPool" class="step slide" data-x="3000" data-y="3000">
         <h1 class="title">DOM Node Pool</h1>
         <div class="content">
             <ul>
@@ -504,7 +613,7 @@
         </div>
     </div>
 
-    <div id="smartREpaint" class="step slide" data-x="14000" data-y="1000">
+    <div id="smartREpaint" class="step slide" data-x="4000" data-y="3000">
         <h1 class="title">Invalidate 영역 관리</h1>
         <div class="content">
             <ul>
@@ -514,7 +623,7 @@
         </div>
     </div>
 
-    <div id="imageDecodingOverhead" class="step slide" data-x="15000" data-y="1000">
+    <div id="imageDecodingOverhead" class="step slide" data-x="5000" data-y="3000">
         <h1 class="title">Source 이미지 크기 관리</h1>
         <div class="content">
             <ul>
@@ -525,7 +634,7 @@
         </div>
     </div>
 
-    <div id="garbageCollection" class="step slide" data-x="16000" data-y="1000">
+    <div id="garbageCollection" class="step slide" data-x="6000" data-y="3000">
         <h1 class="title">Garbage Collection 최소화</h1>
         <div class="content">
             <ul>
@@ -537,7 +646,7 @@
         </div>
     </div>
 
-    <div id="resolutionHandling" class="step slide" data-x="17000" data-y="1000">
+    <div id="resolutionHandling" class="step slide" data-x="7000" data-y="3000">
         <h1 class="title">해상도 파헤치기</h1>
         <div class="content">
             <ul>
@@ -550,7 +659,7 @@
         </div>
     </div>
 
-    <div id="DOMComplexity" class="step slide" data-x="18000" data-y="1000">
+    <div id="DOMComplexity" class="step slide" data-x="8000" data-y="3000">
         <h1 class="title">Game 실행 환경 분리</h1>
         <div class="content">
             <ul>
@@ -561,7 +670,7 @@
         </div>
     </div>
 
-    <div id="baseball" class="step slide" data-x="19000" data-y="1000">
+    <div id="baseball" class="step slide" data-x="9000" data-y="3000">
         <h1 class="title">요리조리 베이스볼 적용 사례</h1>
         <div class="content">
             <ul>
@@ -571,7 +680,7 @@
         </div>
     </div>
 
-    <div id="baseballBoard" class="step slide" data-x="19000" data-y="2000">
+    <div id="baseballBoard" class="step slide" data-x="10000" data-y="2000">
         <h1 class="title">요리조리 베이스볼 적용 사례</h1>
         <div class="content">
             <ul>
@@ -581,7 +690,7 @@
         </div>
     </div>
 
-    <div id="2048game" class="step slide" data-x="20000" data-y="1000">
+    <div id="2048game" class="step slide" data-x="11000" data-y="3000">
         <h1 class="title">2048</h1>
         <div class="content">
             <ul>
@@ -592,7 +701,7 @@
         </div>
     </div>
 
-    <div id="space2014game" class="step slide" data-x="21000" data-y="1000">
+    <div id="space2014game" class="step slide" data-x="12000" data-y="3000">
         <h1 class="title">SPACE 2014</h1>
         <div class="content">
             <ul>
@@ -603,13 +712,14 @@
         </div>
     </div>
 
-    <div id="conclusion" class="step slide" data-x="21000" data-y="2000">
+    <div id="conclusion" class="step slide" data-x="13000" data-y="2000">
         <h1 class="title">결론</h1>
         <div class="content">
             <ul>
                 <li>모바일 단말에서 30 fps 가능하도록 게임을 기획</li>
                 <li>Browser 엔진에 대한 기본적인 이해는 성능 최적화는 필수적</li>
                 <li>Inspector의 다양한 기능을 활용하여 최적화</li>
+                <li>canvas/DOM Hybrid를 포함한 게임 특성을 고려한 최적화가 필수</li>
             </ul>
         </div>
     </div>

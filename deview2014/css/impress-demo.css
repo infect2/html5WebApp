@@ -238,7 +238,8 @@ a:focus {
 
 /*두번째 bullet level*/
 .slide .content > ol ol > li,
-.slide .content > ol  ul > li {
+.slide .content > ol  ul > li,
+.slide .content > ul  ul > li {
     font-size: 24px;
     padding-top: 10px;
     padding-left: 15px;
