@@ -563,7 +563,7 @@
     </div>
 
     <div id="kitkatPerf2" class="step slide" data-x="1100" data-y="4300" data-scale="0.1">
-        <h1 class="title">Kitkat Webview 성능 분석 </h1>
+        <h1 class="title">Kitkat Webview 성능 분석 3</h1>
         <div class="content">
             <ul>
                 <li>게임 &#60;canvas&#62;를 포함한 DOM Tree의 복잡도에 대한 영향 측정</li>
@@ -573,7 +573,7 @@
     </div>
 
     <div id="kitkatPerf3" class="step slide" data-x="1200" data-y="4300" data-scale="0.1">
-        <h1 class="title">Kitkat Webview 성능 분석</h1>
+        <h1 class="title">Kitkat Webview 성능 분석 4</h1>
         <div class="content">
             <ul>
                 <li>DOM Tree 복잡도 증가시 Abnormal 성능 측성</li>
@@ -588,7 +588,7 @@
         <div class="content">
             <ul>
                 <li>Painting 영역의 크기에 비례하여 성능에 성능 감소</li>
-                <li>&#60;canvas&#62;를 내포한 DOM Tree 노드가 증가하면 성능 감소와 동시에 fps 변이가 심해짐</li>
+                <li>&#60;canvas&#62;를 내포한 페이지의 DOM Tree 노드가 증가 <br> --> 10%-25% 성능 감소 및 fps fluctuation 심하게 발</li>
             </ul>
         </div>
     </div>
@@ -623,8 +623,15 @@
         <div class="content">
             <ul>
                 <li>이전 Frame의 &#60;canvas&#62;를 지우지 않고 현재 Frame에 재활용</li>
-                <li>Invalidate 영역만을 redraw</li>
+                <li>Invalidate 영역만을 redraw
+                    <ul>
+                        <li>매 frame 마다 dirty object를 추적</li>
+                    </ul>
+                </li>
+                <li>전체 화면을 깜빡이는 등의 animation은 기획 단계에서 배제</li>
             </ul>
+            <div style="padding:30px;"></div>
+            <img width="700px" src="./img/smartRepaint.png">
         </div>
     </div>
 
@@ -632,10 +639,16 @@
         <h1 class="title">Source 이미지 크기 관리</h1>
         <div class="content">
             <ul>
-                <li>Sprite 이미지 사용시 네트워크 요청 개수를 줄일수 있음. 그러나,</li>
-                <li>원본 이미지의 크기가 커지면 비례하여 crop하는 영역이 고정 크기여도 속도 저하</li>
+                <li>Sprite 이미지 사용시 네트워크 요청 개수를 줄일수 있음. <br> 그러나,</li>
+                <li>원본 이미지의 크기가 커지면 비례하여 crop하는 영역이 고정 크기여도 속도 저하
+                    <ul><li>Kitkat단말 fps기준 10% 이내 정도</li></ul></li>
                 <li>해결책: 자주 쓰이는 object는 개별 이미지로 분리</li>
             </ul>
+            <br>
+            <img height="200px" src="./img/gallagaSprite.png">
+            <span>분리-></span>
+            <img width="100px" src="./img/gallagaFire.png">
+            <img height="100px" src="./img/gallagaMain.png">
         </div>
     </div>
 
