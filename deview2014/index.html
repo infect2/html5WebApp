@@ -576,7 +576,7 @@
     </div>
 
     <div id="kitkatPerf3" class="step slide" data-x="1200" data-y="4300" data-scale="0.1">
-        <h1 class="title">Kitkat Webview 성능 측정 결</h1>
+        <h1 class="title">Kitkat Webview 성능 측정 결과</h1>
         <div class="content">
             <ul>
                 <li>DOM Tree 복잡도 증가시 비정상적인 성능 현상 발생</li>
@@ -591,7 +591,9 @@
         <div class="content">
             <ul>
                 <li>Painting 영역의 크기에 비례하여 성능에 성능 감소</li>
-                <li>&#60;canvas&#62;를 내포한 페이지의 DOM Tree 노드가 증가 <br> --> 10%-25% 성능 감소 및 fps fluctuation 심하게 발생</li>
+                <li>&#60;canvas&#62;를 내포한 페이지의 DOM Tree 노드가 증가
+                    <ul><li>최대 100% 성능 감소 및 fps fluctuation 심하게 발생</li></ul>
+                </li>
             </ul>
         </div>
     </div>
