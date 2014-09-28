@@ -407,10 +407,10 @@
         <h1 class="title">App-Embedded Branded Casual Game</h1>
         <div class="content">
             <ul>
-                <li style="font-size:15px; padding:0">iOS/Android 동시 지원</li>
-                <li style="font-size:15px; padding:0">App Embedded: App 사용자 retention</li>
-                <li style="font-size:15px; padding:0">No 네이티브 앱 Update</li>
-                <li style="font-size:15px; padding:0">30-50만명 실시간 랭킹</li>
+                <li style="font-size:25px; padding:0">iOS/Android 동시 지원</li>
+                <li style="font-size:25px; padding:0">App Embedded: App 사용자 retention</li>
+                <li style="font-size:25px; padding:0">No 네이티브 앱 Update</li>
+                <li style="font-size:25px; padding:0">30-50만명 실시간 랭킹</li>
             </ul>
             <img width="250px" src="./img/OCBAppFeed.png">
             <img width="250px" src="./img/CubeUI.png">
@@ -654,24 +654,28 @@
 
 
     <div id="garbageCollection" class="step slide" data-x="6000" data-y="3000">
-        <h1 class="title">Garbage Collection 최소화</h1>
+        <h1 class="title">Garbage Collection 최소화 1</h1>
         <div class="content">
             <ul>
                 <li>게임내 모든 주요 Object는 Static Object Pool을 통해 관리</li>
-                <li>Static Object 구현 방식에 따른 성능 차이: Single Array, Double Array, Doubly Linked List</li>
+                <li>Static Object 구현 방식에 따른 성능 차이<ul><li>Single Array, Double Array, Doubly Linked List</li></ul></li>
                 <li><a href="http://jsperf.com/objectpool-performance-comparison">성능 비교 직접 해보기 </a></li>
             </ul>
+            <img src="./img/sawtooth.png">
         </div>
     </div>
 
     <div id="garbageCollectionPerf" class="step slide" data-x="6000" data-y="3500" data-rotate-y="90">
-        <h1 class="title">Garbage Collection 최소화</h1>
+        <h1 class="title">Garbage Collection 최소화 2</h1>
         <div class="content">
             <ul>
-                <li>Single Array: push/pop이 가종 빠름</li>
-                <li>GC를 완벽히 차단하는 것은 매우 어렵다</li>
+                <li>Single Array: push/pop 사용시 가장 빠름 (splice 매우 느림)
+                    <ul>
+                        <li>GC를 완벽히 차단하는 것은 매우 어렵다</li>
+                    </ul>
+                </li>
             </ul>
-            <img height="500px" width="700px" src="./img/StaticObjecPoolPerf.png">
+            <img height="450px" width="700px" src="./img/StaticObjecPoolPerf.png">
         </div>
     </div>
 
@@ -687,6 +691,9 @@
                         <li>window.devicePixelRatio</li>
                     </ul>
                 </li>
+                <li>원본 크기(canvas.width/height가 scale이 되지 않거나 또는 정수배 scale시 가장 성능이 좋음
+                    <ul><li>현실적으로 단말별 해상도 차이 및 디자인 제약으로 쉽지 않음</li></ul>
+                    </li>
             </ul>
         </div>
     </div>
@@ -698,9 +705,10 @@
                 <li>canvas 게임을 Web Page에 embedding 시 canvas rendering 성능 저하
                     <ul><li>fps가 swing 하는 현상이 발생하며 30% 저하</li></ul>
                 </li>
-                <li>Web Page에 embed 시키지 말고 별도의 HTML로 작성해서 로딩
+                <li>Web Page에 embed 시키지 말고 별도의 HTML로 실
                     <ul>
                         <li>디자인/Publishing/게임 개발이 서로 다른 팀에서 결과물에 대해서 pipeline 형태로 작업시 발생 가능</li>
+                        <li>위주 업체 제작: 700개 엘리먼트 --> 내부 제작: 350개 엘리먼</li>
                     </ul>
                 </li>
             </ul>
@@ -755,8 +763,8 @@
         </div>
     </div>
 
-    <div id="conclusion" class="step slide" data-x="13000" data-y="2000">
-        <h1 class="title">결론</h1>
+    <div id="conclusion" class="step slide" data-x="13000" data-y="2000" data-rotate-y="90" data-scale="2">
+        <h1 class="title">핵심 메세지 정리</h1>
         <div class="content">
             <ul>
                 <li>모바일 단말에서 30 fps 가능하도록 게임을 기획</li>
