@@ -468,7 +468,7 @@
                 <li>책장 넘기 효과</li>
                 <li>지우고 그리고 지우고를 반복 </li>
             </ul>
-            <img height="400px" width="800px" src="./img/canvasGameLoop.png">
+            <img height="380px" width="800px" src="./img/canvasGameLoop.png">
         </div>
     </div>
 
@@ -529,7 +529,7 @@
     </div>
 
     <div id="canvasPerf" class="step slide" data-x="0" data-y="3000">
-        <h1 class="title">상품화를 위한 성능 Problem Statement</h1>
+        <h1 class="title">상품화를 위한 성능 문제 정의</h1>
         <div class="content">
             <ul>
                 <li>&#60;canvas&#62; HW 가속이 되지 않는 Android 2.3 및 4.4.2(Kitkat)에서 성능 향상 방법 </li>
@@ -538,7 +538,7 @@
     </div>
 
     <div id="kitkatDister" class="step slide" data-x="1000" data-y="3000">
-        <h1 class="title">Kitkat Webview 성능 분석 1</h1>
+        <h1 class="title">Kitkat Webview 성능 분석</h1>
         <div class="content">
             <ul>
                 <li>painting 면적, object 개수에 대한 painting 성능을 fps로 측정</li>
@@ -549,7 +549,7 @@
     </div>
 
     <div id="kitkatPerf1" class="step slide" data-x="1000" data-y="4300" data-scale="0.1">
-        <h1 class="title">Kitkat Webview 성능 분석 2</h1>
+        <h1 class="title">Kitkat Webview 성능 측정 결과</h1>
         <div class="content">
             <ul>
                 <li>painting 면적, object 개수에 대한 painting 성능을 fps로 측정
@@ -559,11 +559,12 @@
             </ul>
             <img width="385px" src="./img/fullPartialRendering.png">
             <img width="385px" src="./img/fullPartialRendering2.png">
+            <span>Kitkat browser에서는 성능 차이가 미미함</span>
         </div>
     </div>
 
     <div id="kitkatPerf2" class="step slide" data-x="1100" data-y="4300" data-scale="0.1">
-        <h1 class="title">Kitkat Webview 성능 분석 3</h1>
+        <h1 class="title">Kitkat Webview 성능 측정 결과</h1>
         <div class="content">
             <ul>
                 <li>게임 &#60;canvas&#62;를 포함한 DOM Tree의 복잡도에 대한 영향 측정</li>
@@ -573,10 +574,10 @@
     </div>
 
     <div id="kitkatPerf3" class="step slide" data-x="1200" data-y="4300" data-scale="0.1">
-        <h1 class="title">Kitkat Webview 성능 분석 4</h1>
+        <h1 class="title">Kitkat Webview 성능 측정 결</h1>
         <div class="content">
             <ul>
-                <li>DOM Tree 복잡도 증가시 Abnormal 성능 측성</li>
+                <li>DOM Tree 복잡도 증가시 비정상적인 성능 현상 발생</li>
             </ul>
         </div>
         <img width="800px" src="./img/DOMPerfSwing.png">
@@ -588,7 +589,7 @@
         <div class="content">
             <ul>
                 <li>Painting 영역의 크기에 비례하여 성능에 성능 감소</li>
-                <li>&#60;canvas&#62;를 내포한 페이지의 DOM Tree 노드가 증가 <br> --> 10%-25% 성능 감소 및 fps fluctuation 심하게 발</li>
+                <li>&#60;canvas&#62;를 내포한 페이지의 DOM Tree 노드가 증가 <br> --> 10%-25% 성능 감소 및 fps fluctuation 심하게 발생</li>
             </ul>
         </div>
     </div>
@@ -598,8 +599,9 @@
         <div class="content">
             <ul>
                 <li>애니메이션이 없는 게임 Object를 DOM으로 분리하여 GPU 가속을 사용하여 렌더링</li>
+                <li>게임 엔진단에서 오브젝트별 rendering context를 DOM/Canvas 지정 가능</li>
             </ul>
-            <img height="500px" width="900px" src="./img/DOMRendererCode.png">
+            <img height="450px" width="900px" src="./img/DOMRendererCode.png">
         </div>
     </div>
 
@@ -662,6 +664,7 @@
                 <li><a href="http://jsperf.com/objectpool-performance-comparison">성능 비교 직접 해보기 </a></li>
             </ul>
             <img src="./img/sawtooth.png">
+            <a href="https://speakerdeck.com/addyosmani/javascript-memory-management-masterclass"> JS 메모리 관리 by Addy Osamani </a>
         </div>
     </div>
 
@@ -705,10 +708,11 @@
                 <li>canvas 게임을 Web Page에 embedding 시 canvas rendering 성능 저하
                     <ul><li>fps가 swing 하는 현상이 발생하며 30% 저하</li></ul>
                 </li>
-                <li>Web Page에 embed 시키지 말고 별도의 HTML로 실
+                <li>Web Page에 embed 시키지 말고 별도의 HTML로 실행
                     <ul>
                         <li>디자인/Publishing/게임 개발이 서로 다른 팀에서 결과물에 대해서 pipeline 형태로 작업시 발생 가능</li>
-                        <li>위주 업체 제작: 700개 엘리먼트 --> 내부 제작: 350개 엘리먼</li>
+                        <li>위주 업체 제작: 700개 엘리먼트 --> 내부 제작: 350개 엘리먼트</li>
+                        <li>10월 버전 부터는 게임 소개페이와 실행 페이지 분리 예정</li>
                     </ul>
                 </li>
             </ul>
@@ -767,10 +771,23 @@
         <h1 class="title">핵심 메세지 정리</h1>
         <div class="content">
             <ul>
-                <li>모바일 단말에서 30 fps 가능하도록 게임을 기획</li>
-                <li>Browser 엔진에 대한 기본적인 이해는 성능 최적화는 필수적</li>
-                <li>Inspector의 다양한 기능을 활용하여 최적화</li>
-                <li>canvas/DOM Hybrid를 포함한 게임 특성을 고려한 최적화가 필수</li>
+                <li>모바일 단말에서 30 fps 가능하도록 게임을 기획
+                    <ul>
+                        <li>게임 오브젝트, 디자인 요소, 배경, 애니메이션</li>
+                    </ul>
+                </li>
+                <li>Browser 엔진에 대한 기본적인 이해는 성능 최적화에 필수적
+                    <ul>
+                        <li>canvas/DOM Hybrid, 이미지 사이즈 최적화, GPU 활용 등</li>
+                    </ul>
+                </li>
+                <li>Inspector의 다양한 기능을 활용하여 최적화
+                    <ul>
+                        <li>
+                            성능 분석 용이, 잔 실수를 사전에 차단
+                        </li>
+                </ul>
+                </li>
             </ul>
         </div>
     </div>
