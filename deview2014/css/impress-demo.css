@@ -280,7 +280,7 @@ a:focus {
 }
 
 #canvasLogo.ing {
-    -webkit-animation: canvasLogoMove 10s 10 alternate;
+    -webkit-animation: canvasLogoMove 10s 30 alternate;
 }
 
 @-webkit-keyframes canvasLogoMove {
@@ -306,7 +306,7 @@ a:focus {
 }
 
 #HWCompositingExample.present .gpuAC{
-    -webkit-transform: translateX(100px) rotateZ(359deg) scale(3);
+    -webkit-transform: translateX(100px) rotateZ(359deg) scale(4);
 }
 
 #HWCompositingExample .gpuAC{
