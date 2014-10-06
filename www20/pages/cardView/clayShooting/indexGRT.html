@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clay Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="./box2dweb.js"></script>
+    <script src="./clayGame-1.0.js"></script>
+    <script src="./gameRunTimeGuest.js"></script>
+    <script>
+        $(function() {
+            var gameInst = new GameController("_clayGame0");
+            var canvas = $("#_clayGame0");
+            var setting = {
+                maxRound: "5",
+                startRound: "1",
+                clayPoint: "5",
+                fragmentPoint: "10",
+                clearPoint: "10",
+                roundInterval: "5000",
+                minAngle: "50",
+                maxAngle: "65",
+                minPower: "20",
+                maxPower: "25",
+                backgroundImg: "./img/bg_ocb.png",
+                clayImg: ["./img/clay1_ocb.png", "./img/clay2_ocb.png", "./img/clay3_ocb.png"],
+                targetImg: "./img/target.png",
+                clayfragmentImg: "./img/clayfragment_ocb.png",
+                bulletImg: "./img/bullet.png",
+                frameRate: "50",
+                explosionCuts: "5"
+            };
+
+            gameRunTimeGuest.setStatusCB({
+                startCB: function(){
+                    // gameInst = new GameController("_clayGame0");
+                    gameInst.clayGame.gameEndCB = $.proxy( gameRunTimeGuest.onEnd, gameRunTimeGuest );
+                    //wait to join the simulation server
+                    gameRunTimeGuest.onWaiting();
+                    setTimeout(function(){
+                        //Game을 시작
+                        gameInst.init(setting);
+                        //시작되었음을 host에게 알림
+                        gameRunTimeGuest.onStarted();
+                    }, 500); //예제로 2초간 가짜로 기다렸다가 게임을 실제 시작
+                },
+                endCB: function(){
+                    //갑자기 종료함
+                    console.log("game is terminated by someone");
+                },
+                screenShotCB: function(){
+                    return gameInst.captureScreenShot();
+                },
+                setGameResolutionCB: function( data ){
+                    console.log("Set Resolution: " + data);
+                    canvas.css(JSON.parse(data));
+                    return;
+                },
+                getGameResolutionCB: function(){
+                    return JSON.stringify({
+                        mid: {width: 320, height: 240},
+                        high: {width: 640, height: 480}
+                    });
+                },
+                scaleCanvasCB: function(xScale, yScale){
+                    //CSS scaling
+                    $('canvas').css({
+                        width: $('canvas').width()*xScale,
+                        height: $('canvas').height()*yScale
+                    });
+                    //scaling filter
+                    $('canvas').css("image-rendering", "-webkit-optimize-contrast");
+                    //event translation
+                    gameInst.setSizeScale(xScale, yScale);
+                },
+                gameCustomDataCB: function( data ){
+                    var obj = JSON.parse(data);
+                    setting = $.extend(setting,obj);
+                }
+            });
+
+            $(document).ready(function() {
+                if( typeof gameRunTimeGuest !== "undefined" ){
+                    //resource loading is completed
+                    gameRunTimeGuest.onReady();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <canvas id="_clayGame0" width="640" height="480" style="position:absolute; top:0; left:0"></canvas>
+</body>
+</html>

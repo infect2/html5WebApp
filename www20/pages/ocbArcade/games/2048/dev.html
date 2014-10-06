@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OK 2048 두뇌게임!</title>
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" >
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" >
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+    <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
+    <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+</head>
+<body>
+  <div class="evt_wrap">
+    <section class="evt_main" >
+        <article class="game_top">
+            <img src="images/game_top.png" alt="">
+            <div class="m_access">
+                <p>
+                    OK Upgrade 2048
+                    7.31 ~ 8.13
+                    '되돌리기' 아이템 장착! 업그레이드된 두뇌게임 OK 2048
+                    1등 5만포인트 적립!<!-- // 2014-07-23, fix // -->
+                    1만등 까지 시상<!-- // 2014-07-23, fix // -->
+                </p>
+                <a href="#popup" class="open_pop btn_all_ranking btn02 _popupButton" data-apicall="point_list" data-popup-id="see_point_list" data-auth="true">전체 랭킹 및 포인트 보기</a>
+                <a href="#" class="btn_game_play _playGame">game play!</a>
+            </div>
+        </article>
+
+        <!-- 게임 플레이 화면 영역 -->
+        <article class="game_play" id="game_play" style="display:none;">
+            <!-- 게임 영역 -->
+            <div class="container play_wrap" style="display:;">
+                <div class="heading">
+                  <h1 class="title"><img src="images/OK2048_logo.png" alt="2048 title" style="width:90px;" /></h1>
+                  <div class="scores-container">
+                    <strong class="score_title">SCORE</strong>
+                    <strong class="best_title">BEST</strong>
+                    <div class="score-container">
+                        <span class="score-text">0</span>
+                    </div>
+                    <div class="best-container">
+                        <span class="best-text">0</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="above-game">
+                  <a class="tutorial-button hidden">HOW TO PLAY</a>
+                  <a class="rank-button hidden">RANKING</a>
+                </div>
+
+                <div class="item-container">
+                    <a class="undo-button">BACK</a>
+                    <span><strong class="undo-count">0</strong></span>
+                </div>
+
+                <div class="game-container">
+                  <div class="game-message keep_going">
+                    <div class="msg">
+                        <strong><var>2048</var> 달성</strong>을<br>축하합니다.
+                    </div>
+                    <div class="btn_area">
+                        <button type="button" class="btn_keep_going keep-playing-button"><img src="images/btn_keep_going.png" alt="Keep Going"></button>
+                    </div>
+                  </div>
+
+                  <div class="grid-container">
+                    <div class="grid-row">
+                      <div class="grid-cell"></div>
+                      <div class="grid-cell"></div>
+                      <div class="grid-cell"></div>
+                      <div class="grid-cell"></div>
+                    </div>
+                    <div class="grid-row">
+                      <div class="grid-cell"></div>
+                      <div class="grid-cell"></div>
+                      <div class="grid-cell"></div>
+                      <div class="grid-cell"></div>
+                    </div>
+                    <div class="grid-row">
+                      <div class="grid-cell"></div>
+                      <div class="grid-cell"></div>
+                      <div class="grid-cell"></div>
+                      <div class="grid-cell"></div>
+                    </div>
+                    <div class="grid-row">
+                      <div class="grid-cell"></div>
+                      <div class="grid-cell"></div>
+                      <div class="grid-cell"></div>
+                      <div class="grid-cell"></div>
+                    </div>
+                  </div>
+
+                  <div class="tile-container"></div>
+                </div>
+              </div>
+            <!-- <div class="play_wrap">
+
+            </div> -->
+
+            <!-- 게임종료 -->
+            <div class="game_over gameResult" style="display:none">
+                <h2><img src="images/game_over_txt.png" alt="GAME OVER"></h2>
+                <!-- <div class="score">
+                    <h3><img src="images/score_txt.png" alt=""></h3>
+                    <var class="_endScore"></var>
+                </div> -->
+                <div class="btn_area">
+                    <a href="#" class="go_event"> 이벤트로 돌아가기 </a>
+                    <a type="button" class="replay"><img src="images/btn_replay.png" alt="REPLAY"></a>
+                    <a class="rankd">랭킹 보기</a>
+                </div>
+            </div>
+
+        </article>
+
+        <!-- 랭킹 기회 -->
+        <article class="game_ranking status">
+            <img src="images/bg_ranking.png" alt="">
+            <a href="#" class="btn_all_ranking _getRank">최고점수 &amp; 랭킹보기</a>
+            <dl>
+                <dt class="best">최고 점수</dt><dd class="best _myScore">-</dd>
+                <dt class="my">나의 랭킹</dt><dd class="my _myRank">-</dd>
+                <dt class="chance">게임기회</dt><dd class="chance _gameCount">0</dd>
+            </dl>
+            <a href="#popup" class="open_pop btn_buy_game2 btn04 _popupButton _first" data-apicall="get_user_point" data-auth="true" data-popup-id="_buyChance">게임기회 구매하기</a>
+        </article>
+    </section>
+
+    <section class="evt_body">
+        <!-- 게임방법 -->
+        <article class="play_guide">
+            <img src="images/game_guide.png" alt="">
+            <div class="m_access">
+                <h3>게임방법</h3>
+                <p>숫자 퍼즐을 움직여 같은 숫자끼리 더하세요. 숫자를 더할 수록 점수가 올라갑니다.</p>
+                <a href="#popup" class="open_pop btn_game_guide btn01 _popupButton" data-popup-id="tutorial">게임방법 자세히 보기</a>
+            </div>
+        </article>
+        <!-- 게임기회 획득하기 -->
+        <article class="game_chance">
+            <img src="images/game_plus.png" alt="">
+            <div class="m_access">
+                <!-- 2014-06-17 수정 -->
+                <h3>게임기회 획득 방법!</h3>
+                <ol>
+                    <li>최초 10회! + 매일 1회씩 게임기회 무조건 제공</li>
+                    <li>OK캐쉬백 포인트로 게임기회 구매 (1일 최대 30개)</li>
+                </ol>
+                <!-- <p>친구에게 게임기회 선물 시, 친구와 랭킹 배틀이 가능합니다.</p>
+                <a href="#friends_ranking" class="open_pop btn_friends_ranking">친구 랭킹 보기</a> -->
+                <a href="#popup" class="open_pop btn_buy_game _popupButton" data-apicall="get_user_point" data-auth="true" data-popup-id="_buyChance">게임기회 구매하기</a></li>
+                <a href="#popup" class="open_pop btn_purchase btn11 _popupButton" data-apicall="buy_game_count_list" data-popup-id="_myPurchaseList">게임기회 구매내역보기</a>
+            </div>
+        </article>
+        <article class="point_plus">
+            <img src="images/point_plus.png" alt="">
+            <div class="m_access">
+                <h3>OK캐쉬백 포인트가 부족하세요?</h3>
+                <p>OK캐쉬백 포인트가 부족하다면 OK캐쉬백 충전하기로 한번에 해결 가능합니다.</p>
+                <a href="" class="btn_gift_you">내가 당신에게 선물하기</a>
+                <a href="" class="btn_point_sum">나 너 우리 합산하기</a>
+            </div>
+        </article>
+        <!-- 게임기회 획득하기 -->
+        <!-- <article class="game_chance">
+            <img src="images/game_plus.png" alt="">
+            <div class="m_access">
+                <h3>게임기회 획득 방법!</h3>
+                <ol>
+                    <li>최초 10회! + 매일 1회씩 게임기회 무조건 제공</li>
+                    <li>OK캐쉬백 포인트로 게임기회 구매 (1일 최대 10개) <a href="#buy_game" class="open_pop btn_buy_game _popupButton" data-apicall="get_user_point" data-auth="true" data-popup-id="_buyChance">게임기회 구매하기</a></li>
+                    <li>친구에게 게임기회 선물하면 X2배로 드립니다! <a href="#game_gift" class="open_pop btn_game_gift btn04 _popupButton" data-auth="true" data-apicall="get_user_point get_agreement" data-popup-id="_giftChance">게임기회 선물하기</a></li>
+                </ol>
+                <p>친구에게 게임기회 선물 시, 친구와 랭킹 배틀이 가능합니다.</p>
+                <a href="#popup" class="open_pop btn_friends_ranking btn06 _popupButton" data-apicall="friend_ranklist" data-popup-id="_friendsLank">친구 랭킹 보기</a>
+                <a href="#popup" class="open_pop btn_purchase btn11 _popupButton" data-apicall="buy_game_count_list" data-popup-id="_myPurchaseList">게임기회 구매/선물 내역보기</a>
+            </div>
+        </article> -->
+
+        <!-- 2080소문내기 -->
+        <article class="game_viral">
+            <img src="images/game_sns.png" alt="">
+            <div class="m_access">
+                <h3> OK2048 소문내기</h3>
+                <ul>
+                    <li>이 게임은 오픈소스 게임(https://github.com/gabrielecirulli/2048)을 바탕으로 제작되었습니다.</li>
+                    <li>회원인증 후 게임 및 이벤트 참여가 가능합니다.</li>
+                    <!-- 2014-06-23 수정 -->
+                    <li>안드로이드 4.0, iOS 6 이상의 스마트폰에 최적화 되어 있습니다. 해당 단말기가 아닌 경우 게임이 중단되는 현상이 발생할 수 있습니다.</li>
+                    <li>게임 차수별로 1회에 한하여 참여 기회는 무조건 10회 제공됩니다.</li>
+                    <li>매일 새벽 6:00시마다 게임기회를 1회씩 제공해 드립니다. </li>
+                    <li>포인트 적립은 이벤트 종료 이후에 랭킹 및 참여내역에 따라 해당 OK캐쉬백 포인트를 적립해드립니다. 단, 랭킹은 매 차수별로 새로 갱신됩니다.</li>
+                    <li>모든 차수의 이벤트 종료 시(2014.8.13) 구매한 게임기회 포함 모든 게임기회는 소멸됩니다. </li>
+                    <li>게임 도중 앱 종료 시 다시 게임에 돌아와도 플레이 내역은 계속 남아있습니다.</li>
+                    <li>부정한 방법으로 참여 시, 이벤트 참여는 무효가 되며 추후 모든 OK캐쉬백 이벤트 참여가 불가합니다.</li>
+                </ul>
+            </div>
+        </article>
+    </section>
+
+
+    <!-- pop up -->
+    <div class="layerPop popupContainer">
+        <div class="layerBg"></div>
+
+        <div class="ui_pop type2 gamePop hidden">
+            <h1>게임종료 안내</h1>
+            <div class="pop_cnt">
+                <p class="pop_msg">게임을<br>종료하시겠습니까?</p>
+                <div class="btn_area w50">
+                    <span><a href="" class="ui_btn4">확인</a></span>
+                    <span><a href="" class="ui_btn3">취소</a></span>
+                </div>
+            </div>
+            <button type="button" class="pop_close">게임종료 안내 닫기</button>
+        </div>
+
+        <div class="ui_pop type2 gamePop hidden" data-id="success">
+            <section class="popcontwrap">
+                <div class="pop_cnt">
+                    <h2 class="pop_msg _msg">완료되었습니다.</h2>
+                </div>
+                <div class="btn_area w50">
+                    <!-- <span><a href="" class="ui_btn4 _popupClose">확인</a></span> -->
+                    <span><a href="" class="ui_btn3 _popupClose layer_close">닫기</a></span>
+                </div>
+                <!-- <div class="btmCont">
+                    <div class="btnArea">
+                        <a href="#" class="btn-red _popupClose">확인</a>
+                    </div>
+                    <ul class="btmNotice">
+                        <li>SMS 친구초대의 경우 여러 번 문자를 보내도 전화번호 1개당 1회만 게임기회가 제공됩니다.</li>
+                    </ul>
+                </div>
+                <a href="#" class="layer_close _popupClose">닫기</a> -->
+            </section>
+        </div>
+
+        <div class="ui_pop type2 gamePop hidden" data-id="error">
+            <h1>오류</h1>
+            <section class="popcontwrap">
+                <div class="pop_cnt">
+                    <h2 class="pop_msg _msg">오류입니다.</h2>
+                </div>
+                <div class="btn_area w50">
+                    <!-- <span><a href="" class="ui_btn4 _popupClose">확인</a></span> -->
+                    <span><a href="" class="ui_btn3 _popupClose layer_close">닫기</a></span>
+                </div>
+                <!-- <div class="btmCont">
+                    <div class="btnArea">
+                        <a href="#" class="btn-red _popupClose">확인</a>
+                    </div>
+                    <ul class="btmNotice">
+                        <li>SMS 친구초대의 경우 여러 번 문자를 보내도 전화번호 1개당 1회만 게임기회가 제공됩니다.</li>
+                    </ul>
+                </div>
+                <a href="#" class="layer_close _popupClose">닫기</a> -->
+            </section>
+        </div>
+
+        <div class="ui_pop type2 gamePop hidden" data-id="retry">
+            <section class="popcontwrap">
+                <h1>&nbsp;</h1>
+                <div class="pop_cnt">
+                    <h2 class="pop_msg _msg">점수가 저장되지 않았습니다, Retry 버튼을 터치해주세요</h2>
+                </div>
+                <div class="btn_area w50">
+                    <!-- <span><a href="" class="ui_btn4 _popupClose">확인</a></span> -->
+                    <span><a href="" class="ui_btn3 _popupClose layer_close _retry">Retry</a></span>
+                </div>
+                <!-- <div class="btmCont">
+                    <div class="btnArea">
+                        <a href="#" class="btn-red _retry">Retry</a>
+                    </div>
+                    <ul class="btmNotice">
+                        <li>SMS 친구초대의 경우 여러 번 문자를 보내도 전화번호 1개당 1회만 게임기회가 제공됩니다.</li>
+                    </ul>
+                </div>
+                 --><a href="#" class="layer_close _popupClose">닫기</a>
+            </section>
+        </div>
+        <!-- 전체 랭킹 -->
+        <section class="ui_pop type1 rank gamePop" id="all_ranking" data-id="see_point_list">
+            <h1>전체 랭킹보기</h1>
+            <div class="pop_cnt">
+                <p class="pop_msg">
+                    랭킹 1등 ~ 1만등까지 최대 <strong>5만 포인트</strong> 지급! <!-- // 2014-07-23, fix // -->
+                </p>
+                <p class="desc" style="margin-bottom:10px">※ ‘게임점수’는 1등, 6등, 51등….4,001등의 실시간 점수 입니다.</p><!-- 2014-06-20 수정 -->
+
+                <div class="ui_tbl">
+                    <table class="tbl_list ranking">
+                        <caption>랭킹별 포인트 보기</caption>
+                        <colgroup>
+                            <col style="width: 40%">
+                            <col style="width: 30%" span="2">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">랭킹</th>
+                                <th scope="col">포인트</th>
+                                <th scope="col">점수</th>
+                            </tr>
+                        </thead>
+                        <tbody class="_pointTable">
+                        <!-- // 2014-07-23, fix -->
+                        <tr>
+                            <td><strong>1</strong> ~ 5</td>
+                            <td>50,000 P</td>
+                            <td>500,000 점</td>
+                        </tr>
+                            <td><strong>6</strong> ~ 10</td>
+                            <td>10,000 P</td>
+                            <td>100,000 점</td>
+                        </tr>
+                        <tr>
+                            <td><strong>11</strong> ~ 100</td>
+                            <td>5,000 P</td>
+                            <td>90,000 점</td>
+                        </tr>
+                        <tr>
+                            <td><strong>101</strong> ~ 200</td>
+                            <td>1,000 P</td>
+                            <td>90,000 점</td>
+                        </tr>
+                        <tr>
+                            <td><strong>201</strong> ~ 500</td>
+                            <td>800 P</td>
+                            <td>80,000 점</td>
+                        </tr>
+                        <tr>
+                            <td><strong>501</strong> ~ 1,000</td>
+                            <td>700 P</td>
+                            <td>800 점</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1,001</strong> ~ 2,000</td>
+                            <td>600 P</td>
+                            <td>700 점</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2,001</strong> ~ 3,000</td>
+                            <td>500 P</td>
+                            <td>600 점</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3,001</strong> ~ 4,000</td>
+                            <td>400 P</td>
+                            <td>500 점</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4,001</strong> ~ 5,000</td>
+                            <td>300 P</td>
+                            <td>400 점</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5,001</strong> ~ 6,000</td>
+                            <td>200 P</td>
+                            <td>300 점</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6,001</strong> ~ 10,000</td>
+                            <td>100 P</td>
+                            <td>200 점</td>
+                        </tr>
+                        <!-- 2014-07-23, fix // -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="txt_coment">
+                    <ul>
+                        <li>이벤트 종료시점(<span class="accent_txt">2014.8.13 24:00</span>)의 랭킹에 따라 해당 OK캐쉬백 포인트를 적립해 드립니다.</li>
+                        <li>부정한 방법으로 참여 시, 이벤트 참여는 무효가 되며 추후 모든 OK캐쉬백 이벤트 참여가 불가합니다.</li>
+                    </ul>
+                </div>
+            </div>
+            <button type="button" class="pop_close">전체 랭킹보기 닫기</button>
+        </section>
+
+        <!-- 친구간 랭킹 -->
+        <section class="ui_pop type1 friendRank gamePop" id="friends_ranking" data-id="_friendsLank">
+            <h1>친구간 랭킹보기</h1>
+            <div class="pop_cnt">
+                <p class="pop_msg">
+                    OK 2048 게임을 더 재미있게! <br>
+                    <strong> 친구와의 랭킹 배틀!</strong>
+                </p>
+                <div class="play_guide">
+                    <h2 class="pop_stit">친구랭킹 참여방법</h2>
+                    <ol>
+                        <li><span class="num">1</span><strong>친구에게 게임기회 선물하여 초대하기</strong></li>
+                        <li><span class="num">2</span> <strong>선물 받은 친구가 APP회원인증 후, <br>OK 2048 이벤트에 접속하면~<br>  랭킹배틀 START! </strong>(나의 랭킹은 붉은색)</li>
+                    </ol>
+                </div>
+                <div class="lank_view">
+                    <h2 class="pop_stit">친구랭킹 전체보기</h2>
+                    <p class="desc">※ 게임기회를 선물하여 초대한 친구들의 랭킹입니다.</p>
+                    <div class="ui_tbl rankPrice">
+                        <table class="tbl_list ranking">
+                            <caption>친구의 랭킹 및 점수 확인</caption>
+                            <colgroup>
+                                <col style="width:20%">
+                                <col style="width:40%" span="2">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">랭킹</th>
+                                    <th scope="col">친구 연락처</th>
+                                    <th scope="col">점수</th>
+                                </tr>
+                            </thead>
+                            <tbody class="_friendRankTable">
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="txt_coment">
+                    <ul>
+                        <li>게임기회를 선물한 친구가 APP회원인증 후, 이벤트 페이지에 접속하면 서로의 랭킹에 친구의 점수가 노출됩니다.</li>
+                        <li>친구와의 랭킹은 전체 랭킹과는 무관하며, 전체 랭킹에만 랭킹별 OK캐쉬백 포인트가 지급됩니다.</li>
+                    </ul>
+                </div>
+
+
+
+            </div>
+            <button type="button" class="pop_close">친구간 랭킹보기 닫기</button>
+        </section>
+
+        <!-- 게임기회 구매 레이어 -->
+        <section class="ui_pop type1 gamePop chanceBuy" id="buy_game" data-id="_buyChance">
+            <h1>게임기회 구매</h1>
+            <div class="pop_cnt">
+                <p class="pop_msg">OK캐쉬백 포인트로 게임 기회를 구매하세요.</p>
+                <p class="desc accent_txt">※ 게임기회 1개당 10P로 구매 가능!</p>
+
+                <fieldset class="ui_form">
+                    <legend>게임기회 구매하기</legend>
+                    <ul class="form_type1">
+                        <li>
+                            <span class="tit">나의<br>보유 포인트</span>
+                            <span class="data point _myPoint"><strong>0P</strong></span>
+                        </li>
+                        <li>
+                            <span class="tit"><label for="">구매할<br>게임 기회</label></span>
+                            <span class="data count_type">
+                                <input type="number" class="buyCount" name="" placeholder="구매 개수 입력">
+                                <span>회</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="tit">사용될<br>OK캐쉬백 포인트</span>
+                            <span class="data point"><strong class="accent_txt buyPoint">0P</strong></span>
+                        </li>
+                    </ul>
+                    <div class="btn_area">
+                        <span><a href="" class="ui_btn2 _buyBtn">구매</a></span>
+                    </div>
+                </fieldset>
+
+                <div class="txt_coment">
+                    <ul>
+                        <li>OK캐쉬백 10포인트 당 게임기회 1개가 실시간 구매 가능합니다.</li>
+                        <li>게임기회는 <em class="accent_txt under">1인 1일 최대 50개까지 구매 가능</em>합니다.</li>
+                        <li>구매내역은 "구매내역보기"에서 확인 가능합니다.</li>
+                        <li>구매하신 게임기회는 취소 및 환불이 불가합니다.</li>
+                        <li>이벤트 종료 시(2014.8.13) 구매한 게임기회 포함 모든 게임기회는 소멸됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+            <button type="button" class="pop_close">게임기회 구매 닫기</button>
+        </section>
+
+        <!-- 게임기회 선물하기  -->
+        <section class="ui_pop type1 gamePop chancePresent" id="game_gift" data-id="_giftChance">
+            <h1>게임기회 선물하기</h1>
+            <div class="pop_cnt">
+                <p class="pop_msg">
+                    OK캐쉬백 포인트로 게임기회를 선물하시면<br>
+                    <u class="accent_txt">선물한 게임기회X2배</u>를 드립니다.
+                </p>
+                <p class="desc accent_txt">※ 게임기회 1개당 10P로 선물 가능!</p>
+
+                <fieldset class="ui_form">
+                    <legend>게임기회 선물하기</legend>
+                    <ul class="form_type1">
+                        <li>
+                            <span class="tit">나의<br>보유 포인트</span>
+                            <span class="data point _myPoint"><strong>0P</strong></span>
+                        </li>
+                        <li>
+                            <span class="tit"><label for="game_gift_count">선물할 <br>게임 기회</label></span>
+                            <span class="data point count_type">
+                                <input type="number" class="buyCount" id="game_gift_count" name="game_gift_count" placeholder="최대 10회 가능" maxlength="2">
+                                <span>회</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="tit">사용될<br>OK캐쉬백 포인트</span>
+                            <span class="data point accent_txt"><strong class="accent_txt buyPoint">0P</strong></span>
+                        </li>
+                        <li>
+                            <span class="tit"><label for="game_gift_tel">선물 받을<br>연락처</label></span>
+                            <span class="data tel">
+                                <button type="button" class="ui_btn1 block_type  _smsContact smsContact">연락처에서 찾기</button>
+                                <input type="tel" id="game_gift_tel" name="game_gift_tel">
+                            </span>
+                        </li>
+                        <li>
+                            <span class="tit"><label for="app_pass2">APP<br>비밀번호</label></span>
+                            <span class="data"><input type="password" class="_passwd" name="app_pass2" id="app_pass2" placeholder="비밀번호를  입력하세요"></span>
+                        </li>
+                    </ul>
+                    <div class="btn_area">
+                        <span><a href="" class="ui_btn2 _giftGameChance">선물</a></span>
+                    </div>
+                </fieldset>
+                <div class="txt_coment">
+                    <ul>
+                        <li>OK캐쉬백 10포인트 당 게임기회 1개가 실시간 선물 가능합니다.</li>
+                        <li>게임기회를 선물하시면, 선물하신 게임기회의 2배를 드립니다.</li>
+                        <li>게임기회를 선물하신 경우, 입력하신 친구의 핸드폰번호로 안내 문자가 발송됩니다.</li>
+                        <li>연속하여 동일인에게 선물을 하신 경우, 안내문자는 한 번만 발송됩니다.</li>
+                        <li>게임기회는 <em class="accent_txt under">1인 1일 최대 30개까지 선물 가능</em>합니다.</li>
+                        <li>구매 혹은 선물 내역은 “구매 내역보기”에서 확인 가능합니다.</li>
+                        <li>선물하신 게임기회는 취소 및 환불이 불가합니다.</li>
+                        <li>이벤트 종료 시(2014.7.17) 구매한 게임기회 포함 모든 게임기회는 소멸됩니다.</li>
+                        <li>선물하기 시 모든 이력이 남고 확인되지 않은 핸드폰 번호 입력하시어 추후 수신자가 문제 제기시 모든 책임은 '보내는 사람'에게 있습니다.</li>
+                    </ul>
+                </div>
+            </div>
+            <button type="button" class="pop_close">게임기회 구매 닫기</button>
+        </section>
+
+        <!-- 구매 /선물 내역 레이어 팝업 -->
+        <section class="ui_pop type1 chanceList gamePop" id="purchase" data-id="_myPurchaseList">
+            <h1>구매내역 보기</h1>
+            <div class="pop_cnt">
+                <p class="pop_msg">OK캐쉬백 포인트로 구매하신 내역입니다.</p>
+
+                <nav class="ui_tab">
+                    <a href="#popup" class="tabcont1 active">구매내역</a>
+                    <a href="#popup" class="tabcont2">아이템 사용 내역</a>
+                </nav>
+
+                <!-- 구매내역 -->
+                <div class="ui_tbl rankPrice" id="buy_list">
+                    <table class="tbl_list">
+                        <caption>구매내역</caption>
+                        <colgroup>
+                            <col style="width:30%">
+                            <col style="width:35%" span="2">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">구분</th>
+                                <th scope="col">일자</th>
+                                <th scope="col">게임기회</th>
+                            </tr>
+                        </thead>
+                        <tbody class="_countbuylist"></tbody>
+                    </table>
+
+                    <!-- <div class="paging">
+                        <var><strong>1</strong> / 5 </var>
+                        <button class="prev">이전목록</button>
+                        <button class="next">다음목록</button>
+                    </div> -->
+                </div>
+                <!-- // 2014-07-28, add -->
+            <!-- 아이템 사용 내역 -->
+            <div class="ui_tbl rankPrice hidden" id="item_list">
+                <table class="tbl_list">
+                    <caption>아이템 사용 내역</caption>
+                    <colgroup>
+                        <col style="width:50%">
+                        <col style="width:50%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col">일자</th>
+                            <th scope="col">차감 게임기회</th>
+                        </tr>
+                    </thead>
+                    <tbody class="_itembuylist"></tbody>
+                </table>
+
+                <!-- <div class="paging">
+                    <var><strong>1</strong> / 5 </var>
+                    <button class="prev">이전목록</button>
+                    <button class="next">다음목록</button>
+                </div> -->
+            </div>
+                <p class="txt_coment">구매하신 내역은 취소 및 환불이 불가합니다.</p>
+            </div>
+            <button type="button" class="pop_close">구매/선물 내역 보기 닫기</button>
+        </section>
+
+        <!-- 게임방법 -->
+        <section class="ui_pop type1 gamePop" id="game_guide"  data-id="tutorial">
+            <h1>OK 2048!게임방법 보기</h1>
+            <div class="pop_cnt">
+                <ol class="game_guide_detail">
+                    <li>
+                        <h3><span class="num">1</span>숫자는 상하좌우로 움직일 수 있습니다.</h3>
+                        <p>
+                            <img src="images/guide_img1.png" alt="">
+                            이때 숫자는 <span class="accent_txt">양끝으로만 움직일 수 있고</span>,<br> 숫자를 움직일 떄마다 2 또는 4가 새로 추가됩니다.
+                        </p>
+                    </li>
+                    <li>
+                        <h3><span class="num">2</span>숫자를 움직여 같은 숫자를 더합니다.</h3>
+                        <p>
+                            <img src="images/guide_img2.png" alt="">
+                            <span class="accent_txt">같은 숫자끼리 더해지면 하나의 숫자</span>가 되고,<br> 숫자를 더할수록 점수도 올라갑니다.
+                        </p>
+                    </li>
+                    <li>
+                        <h3><span class="num">3</span>같은 숫자를 더해 2048에 도달해보세요!</h3>
+                        <p>
+                            <img src="images/guide_img3.png" alt="">
+                            <span class="accent_txt">2048 이상의 숫자까지 더할 수 있고,</span> <br> 더 이상 움직일 칸이 없으면 게임은 종료됩니다.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <img src="images/guide_img4.png" alt="">
+                            1회 되돌리기 시 게임기회가 10회 차감되며 게임진행 중 최대 3회까지 가능합니다.
+                        </p>
+                    </li>
+                </ol>
+            </div>
+            <button type="button" class="pop_close">게임방법 닫기</button>
+        </section>
+    </div>
+  </div>
+  <!-- // 2014-03-20, add -->
+        <script type="text/template" id="tmpl_point_list">
+            {{#lists}}
+            <tr>
+
+                <td><strong>{{grade}}</strong>{{#state}}~{{gradeTo}}{{/state}}등</td>
+                <td>{{point}}P</td>
+                <td>{{gamepoint}}점</td>
+
+            </tr>
+            {{/lists}}
+        </script>
+        <script type="text/template" id="tmpl_rank_list">
+            {{#lists}}
+            <tr>
+                <td><strong>{{grade}}등</strong></td>
+                <td><strong>{{point}}점</strong></td>
+            </tr>
+            {{/lists}}
+        </script>
+        <script type="text/template" id="tmpl_friend_list">
+            {{#lists}}
+                {{^my}}
+                    <tr class="myRank">
+                {{/my}}
+                {{#my}}
+                    <tr>
+                {{/my}}
+                    <td>{{rank}}</td>
+                    <td>{{mdn}}</td>
+                    <td>{{gamepoint}}점</td>
+                </tr>
+            {{/lists}}
+        </script>
+        <script type="text/template" id="tmpl_countbuy_list">
+            {{#lists}}
+                <tr>
+                    <td>{{date}}</td>
+                    <td>{{point}}</td>
+                    <td>{{gmcnt}}</td>
+                </tr>
+            {{/lists}}
+        </script>
+        <script type="text/template" id="tmpl_itembuy_list">
+            {{#lists}}
+                <tr>
+                    <td>{{date}}</td>
+                    <td>{{gmcnt}}</td>
+                </tr>
+            {{/lists}}
+        </script>
+  <script>
+    window.DEBUG = true;
+  </script>
+
+
+  <script src="http://hybrid.okcashbag.com/common/js/app/OcbiOSJS.js"></script>
+  <script src="http://hybrid.okcashbag.com/common/js/app/OcbApplicationJS.js"></script>
+  <script src="http://hybrid.okcashbag.com/common/js/app/OcbiOSTitleViewJS.js"></script>
+  <script src="http://hybrid.okcashbag.com/common/js/app/OcbiOSSearchViewJS.js"></script>
+  <script src="js/jquery-1.10.2.min.js"></script>
+  <script src="js/invalidPhoneNums.js"></script>
+  <script src="js/seed.js"></script>
+  <script src="js/mustache.js"></script>
+  <script src="js/bind_polyfill.js"></script>
+  <script src="js/classlist_polyfill.js"></script>
+  <script src="js/animframe_polyfill.js"></script>
+  <script src="js/keyboard_input_manager.js"></script>
+  <script src="js/html_actuator.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/tile.js"></script>
+  <script src="js/local_storage_manager.js"></script>
+  <script src="js/game_manager.js"></script>
+  <script src="js/apimain2048.js"></script>
+</body>
+</html>

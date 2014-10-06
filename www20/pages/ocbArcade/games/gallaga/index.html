@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>Space 2014</title>
+    <link rel="stylesheet" type="text/css" href="../commonUI/game-result/game-result.css">
+    <style type="text/css">
+        body {
+            margin: 0 auto; line-height: 1.1em;
+            font-family: Roboto,'Droid Sans',AppleSDGothicNeo,Helvetica,sans-serif;
+            background-color: #000;
+        }
+
+        .game_ranking {
+            background-color: #bbada0;
+            width: 325px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .shown {
+            display: block;
+        }
+    </style>
+    <style>
+        html {
+            -webkit-touch-callout:none;
+            -webkit-user-select:none;
+            -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+        }
+        canvas {
+            padding:0;margin:0;overflow:hidden;
+        }
+
+        .game_ranking {
+            /*background-image: url('../img/gameplay_score.png');*/
+            /*background-size: cover;*/
+            /*background-repeat: no-repeat;*/
+            width: 103%;
+            height: 130px;
+        }
+
+        .game_ranking  {
+            width: 100%;
+            height: 151px;
+            background-image: url(../img/bestScore_gallaga.png);
+            background-color: #000;
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        .bestScore {
+            font-size: 25px;
+            color: #fff;
+            float: right;
+            margin-top:33px;
+            margin-right:10px;
+        }
+
+    </style>
+    <script src="js/planet.webview.minified.js"></script>
+</head>
+
+<body>
+    <section class="game-result hidden" tabindex="0">
+        <div class="game-result-content">
+            <h2>게임 결과</h2>
+            <p class="p1"><em>상위</em> <strong>0.01</strong> <b>%</b></p>
+            <p class="p2"><strong>신(神)</strong> 이시군요!</p>
+            <!-- 신(神)|초고수|고수|중수|허접|초허접 -->
+            <p class="p3">※ 본 게임 순위는 지난 OK 캐쉬백 이벤트 데이터에 근거하여 제공됩니다.</p>
+            <button type="button" class="re-start restartBtn">RESTART!</button>
+            <button type="button" class="go-back backBtn">돌아가기</button>
+        </div>
+    </section>
+<article class="gameCanvas">
+
+     <canvas class="game _gameCanvas" width="320" height="400" style="display:block;margin:0 auto;"></canvas>
+<!--      <a href="#" class="restartBtn hidden"></a>
+    <a href="#" class="backBtn hidden"></a> -->
+</article>
+
+<article class="game_ranking">
+     <span class="bestScore">0</span>
+</article>
+
+<script src="../common/jquery-1.10.2.min.js"></script>
+<script src="js/game.min.js"></script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-49803919-5', 'auto');
+    ga('send', 'pageview');
+
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta Http-Equiv="Cache-Control" Content="no-cache">
+	<meta Http-Equiv="Pragma" Content="no-cache">
+	<meta Http-Equiv="Expires" Content="0">
+	<meta Http-Equiv="Pragma-directive: no-cache">
+	<meta Http-Equiv="Cache-directive: no-cache">
+	<title></title>
+	<style>
+		#_clayGame0 {
+			-webkit-tap-highlight-color: transparent;/* prevent callout to copy image, etc when tap o hold */
+		}
+	</style>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="../../../appCore/box2dweb/box2dweb.js"></script>
+	<script src="../clayGame-1.0.js"></script>
+	<script src="../../scratchPad/scratchPad.js"></script>
+	<script>
+		$(function() {
+			var canvas = $("#_clayGame0");
+			var w = canvas.get(0).offsetParent.clientWidth;
+			var h = canvas.get(0).offsetParent.clientHeight;
+			canvas.attr({width:w, height:h});
+
+			var lotteryGame = function(score){
+				window.clearInterval(game.interVal);
+				game = null;
+
+				$("#clayGame0").html("<div id='scratchPadGameWrapper'><h1 class='title'>"+score+"point 행운쿠폰</h1><h5 class='subtitle'>손가락으로 화면을 문질러서 지워보세요</h5><div class='lotteryWrapper'><figure class='lotteryResult'><span>번호생성중</span></figure><canvas class='lotteryTicket' width='300' height='250'></canvas></div><a id='a' href='#' class='retryButton' title=''>재도전</a></div>");
+
+				$("head").append("<link href='../../scratchPad/scratchPad.css' type='text/css' rel='stylesheet' />");
+				$(".retryButton").on( 'click', function(){
+						window.location.reload();
+					});
+
+				var lotteryPad = new ScratchPad( $('.lotteryTicket').get(0), $('.lotteryResult').get(0), {
+					brushThickness: 20,
+					coverImgUrl: "../../scratchPad/img/whopper.jpg",
+					ratio: 0.3
+				});
+				lotteryPad.init();
+			};
+
+			var game = new GameController("_clayGame0");
+			game.init({
+				maxRound: "3",
+				startRound: "1",
+				clayPoint: "5",
+				fragmentPoint: "10",
+				clearPoint: "10",
+				roundInterval: "5000",
+				minAngle: "50",
+				maxAngle: "65",
+				minPower: "20",
+				maxPower: "25",
+				backgroundImg: "../img/bg_ocb.png",
+				clayImg: ["../img/clay1_ocb.png", "../img/clay2_ocb.png", "../img/clay3_ocb.png"],
+				targetImg: "../img/target.png",
+				clayfragmentImg: "../img/clayfragment_ocb.png",
+				bulletImg: "../img/bullet.png",
+				buttonImg: "../img/button.png",
+				frameRate: "50",
+				explosionCuts: "5",
+				endCallBack: lotteryGame
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div id="clayGame0" class="" style="width: 100%; height: 300px;">
+		<canvas id="_clayGame0" width="479" height="300"></canvas>
+	</div>
+</body>
+
+</html>
