@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pwge/entityPool.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: pwge/entityPool.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>define("pwge/entityPool", ["pwge/canvas", "pwge/boardManager", "pwge/spriteManager", "pwge/util", "util/PubSub", "util/ObjectPool", "util/easing"], function(canvas, boardManager, spriteManager, util, PubSub, ObjectPool, easing){
+    var Entity,
+        /**
+         * entityPool 모듈
+         * @exports pwge/entityPool
+         * @see util/ObjectPool
+         * @requires util/util
+         * @requires util/PubSub
+         * @requires util/ObjectPool
+         * @requires pwge/canvas
+         * @requires pwge/boardManager
+         * @requires pwge/spriteManager
+         */
+        entityPool;
+
+    /**
+     * Entity 객체를 생성한다.
+     * Entity 객체는 util/ObjectPool에 의해 관리되며 entityPool.allocate() 메서드로 할당해 사용한다.
+     * Board에 추가될 객체의 위치와 크기에 대한 값을 가진다.
+     * @class
+     * @param {Object} options 옵션 객체.
+     * @example
+     * var newEntity = entityPool.allocate(options);
+     */
+    Entity = function(options){
+        this.id = util.generateId();
+        // this.type = undefined;
+        this.owner = null;
+        this.enabled = true;
+        this.baseImage = null;
+        this.baseSprite = null;
+        this.animation = null;
+        this.animationStart = 0;
+        this.sprite = null;
+        this.spriteStart = 0;
+        this.detectable = true;
+        this.opacity = 1;
+        this.anchorX = 0;
+        this.anchorY = 0;
+        this.rotate = 0;
+        this.scaleX = 1;
+        this.scaleY = 1;
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+        this.width = 0;
+        this.height = 0;
+
+        this._drawImageData = {}; //draw때 적용될 이미지의 데이터
+
+        this._lastStep = {}; //step
+        this._lastDraw = {}; //draw
+        var i, len;
+        for (i = 0, len = this._stepProps.length; i &lt; len; i++) {
+            this._lastStep[this._stepProps[i]] = undefined;
+        }
+        for (i = 0, len = this._drawProps.length; i &lt; len; i++) {
+            this._drawImageData[this._drawProps[i]] = undefined;
+            this._lastDraw[this._drawProps[i]] = undefined;
+        }
+
+        util.extend(this, options);
+    };
+
+    Entity.prototype = Object.create(PubSub.prototype);
+
+    Entity.prototype._drawProps = ["image", "sx", "sy", "sw", "sh", "dx", "dy", "dw", "dh"];
+    Entity.prototype._stepProps = ["owner", "enabled", "x", "y", "z", "opacity", "anchorX", "anchorY", "rotate", "scaleX", "scaleY", "width", "height"];
+    Entity.prototype._setLastStep = function(){
+        var i, len;
+        for (i = 0, len = this._stepProps.length; i &lt; len; i++) {
+            this._lastStep[this._stepProps[i]] = this[this._stepProps[i]];
+        }
+        // console.log(this._lastStep)
+    };
+    Entity.prototype._setLastDraw = function(){
+        var i, len;
+        for (i = 0, len = this._drawProps.length; i &lt; len; i++) {
+            this._lastDraw[this._drawProps[i]] = this._drawImageData[this._drawProps[i]];
+        }
+        // console.log(this._lastDraw)
+    };
+    Entity.prototype._checkDirty = function(){
+        var key;
+        for (key in this._lastStep) {
+            if (this._lastStep[key] !== this[key]) {
+                // console.log("dirtyStep", this, key, this._lastStep[key], this[key])
+                if (this.owner) {
+                    this.owner.dirty = true;
+                    return;
+                }
+            }
+        }
+        // console.log(this._lastDraw, this._drawImageData)
+        for (key in this._lastDraw) {
+            if (this._lastDraw[key] !== this._drawImageData[key]) {
+                // console.log("dirtyDraw", this, key, this._lastDraw[key], this._drawImageData[key])
+                if (this.owner) {
+                    this.owner.dirty = true;
+                    return;
+                }
+            }
+        }
+    };
+
+    /**
+     * Board에 의해 호출되어, Entitiy들의 위치, 크기값을 계산한다.
+     * 기본적으로 animation을 적용하여 x, y, width, height 값을 계산하고, 필요시 오버라이딩하여 사용한다.
+     * @param  {String} dt 렌더러의 타임라인 진행시간
+     */
+    Entity.prototype.step = function(dt) {
+        // console.log(dt);
+        if (this.animation) {
+            if (dt >= this.animationStart/* &amp;&amp; dt &lt;= this.animationEnd*/) {
+                this.animation.step.call(this, dt);
+            }
+
+            if (dt > this.animationEnd) {
+                var fn;
+                if (typeof this.animation.callback === "function") {
+                    fn = this.animation.callback;
+                }
+                this.animation = null; //callback 내부에서 animate()를 실행하여 문제가 될 수 있기때문에 this.animation을 null로 바꿔주고 콜백을 실행
+
+                if (fn) {
+                    fn.call(this);
+                }
+            }
+        }
+    };
+
+    /**
+     * Board에 의해 호출되어, step메서드에 의해 결정된 x, y, width, height값을 토대로 entity를 화면에 그린다.
+     * 기본적으로 sprite를 적용하게 되며, 필요시 오버라이딩하여 사용한다.
+     * @param  {String} dt 렌더러의 타임라인 진행시간
+     */
+    Entity.prototype.draw = function(dt) {
+        if (this.sprite) {
+            var past = dt - this.spriteStart,
+                totalDuration = (this.sprite.options.duration + this.sprite.options.sleep) * this.sprite.options.repeat;
+            if (this.sprite &amp;&amp; this.baseImage &amp;&amp; past > totalDuration) {
+                this.sprite = null;
+                this.drawImage(this.baseImage,
+                    0,
+                    0,
+                    this.baseImage.width,
+                    this.baseImage.height,
+                    this.owner.x + this.x,
+                    this.owner.x + this.y,
+                    this.width,
+                    this.height
+                );
+            } else {
+                if (this.baseSprite &amp;&amp; this.sprite.name !== this.baseSprite.name &amp;&amp; !this.sprite.options.loop &amp;&amp; past > totalDuration) {
+                    this.applySprite(this.baseSprite.name); //reapply baseSprite
+                }
+                this.sprite.draw.call(this, past);
+            }
+        } else if (this.baseImage) {
+            this.drawImage(this.baseImage,
+                0,
+                0,
+                this.baseImage.width,
+                this.baseImage.height,
+                this.owner.x + this.x,
+                this.owner.x + this.y,
+                this.width,
+                this.height
+            );
+        }
+    };
+
+    Entity.prototype.drawImage = function(image, sx, sy, sw, sh, dx, dy, dw, dh) {
+        this._drawImageData.image = image;
+        this._drawImageData.sx = sx;
+        this._drawImageData.sy = sy;
+        this._drawImageData.sw = sw;
+        this._drawImageData.sh = sh;
+        this._drawImageData.dx = dx;
+        this._drawImageData.dy = dy;
+        this._drawImageData.dw = dw;
+        this._drawImageData.dh = dh;
+    };
+
+    Entity.prototype._flush = function() {
+        this._setLastStep();
+
+        var data = this._drawImageData;
+        if (data.image) {
+            canvas.ctx.save();
+            if (this.opacity !== 1) {
+                canvas.ctx.globalAlpha = this.opacity;
+            }
+            if (this.rotate || this.scaleX !== 1 || this.scaleY !== 1) {
+                canvas.ctx.translate(this.owner.x + this.x, this.owner.y + this.y);
+                canvas.ctx.rotate(this.rotate);
+                canvas.ctx.scale(this.scaleX, this.scaleY);
+                canvas.ctx.translate(- this.owner.x - this.x, - this.owner.y - this.y);
+            }
+            canvas.ctx.drawImage(data.image, data.sx, data.sy, data.sw, data.sh, data.dx - this.anchorX, data.dy - this.anchorY, data.dw, data.dh);
+            canvas.ctx.restore();
+            this._setLastDraw();
+        }
+    };
+
+    /**
+     * Entity를 Board에 추가한다.
+     * @param {String} boardName Board의 이름
+     * @return {Entity}
+     */
+    Entity.prototype.addTo = function(boardName) {
+        boardManager.getBoard(boardName).addEntity(this);
+        return this;
+    };
+
+    /**
+     * Entity가 렌더링되도록 enable 시킨다.
+     * enable된 상태에서만 렌더러에 의해 step, draw 메서드가 호출된다.
+     * @return {Entity}
+     */
+    Entity.prototype.enable = function() {
+        this.enabled = true;
+        return this;
+    };
+
+    /**
+     * Entity가 렌더링되지 않도록 disable 시킨다.
+     * disable된 상태에서는 렌더러에 의해 step, draw 메서드가 호출되지 않는다.
+     * @return {Entity}
+     */
+    Entity.prototype.disable = function(name) {
+        this.enabled = false;
+        return this;
+    };
+
+    /**
+     * TODO
+     * Entity의 크기를 확대축소한다.
+     * @param {Number} ratio 확배배율
+     * @return {Entity}
+     */
+    Entity.prototype.scale = function(ratio, corner) {
+        this.width *= ratio;
+        this.height *= ratio;
+        return this;
+    };
+
+    /**
+     * Entity가 포함된 Board를 구한다.
+     * @return {Board | Null}
+     */
+    Entity.prototype.getOwnerBoard = function() {
+        return this.owner;
+    };
+
+    /**
+     * Entity에 기본으로 적용될 Sprite를 지정한다.
+     * @param {String} spriteName Sprite 이름
+     * @param  {Number} startTime  적용이 시작될 시간
+     * @return {Entity}
+     */
+    Entity.prototype.setBaseSprite = function(spriteName, startTime) {
+        this.baseSprite = spriteManager.get(spriteName);
+        if (!this.sprite || this.sprite.name !== spriteName) {
+            this.applySprite.apply(this, arguments);
+        }
+
+        return this;
+    };
+
+    /**
+     * Entitiy에 적용될 이미지를 지정한다.
+     * draw를 인스턴스메서드로 지정하기 때문에 한번 설정된 이후에는 Sprite가 적용되지 않는다.
+     * @param {HTMLImageElement} image
+     */
+    Entity.prototype.setBaseImage = function(image) {
+        this.baseImage = image;
+        return this;
+    };
+
+    /**
+     * Entity에 일시적으로 적용할 Sprite를 지정한다.
+     * 적용된 후(Sprite의 duration + sleep 이후)에는 다시 기본 Sprite가 적용된다.
+     * @param {String} spriteName Sprite 이름
+     * @param  {Number} startTime  적용이 시작될 시간
+     * @return {Entity}
+     */
+    Entity.prototype.applySprite = function(spriteName, startTime) {
+        this.sprite = spriteManager.get(spriteName);
+        this.spriteStart = startTime || ((this.owner) ? this.owner.now() : 0);
+        this.spriteEnd = this.spriteStart + this.sprite.options.duration + this.sprite.options.sleep;
+        if (this.sprite.options.loop) {
+            this.spriteEnd = Infinity;
+        }
+
+        return this;
+    };
+
+    /**
+     * Entity에 일시적으로 적용할 Animation을 지정한다.
+     * Animation의 duration 기간동안만 적용된다.
+     * @param {Object | String} animation Animation 객체
+     * @param  {Number} startTime  적용이 시작될 시간
+     * @return {Entity}
+     */
+    Entity.prototype.animate = function(animation, startTime) {
+        this.animation = animation;
+        this.animation.step = this._makeAnimationStepFunction(animation);
+        this.animationStart = startTime || ((this.owner) ? this.owner.now() : 0);
+        this.animationEnd = this.animationStart + this.animation.duration;
+
+        if (this.owner) {
+            this.step(this.owner.now());
+        }
+
+        return this;
+    };
+
+    Entity.prototype._makeAnimationStepFunction = function(options) {
+        var start = options.from,
+            end = options.to;
+
+        return function(dt) {
+            var past = (dt - this.animationStart),
+                key;
+
+            for (key in start) {
+                this[key] = start[key] + easing[options.easing[key]](past, 0, end[key] - start[key], options.duration);
+            }
+        };
+    };
+
+    /**
+     * Entity를 삭제한다.
+     * 삭제된 후에는 다시 객체 풀에 반환된다.
+     */
+    Entity.prototype.destroy = function() {
+        if (this.owner) {
+            this.owner.removeEntity(this);
+        }
+        entityPool.free(this);
+    };
+
+    entityPool = new ObjectPool(Entity, 128);
+    return entityPool;
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="boardManager.html">pwge/boardManager</a></li><li><a href="boardPool.html">pwge/boardPool</a></li><li><a href="canvas.html">pwge/canvas</a></li><li><a href="config.html">pwge/config</a></li><li><a href="entityPool.html">pwge/entityPool</a></li><li><a href="input.html">pwge/input</a></li><li><a href="loader.html">pwge/loader</a></li><li><a href="renderer.html">pwge/renderer</a></li><li><a href="sound.html">pwge/sound</a></li><li><a href="spriteManager.html">pwge/spriteManager</a></li><li><a href="util.html">pwge/util</a></li><li><a href="easing.html">util/easing</a></li><li><a href="ObjectPool.html">util/ObjectPool</a></li><li><a href="PubSub.html">util/PubSub</a></li></ul><h3>Classes</h3><ul><li><a href="boardPool-Board.html">Board</a></li><li><a href="entityPool-Entity.html">Entity</a></li><li><a href="spriteManager-Sprite.html">Sprite</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a> on Thu Feb 06 2014 11:24:18 GMT+0900 (KST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

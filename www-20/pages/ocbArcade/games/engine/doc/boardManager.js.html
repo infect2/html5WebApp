@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pwge/boardManager.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: pwge/boardManager.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>define("pwge/boardManager", ["pwge/config", "pwge/canvas", "pwge/renderer", "pwge/boardPool", "pwge/util"], function(config, canvas, renderer, boardPool, util){
+    var boards = [],
+        /**
+         * boardManager 모듈
+         * @exports pwge/boardManager
+         * @requires pwge/boardPool
+         * @requires pwge/renderer
+         */
+        boardManager = {};
+
+    /**
+     * Board를 만든다.
+     * 이미 같은 이름의 보드가 있으면 해당 보드를 리턴한다.
+     * @param {String} name 만들 보드의 이름
+     * @return {Board}
+     */
+    boardManager.makeBoard = function(name, options) {
+        var board = this.getBoard(name),
+            newBoard;
+
+        options = options || {};
+
+        if (board) { //이미 만들어진 보드가 있으면 options를 재지정해준다.
+            boardPool.ConstructorFunction.call(board, name, options);
+            return board;
+        }
+        newBoard = boardPool.allocate(name, options);
+        boards.push(newBoard);
+
+        return newBoard;
+    };
+
+    /**
+     * Board를 가져온다.
+     * @param  {String} name 가져올 보드의 이름
+     * @return {Board | null}
+     */
+    boardManager.getBoard = function(name) {
+        if (typeof name === "undefined") {
+            return boards;
+        }
+
+        for (var i = 0, len = boards.length; i &lt; len; i++) {
+            if (boards[i].name === name) {
+                return boards[i];
+            }
+        }
+
+        return null;
+    };
+
+    /**
+     * Board를 제거한다.
+     * @param  {String} name 제거할 보드의 이름
+     * @return {boardManager}
+     */
+    boardManager.removeBoard = function(name) {
+        for (var i = 0, len = boards.length; i &lt; len; i++) {
+            if (boards[i].name === name) {
+                boards[i].destroy();
+                boards[i] = null;
+            }
+        }
+
+        return this;
+    };
+
+    // boardManager.addAsBox2dWorld = function(name, b2World) {
+    //     this.makeBoard(name);
+    //     this.getBoard(name).b2World = b2World;
+
+    //     return this;
+    // };
+
+
+    /**
+     * Board에서 Entity를 찾는다.
+     */
+    boardManager.findEntity = function(entity) {
+        var ret = [], entities;
+        //entity, prop
+        for (var i = 0, len = boards.length; i &lt; len; i++) {
+            entities = boards[i].findEntity(entity);
+            if (entities) {
+                if (Array.isArray(entities)) {
+                    ret = ret.concat(entities);
+                } else {
+                    ret.push(entities);
+                }
+            }
+        }
+
+        if (ret.length) {
+            return ret;
+        }
+
+        return null;
+    };
+
+    /**
+     *  enabled된 Board에서 Entity를 찾는다.
+     */
+    boardManager.detect = function(x, y) {
+        var entity, i;
+        for (i = 0; i &lt; boards.length; i++) {
+            if (boards[i].enabled) {
+                entity = boards[i].detect(x, y);
+                if (entity) {
+                    return entity;
+                }
+            }
+        }
+        return null;
+    };
+
+    /**
+     * Board를 enable시킨다.
+     * enable된 board는 renderer에 의해 재생된다.
+     * @param  {String} name 보드의 이름
+     * @return {boardManager}
+     */
+    boardManager.enable = function(name) {
+        var board = this.getBoard(name);
+        if (board) {
+            board.enable();
+        }
+        return this;
+    };
+
+    /**
+     * Board를 disable시킨다.
+     * disable된 board는 renderer에 의해 재생되지 않는다.
+     * @param  {String} name 보드의 이름
+     * @return {boardManager}
+     */
+    boardManager.disable = function(name) {
+        var board = this.getBoard(name);
+        if (board) {
+            board.disable();
+        }
+        return this;
+    };
+
+    renderer.on("step", function(dt) {
+        var i, len;
+        for (i = 0, len = boards.length; i &lt; len; i++) {
+            if (renderer.isRendering &amp;&amp; boards[i].enabled) {
+                if (boards[i].b2World) {
+                    boards[i].b2World.Step(dt); //b2World.Step
+                } else {
+                    boards[i].step(dt);
+                }
+            }
+        }
+    });
+
+    renderer.on("draw", function(dt) {
+        var i, len, dirty = false;
+        for (i = 0, len = boards.length; i &lt; len; i++) {
+            if (boards[i] &amp;&amp; renderer.isRendering &amp;&amp; boards[i].enabled) {
+                boards[i].draw(dt);
+            }
+        }
+
+        //delete removed board
+        i = boards.length;
+        while (i--) {
+            if (!boards[i]) {
+                boards.splice(i, 1);
+            }
+        }
+
+        for (i = 0, len = boards.length; i &lt; len; i++) {
+            if (renderer.isRendering &amp;&amp; boards[i].enabled &amp;&amp; boards[i].dirty) {
+                // console.log("ok it's dirty")
+                dirty = true;
+                break;
+            }
+        }
+
+        if (dirty) { //step에 의해 페인팅될 내용이 갱신된 보드가 있는 경우에만 draw
+            canvas.clear();
+            //sort
+            var orderedBoards = util.sortByZ(boards);
+            for (i = 0, len = orderedBoards.length; i &lt; len; i++) {
+                if (orderedBoards[i] &amp;&amp; renderer.isRendering &amp;&amp; orderedBoards[i].enabled) {
+                    orderedBoards[i]._flush();
+                    orderedBoards[i].dirty = false;
+                }
+            }
+            if (config.planetWebview &amp;&amp; canvas.ctx.canvas === canvas.element &amp;&amp; canvas.ctx.flush) {
+                canvas.ctx.flush();
+            }
+        }
+    });
+
+    renderer.on("switchScene", function(targetBoards, transition) {
+        if (typeof transition !== "undefined") {
+            var from, to;
+            from = renderer.snapShot();
+            boardManager.getBoard().forEach(function(board) { //임시로 전환후 스냅샷
+                if (targetBoards.indexOf(board.name) > -1) {
+                    board.enable();
+                } else {
+                    board.disable();
+                }
+            });
+            to = renderer.snapShot();
+            boardManager.getBoard().forEach(function(board) { //다시 모두 비활성화
+                board.disable();
+            });
+
+            renderer._transition(util.extend(transition, {
+                from : from,
+                to : to,
+                callback : function() {
+                    boardManager.getBoard().forEach(function(board) {
+                        if (targetBoards.indexOf(board.name) > -1) {
+                            board.enable();
+                        } else {
+                            board.disable();
+                        }
+                    });
+                }
+            }));
+        } else {
+            boardManager.getBoard().forEach(function(board) {
+                if (targetBoards.indexOf(board.name) > -1) {
+                    board.enable();
+                } else {
+                    board.disable();
+                }
+            });
+        }
+    });
+
+    return boardManager;
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="boardManager.html">pwge/boardManager</a></li><li><a href="boardPool.html">pwge/boardPool</a></li><li><a href="canvas.html">pwge/canvas</a></li><li><a href="config.html">pwge/config</a></li><li><a href="entityPool.html">pwge/entityPool</a></li><li><a href="input.html">pwge/input</a></li><li><a href="loader.html">pwge/loader</a></li><li><a href="renderer.html">pwge/renderer</a></li><li><a href="sound.html">pwge/sound</a></li><li><a href="spriteManager.html">pwge/spriteManager</a></li><li><a href="util.html">pwge/util</a></li><li><a href="easing.html">util/easing</a></li><li><a href="ObjectPool.html">util/ObjectPool</a></li><li><a href="PubSub.html">util/PubSub</a></li></ul><h3>Classes</h3><ul><li><a href="boardPool-Board.html">Board</a></li><li><a href="entityPool-Entity.html">Entity</a></li><li><a href="spriteManager-Sprite.html">Sprite</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha2</a> on Thu Feb 06 2014 11:24:18 GMT+0900 (KST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
