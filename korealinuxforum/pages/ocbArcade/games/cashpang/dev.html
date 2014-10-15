@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>OK캐쉬팡 시즌 3!</title>
+        <meta name="author" content="Koo Chi Hoon(SK MNS)" />
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+        <link rel="stylesheet" type="text/css" href="../commonUI/game-result/game-result.css">
+        <style>
+            body {
+                margin: 0 auto;
+                background-color: #000;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            .shown {
+                display: block;
+            }
+
+            .bestScore {
+                background-image: url(../img/bestScore_cashpang.png);
+                background-size: 100%;
+                background-repeat: no-repeat;
+                width: 100%;
+                height: 151px;
+            }
+            .score {
+
+                font-size: 25px;
+                color: #fff;
+                float: right;
+                margin-top: 27px;
+                margin-right: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <section class="game-result hidden" tabindex="0">
+            <div class="game-result-content">
+                <h2>게임 결과</h2>
+                <p class="p1"><em>상위</em> <strong>0.01</strong> <b>%</b></p>
+                <p class="p2"><strong>신(神)</strong> 이시군요!</p>
+                <!-- 신(神)|초고수|고수|중수|허접|초허접 -->
+                <p class="p3">※ 본 게임 순위는 지난 OK 캐쉬백 이벤트 데이터에 근거하여 제공됩니다.</p>
+                <button type="button" class="re-start restartBtn">RESTART!</button>
+                <button type="button" class="go-back backBtn">돌아가기</button>
+            </div>
+        </section>
+        <canvas id="cashpangCanvas" class="game _gameCanvas" style="display:block;margin:0;"></canvas>
+        <section class="bestScore">
+            <span class="score">0</span>
+        </section>
+        <script>
+         DEBUG = false;
+         window.PlanetAudioSync = false;
+        </script>
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="js/planet.webview.minified.js"></script>
+        <script src="js/lib.min.js"></script>
+        <script src="js/engine.min.js"></script>
+        <!-- // <script src="js/game.min.js"></script> -->
+        <script src="../common/localStorage.js"></script>
+        <script src="js/seed.js"></script>
+        <script src="js/util.js"></script>
+        <script src="js/cashpang.js"></script>
+        <script src="js/application.js"></script>
+        <!-- // <script src="js/main.js'"></script> -->
+
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-49803919-5', 'auto');
+            ga('send', 'pageview');
+        </script>
+    </body>
+</html>
