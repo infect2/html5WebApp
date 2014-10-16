@@ -78,28 +78,6 @@
         </div>
     </div>
 
-    <div id="mobileOptimized" class="step slide" data-x="0" data-y="-1500">
-        <h1 class="title">SK 플래닛의 HTML5 상업적 활용 사례 </h1>
-        <div class="content">
-            <ol>
-                <li> CSS2D/3D 기반 Web UI
-                    <ul>
-                        <li>
-                            Hybrid App내 Native 동등 수준 Web UI
-                        </li>
-                    </ul>
-                </li>
-                <li> &#60;canvas&#62; 기반 게임
-                    <ul>
-                        <li>
-                            사용자 놀거리 제공: App/서비스 UV 제고
-                        </li>
-                    </ul>
-                </li>
-            </ol>
-        </div>
-    </div>
-
     <div id="osMSShare" class="step slide" data-x="0" data-y="-500" data-rotate-y="90">
         <h1 class="title">상품화 수준 정의</h1>
         <div class="content">
@@ -241,85 +219,6 @@
 
                     </ul>
                 </li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="tooling" class="step slide" data-x="-2000" data-y="1000">
-        <h1 class="title">Web Inspector</h1>
-        <div class="content">
-            <ol>
-                <li>진정한 의미 개발(Debugging/Profiling)이 가능해 짐
-                    <ul>
-                        <li>Native 수준 복잡도의 Web App 개발 가능</li>
-                    </ul>
-                </li>
-                <li>최근 1년사이 Web Inspector 기능의 비약적인 발전
-                    <ul>
-                        <li>Timeline: style, layout, compositing</li>
-                        <li>Profiling: memory, canvas, JavaScript</li>
-                        <li>GPU Layer visualization</li>
-                    </ul>
-                </li>
-                <li> On-Device 지원
-                    <ul>
-                        <li>Chrome For Mobile/Chrome Webview</li>
-                        <li>iOS 6 버전 이상에서 Web Inspector 지원 </li>
-                    </ul>
-                </li>
-                <li> 상세 정보
-                    <ul>
-                        <li>Google code school: http://discover-devtools.codeschool.com/</li>
-                        <li>https://developers.google.com/chrome-developer-tools/</li>
-                    </ul>
-                </li>
-            </ol>
-        </div>
-    </div>
-
-    <div id="timeline" class="step slide" data-x="-1000" data-y="1000">
-        <h1 class="title">Chrome Dev Tool: Timeline</h1>
-        <div class="content">
-            <ul>
-                <li> 시간 축으로 주요 Event를 도시
-                    <ul>
-                        <li>network, style 변경, layout, painting, compositing, input event, garbage collection</li>
-                    </ul>
-                </li>
-            </ul>
-            <img height="430px" width="800px" src="./img/timeline.png">
-        </div>
-    </div>
-
-    <div id="GPULayerVisualization" class="step slide" data-x="0" data-y="1000">
-        <h1 class="title">GPU 렌더링 영역 실시간 도시</h1>
-        <div class="content">
-            <ul>
-                <li>Web page의 HW 가속 Layer를 Graphical하게 출력 해줌</li>
-            </ul>
-            <br>
-            <img height="470px" width="800px" src="./img/GPULayers.png">
-        </div>
-    </div>
-
-    <div id="canvasProfiling" class="step slide" data-x="1000" data-y="1000">
-        <h1 class="title">Canvas Profiling</h1>
-        <div class="content">
-            <ul>
-                <li> 캔버스의 개별 Primitive 연산결과를 Frame by Frame으로 출력 </li>
-            </ul>
-            <br>
-            <img height="470px" width="800px" src="./img/canvasProfilingExample.png">
-        </div>
-    </div>
-
-    <div id="canvasOptimization1" class="step slide" data-x="2000" data-y="1000">
-        <h1 class="title">성능 최적화 절대 규칙: 이것만은 기억하자</h1>
-        <div class="content">
-            <ul>
-                <li style="padding: 20px"> 애니메이션 Element는 GPU Layer</li>
-                <li style="padding: 20px"> 애니메이션 도중에는 Style 변경 완전 제거</li>
-                <li style="padding: 20px"> DOM 및 Render Object 개수는 최소</li>
             </ul>
         </div>
     </div>
@@ -639,55 +538,6 @@
                         <li>10월 버전 부터는 게임 소개페이와 실행 페이지 분리 예정</li>
                     </ul>
                 </li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="baseball" class="step slide" data-x="9000" data-y="3000">
-        <h1 class="title">요리조리 베이스볼 적용 사례</h1>
-        <div class="content">
-            <ul>
-                <li>DOM/Canvas Hybrid</li>
-                <li>Smart repaint</li>
-                <li>Sprite 이미지 분리</li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="baseballBoard" class="step slide" data-x="10000" data-y="3000">
-        <h1 class="title">요리조리 베이스볼 적용 사례</h1>
-        <div class="content">
-            <ul>
-                <li>&#60;canvas&#62; 내 전광판 점수 영역을 DOM으로 분리: Painting 영역 감소</li>
-                <li>점수 update시 layout 연산발생으로 인한 painting overhead가 증가하여 역효과</li>
-            </ul>
-        </div>
-        <img height="400px" src="./img/flappyBall.png">
-    </div>
-
-    <div id="2048game" class="step slide" data-x="11000" data-y="3000">
-        <h1 class="title">2048</h1>
-        <div class="content">
-            <ul>
-                <li>DOM 방식(open source)</li>
-                <li>문제점
-                    <ul>
-                        <li>Node 움직이기 시작할때 DOM이 CPU영역에서 GPU 영역, 움직임이 종료시 다시 GPU 영역에서 CPU영역으로 이동</li>
-                        <li>2.3 및 4.04 단말에서 화면이 심하게 깜빡거리고 fps 저하가 심각</li>
-                    </ul>
-                </li>
-                <li>해결책: GPU영역에서 유지 되도록 코드 패치</li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="space2014game" class="step slide" data-x="12000" data-y="3000">
-        <h1 class="title">SPACE 2014</h1>
-        <div class="content">
-            <ul>
-                <li>clearRect VS fillRect</li>
-                <li>게임 배경 단순화</li>
-                <li>이전 Frame 1회 재활용</li>
             </ul>
         </div>
     </div>
