@@ -87,4 +87,4 @@ pageExitAnimationHandler.init({
     }
 });
 //display clock
-// new imageclock.display()
+new imageclock.display()
